@@ -1,0 +1,6 @@
+C:\Users\umidori\Documents\Visual Studio 2015\Projects\test1\test1\bin\Debug\test1.exe.config
+C:\Users\umidori\Documents\Visual Studio 2015\Projects\test1\test1\obj\Debug\Interop.WMPLib.dll
+C:\Users\umidori\Documents\Visual Studio 2015\Projects\test1\test1\obj\Debug\AxInterop.WMPLib.dll
+C:\Users\umidori\Documents\Visual Studio 2015\Projects\test1\test1\obj\Debug\艦これTCG.csproj.ResolveComReference.cache
+C:\Users\umidori\Documents\Visual Studio 2015\Projects\test1\test1\obj\Debug\test1.exe
+C:\Users\umidori\Documents\Visual Studio 2015\Projects\test1\test1\obj\Debug\test1.pdb

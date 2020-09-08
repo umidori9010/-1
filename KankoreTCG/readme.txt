@@ -1,0 +1,1 @@
+no.,name,rare,cost1,cost2,str,dex,int,luk,ac,hp,dice1,dice2,pow1,pow2,type1,type2

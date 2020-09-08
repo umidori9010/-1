@@ -1,0 +1,2960 @@
+using System;
+using System.Collections.Generic;
+using System.ComponentModel;
+using System.Data;
+using System.Drawing;
+using System.Drawing.Drawing2D;
+using System.Linq;
+using System.Text;
+using System.Threading.Tasks;
+using System.Windows.Forms;
+using System.IO;
+using System.Collections;
+using System.Diagnostics;
+using System.Media;
+using System.Threading;
+using System.Reflection;
+using System.Timers;
+
+namespace test1
+{
+
+    public partial class Form1 : Form
+    {
+        int d,i, j, k = 0, s, m = 0, t = 0,dr=0;
+        int mcst = 0, mtcst = 0, ytcst = 0, ycst = 0;       //  残コスト、ターンコスト
+        int deck = 30;
+        int seed;
+        public int dic;
+        int mln1, mln2, mln3, mln4, mln5;
+        int mid1, mid2, mid3, mid4, mid5;
+        int mt1, mt2, mt3, mt4, mt5;
+        int mc1, mc2, mc3, mc4, mc5;
+        int mcc1, mcc2, mcc3, mcc4, mcc5;
+        int mac1 = 0, mac2 = 0, mac3 = 0, mac4 = 0, mac5 = 0;
+        int mhp1 = 0, mhp2 = 0, mhp3 = 0, mhp4 = 0, mhp5 = 0;
+        int yac1 = 0, yac2 = 0, yac3 = 0, yac4 = 0, yac5 = 0;
+        int yhp1 = 0, yhp2 = 0, yhp3 = 0, yhp4 = 0, yhp5 = 0;
+        public int mte1d1, mte2d1, mte3d1, mte4d1, mte5d1;
+        public int mte1d2, mte2d2, mte3d2, mte4d2, mte5d2;
+        public int mp11 = 0, mp21 = 0, mp31 = 0, mp41 = 0, mp51 = 0;
+        public int mp12 = 0, mp22 = 0, mp32 = 0, mp42 = 0, mp52 = 0;
+        public int yp11 = 0, yp21 = 0, yp31 = 0, yp41 = 0, yp51 = 0;
+        public int yp12 = 0, yp22 = 0, yp32 = 0, yp42 = 0, yp52 = 0;
+        int yt1, yt2, yt3, yt4, yt5;
+        int yc1, yc2, yc3, yc4, yc5;
+        int ycc1, ycc2, ycc3, ycc4, ycc5;
+        int volume = 150;
+        int turn = 1, NextPhase = 0,step=0;
+        string who;
+        int myama = 30,yyama=30, hiki, mthd = 0,ythd = 0;
+        int drw = 0;
+        int ba1ln = 0, ba2ln = 0, ba3ln = 0, ba4ln = 0, ba5ln = 0;
+        int ba6ln = 0, ba7ln = 0, ba8ln = 0, ba9ln = 0, ba10ln = 0;
+        int ba1id = 0, ba2id = 0, ba3id = 0, ba4id = 0, ba5id = 0;
+        int ba6id = 0, ba7id = 0, ba8id = 0, ba9id = 0, ba10id = 0;
+        int ba1c = 0, ba2c = 0, ba3c = 0, ba4c = 0, ba5c = 0, ba6c = 0, ba7c = 0, ba8c = 0, ba9c = 0, ba10c = 0;
+        int ba1cc=0, ba2cc = 0, ba3cc = 0, ba4cc = 0, ba5cc = 0, ba6cc = 0, ba7cc = 0, ba8cc = 0, ba9cc = 0, ba10cc = 0;
+        int ba1ac = 0, ba2ac = 0, ba3ac = 0, ba6ac = 0, ba7ac = 0, ba8ac = 0;
+        int ba1hp = 0, ba2hp = 0, ba3hp = 0, ba6hp = 0, ba7hp = 0, ba8hp = 0;
+        int ba1d1 = 0, ba2d1 = 0, ba3d1 = 0, ba1d2 = 0, ba2d2 = 0, ba3d2 = 0;
+        int ba6d1 = 0, ba7d1 = 0, ba8d1 = 0, ba6d2 = 0, ba7d2 = 0, ba8d2 = 0;
+        int ba1p1 = 0, ba2p1 = 0, ba3p1 = 0, ba1p2 = 0, ba2p2 = 0, ba3p2 = 0;
+        int ba6p1 = 0, ba7p1 = 0, ba8p1 = 0, ba6p2 = 0, ba7p2 = 0, ba8p2 = 0;
+        int field6hp = 0, field7hp = 0, field8hp = 0;
+        string btlflg1 = "off", btlflg2 = "off", btlflg3 = "off";
+        string btl1 = "off", btl2 = "off", btl3 = "off";
+        string timer="off";
+        int atk = 0, hp = 0, ac = 0, dmg = 0;
+        int ith=0;        //退避
+        int[] mln = new int[5];
+        string[] atkskill = new string[20];
+        string[] defskill = new string[20];
+        string[] line = new string[99];
+        string[] mte1 = new string[20];
+        string[] mte2 = new string[20];
+        string[] mte3 = new string[20];
+        string[] mte4 = new string[20];
+        string[] mte5 = new string[20]; //手札１～５
+        string[] yte1 = new string[20];
+        string[] yte2 = new string[20];
+        string[] yte3 = new string[20];
+        string[] yte4 = new string[20];
+        string[] yte5 = new string[20];
+        string[] ba1 = new string[20];
+        string[] ba2 = new string[20];
+        string[] ba3 = new string[20];
+        string[] ba4 = new string[20];
+        string[] ba5 = new string[20];
+        string[] ba6 = new string[20];
+        string[] ba7 = new string[20];
+        string[] ba8 = new string[20];
+        string[] ba9 = new string[20];
+        string[] ba10 = new string[20];
+        int[] yte = new int[5];
+        int[] yln = new int[5];
+        int[] mdk = new int[30];
+        Image[] imgs = new Image[12];
+        Image[] imgm = new Image[12];
+        Image[] imgd = new Image[7];
+        Image[] ipda = new Image[6];
+        Image[] ipdb = new Image[6];
+        Image imgnull = Image.FromFile(string.Format(@"Resources\null.png"));
+        Image imgselect = Image.FromFile(string.Format(@"Resources\select1.png"));
+        string path = Directory.GetCurrentDirectory() + "\\Resources\\nisuisen.mp3";
+        string waveFile = Directory.GetCurrentDirectory() + "\\Resources\\hit02.wav";
+        string bgm;
+        string next = "off";
+        int[] mte = new int[5];
+        int[] ydk = new int[30];
+
+        //step : ドロー毎にstep+1；
+
+        public Form1()
+        {
+            InitializeComponent();
+        }
+
+        public void Main1()
+        {
+            if (NextPhase == 0)
+            {
+                StartConfig();
+            }
+            else if (NextPhase == 1)
+            {
+                Phase1();
+            }
+            else if (NextPhase == 2)
+            {
+                if (step == 0) TurnCost();
+                else if (step == 1) mDrawPhase();
+                else if (step == 2) yDrawPhase();
+                else if (step == 3) Phase1();
+            }
+            else if (NextPhase == 3)
+            {
+                if (step == 1) btn_Enable();
+                else if (step == 2) mSetPhase();
+                else if (step == 3) ySetPhase();
+                else if (step == 4) Phase1();
+            }
+            else if (NextPhase == 4)
+            {
+                if (step == 1) AttackBattlePhase();
+                else if (step == 2) Phase1();
+            }
+            else if (NextPhase == 5)
+            {
+                if (step == 1) TurnCost();
+                else if (step == 2) yDrawPhase();
+                else if (step == 3) mDrawPhase();
+                else if (step == 4) Phase1();
+            }
+            else if (NextPhase == 6)
+            {
+                if (step == 1) ySetPhase();
+                else if (step == 2) btn_Enable();
+                else if (step == 3) mSetPhase();
+                //else if (step == 4) Phase1();
+            }
+            else if (NextPhase == 7)
+            {
+
+            }
+        }
+        private void StartConfig()
+        {             //BGM_ON
+            sound_open();
+            sound_play();
+            sound_volume();
+
+            // 自フェイズ 初期
+            button26.Enabled = true;
+            label1.Visible = true;
+            label2.Visible = true;
+            label3.Visible = true;
+            label4.Visible = true;
+            mtcst = turn;
+            ytcst = turn;
+            mcst = 0;
+            ycst = 0;
+
+            CardImage.Visible = true;
+            CardImage.BackColor = Color.FromArgb(80, 0, 0, 0);
+
+            label5.Parent = CardImage;
+            label5.BackColor = Color.FromArgb(150, 0, 0, 0);
+            label5.Location -= (Size)this.CardImage.Location;
+            label6.Parent = CardImage;
+            label6.BackColor = Color.FromArgb(150, 0, 0, 0);
+            label6.Location -= (Size)this.CardImage.Location;
+            label7.Parent = CardImage;
+            label7.BackColor = Color.FromArgb(150, 0, 0, 0);
+            label7.Location -= (Size)this.CardImage.Location;
+            label8.Parent = CardImage;
+            label8.BackColor = Color.FromArgb(150, 0, 0, 0);
+            label8.Location -= (Size)this.CardImage.Location;
+            label9.Parent = CardImage;
+            label9.ForeColor = Color.White;
+            label9.BackColor = Color.FromArgb(150, 0, 0, 0);
+            label9.Location -= (Size)this.CardImage.Location;
+            label10.Parent = CardImage;
+            label10.ForeColor = Color.White;
+            label10.BackColor = Color.FromArgb(150, 0, 0, 0);
+            label10.Location -= (Size)this.CardImage.Location;
+            label11.Parent = CardImage;
+            label11.ForeColor = Color.White;
+            label11.BackColor = Color.FromArgb(150, 0, 0, 0);
+            label11.Location -= (Size)this.CardImage.Location;
+            label15.Parent = CardImage;
+            label15.ForeColor = Color.White;
+            label15.BackColor = Color.FromArgb(150, 0, 0, 0);
+            label15.Location -= (Size)this.CardImage.Location;
+            label17.Parent = CardImage;
+            label17.ForeColor = Color.White;
+            label17.BackColor = Color.FromArgb(150, 0, 0, 0);
+            label17.Location -= (Size)this.CardImage.Location;
+            label16.Parent = CardImage;
+            label16.ForeColor = Color.White;
+            label16.BackColor = Color.FromArgb(150, 0, 0, 0);
+            label16.Location -= (Size)this.CardImage.Location;
+
+            M1Cost.Location = new Point(250, 485);
+            M1Cost.ForeColor = Color.White;
+            M1Cost.BackColor = Color.FromArgb(150, 0, 0, 0);
+            M2Cost.Location = new Point(330, 485);
+            M2Cost.ForeColor = Color.White;
+            M2Cost.BackColor = Color.FromArgb(150, 0, 0, 0);
+            M3Cost.Location = new Point(410, 485);
+            M3Cost.ForeColor = Color.White;
+            M3Cost.BackColor = Color.FromArgb(150, 0, 0, 0);
+            M4Cost.Location = new Point(490, 485);
+            M4Cost.ForeColor = Color.White;
+            M4Cost.BackColor = Color.FromArgb(150, 0, 0, 0);
+            M5Cost.Location = new Point(570, 485);
+            M5Cost.ForeColor = Color.White;
+            M5Cost.BackColor = Color.FromArgb(150, 0, 0, 0);
+
+            field1.Location = new Point(220, 365);
+            field1.BackColor = Color.Black;
+            field1.BackColor = Color.FromArgb(60, 0, 0, 0);
+            field1.BackgroundImage = imgnull;
+            field2.Location = new Point(300, 365);
+            field2.BackColor = Color.Black;
+            field2.BackColor = Color.FromArgb(60, 0, 0, 0);
+            field2.BackgroundImage = imgnull;
+            field3.Location = new Point(380, 365);
+            field3.BackColor = Color.Black;
+            field3.BackColor = Color.FromArgb(60, 0, 0, 0);
+            field3.BackgroundImage = imgnull;
+            field4.Location = new Point(475, 365);
+            field4.BackColor = Color.Black;
+            field4.BackColor = Color.FromArgb(60, 0, 0, 0);
+            field4.BackgroundImage = imgnull;
+            field5.Location = new Point(555, 365);
+            field5.BackColor = Color.Black;
+            field5.BackColor = Color.FromArgb(60, 0, 0, 0);
+            field5.BackgroundImage = imgnull;
+            field6.Location = new Point(220, 145);
+            field6.BackColor = Color.Black;
+            field6.BackColor = Color.FromArgb(60, 0, 0, 0);
+            field6.BackgroundImage = imgnull;
+            field7.Location = new Point(300, 145);
+            field7.BackColor = Color.Black;
+            field7.BackColor = Color.FromArgb(60, 0, 0, 0);
+            field7.BackgroundImage = imgnull;
+            field8.Location = new Point(380, 145);
+            field8.BackColor = Color.Black;
+            field8.BackColor = Color.FromArgb(60, 0, 0, 0);
+            field8.BackgroundImage = imgnull;
+            field9.Location = new Point(475, 145);
+            field9.BackColor = Color.Black;
+            field9.BackColor = Color.FromArgb(60, 0, 0, 0);
+            field9.BackgroundImage = imgnull;
+            field10.Location = new Point(555, 145);
+            field10.BackColor = Color.Black;
+            field10.BackColor = Color.FromArgb(60, 0, 0, 0);
+            field10.BackgroundImage = imgnull;
+
+            //obi.ForeColor = Color.White;
+            obi.Location = new Point(0, 250);
+            obi.Size = new Size(884, 110);
+            obi.BackColor = Color.FromArgb(150, 0, 0, 0);
+
+            myDice.Location = new Point(110, 310);
+            myDice.Parent = CardImage;
+            myDice.BackColor = Color.FromArgb(0, 0, 0, 0);
+            myDice.Location -= (Size)this.CardImage.Location;
+
+            youDice.Location = new Point(110, 200);
+            youDice.Parent = CardImage;
+            youDice.BackColor = Color.FromArgb(0, 0, 0, 0);
+            youDice.Location -= (Size)this.CardImage.Location;
+
+            label3.Text = turn.ToString();
+            label4.Text = mtcst.ToString();
+
+            step = 0;
+            NextPhase++;
+            Main1();
+        }
+        private void PhaseEnd()
+        {
+            mSetPhase();
+            ySetPhase();
+        }
+        private void mDraw()
+        {
+            who = "m";
+            d = 690;
+            if (mthd == 0)
+            {
+                drw = 1;
+                button1.Visible = true;
+                button1.Location = new Point(690, 500);
+                DrawTimer.Enabled = true;
+            }
+            else if (mthd == 1)
+            {
+                drw = 2;
+                button2.Visible = true;
+                button2.Location = new Point(690, 500);
+                DrawTimer.Enabled = true;
+            }
+            else if (mthd == 2)
+            {
+                drw = 3;
+                button3.Visible = true;
+                button3.Location = new Point(690, 500);
+                DrawTimer.Enabled = true;
+            }
+            else if (mthd == 3)
+            {
+                drw = 4;
+                button4.Visible = true;
+                button4.Location = new Point(690, 500);
+                DrawTimer.Enabled = true;
+            }
+            else if (mthd == 4)
+            {
+                drw = 5;
+                button5.Visible = true;
+                button5.Location = new Point(690, 500);
+                DrawTimer.Enabled = true;
+            }
+        }
+        private void yDraw()
+        {
+            who = "y";
+            d = 690;
+            if (ythd == 0)
+            {
+                drw = 1;
+                button21.Visible = true;
+                button21.Location = new Point(690, 10);
+                DrawTimer.Enabled = true;
+            }
+            else if (ythd == 1)
+            {
+                drw = 2;
+                button22.Visible = true;
+                button22.Location = new Point(690, 10);
+                DrawTimer.Enabled = true;
+            }
+            else if (ythd == 2)
+            {
+                drw = 3;
+                button23.Visible = true;
+                button23.Location = new Point(690, 10);
+                DrawTimer.Enabled = true;
+            }
+            else if (ythd == 3)
+            {
+                drw = 4;
+                button24.Visible = true;
+                button24.Location = new Point(690, 10);
+                DrawTimer.Enabled = true;
+            }
+            else if (ythd == 4)
+            {
+                drw = 5;
+                button25.Visible = true;
+                button25.Location = new Point(690, 10);
+                DrawTimer.Enabled = true;
+            }
+        }
+        private void DrawTimer_Tick(object sender, EventArgs e)
+        {
+            d = d - 50;
+            if (who=="m" & drw == 1) button1.Location = new Point(d, 500);
+            else if (who == "m" & drw == 2) button2.Location = new Point(d, 500);
+            else if (who == "m" & drw == 3) button3.Location = new Point(d, 500);
+            else if (who == "m" & drw == 4) button4.Location = new Point(d, 500);
+            else if (who == "m" & drw == 5) button5.Location = new Point(d, 500);
+            else if (who == "y" & drw == 1) button21.Location = new Point(d, 10);
+            else if (who == "y" & drw == 2) button22.Location = new Point(d, 10);
+            else if (who == "y" & drw == 3) button23.Location = new Point(d, 10);
+            else if (who == "y" & drw == 4) button24.Location = new Point(d, 10);
+            else if (who == "y" & drw == 5) button25.Location = new Point(d, 10);
+
+            if (who == "m" & drw == 1 & d - 30 < 220)
+            {
+                button1.Location = new Point(220, 500);
+                mthd = 1;
+                M1Cost.Visible = true;
+                DrawTimerEnd();
+            }
+            else if (who == "m" & drw == 2 & d - 30 < 300)
+            {
+                button2.Location = new Point(300, 500);
+                mthd = 2;
+                M2Cost.Visible = true;
+                DrawTimerEnd();
+            }
+            else if (who == "m" & drw == 3 & d - 30 < 380)
+            {
+                button3.Location = new Point(380, 500);
+                mthd = 3;
+                M3Cost.Visible = true;
+                DrawTimerEnd();
+            }
+            else if (who == "m" & drw == 4 & d - 30 < 460)
+            {
+                button4.Location = new Point(460, 500);
+                mthd = 4;
+                M4Cost.Visible = true;
+                DrawTimerEnd();
+            }
+            else if (who == "m" & drw == 5 & d - 30 < 540)
+            {
+                button5.Location = new Point(540, 500);
+                mthd = 5;
+                M5Cost.Visible = true;
+                DrawTimerEnd();
+            }
+            else if (who == "y" & drw == 1 & d - 30 < 220)
+            {
+                button21.Location = new Point(220, 10);
+                ythd = 1;
+                DrawTimerEnd();
+            }
+            else if (who == "y" & drw == 2 & d - 30 < 300)
+            {
+                button22.Location = new Point(300, 10);
+                ythd = 2;
+                DrawTimerEnd();
+            }
+            else if (who == "y" & drw == 3 & d - 30 < 380)
+            {
+                button23.Location = new Point(380, 10);
+                ythd = 3;
+                DrawTimerEnd();
+            }
+            else if (who == "y" & drw == 4 & d - 30 < 460)
+            {
+                button24.Location = new Point(460, 10);
+                ythd = 4;
+                DrawTimerEnd();
+            }
+            else if (who == "y" & drw == 5 & d - 30 < 540)
+            {
+                button25.Location = new Point(540, 10);
+                ythd = 5;
+                DrawTimerEnd();
+            }
+        }
+        private void DrawTimerEnd()
+        {
+            dr++;
+            d = 690;
+            DrawTimer.Enabled = false;
+            if (hiki == dr)
+            {
+                dr = 0;
+                step++;
+                Main1();
+            }
+            else if (who == "m") mDraw();
+            else if (who == "y") yDraw();
+        }
+        public void mDrawPhase()
+        {
+            FileRead4 fr4 = new FileRead4();
+            fr4.deck1();
+
+            for (k = 0; k < 30; k++)
+            {
+                mdk[k] = k;
+            }
+                      
+
+            hiki = 5 - mthd;
+            myama = myama - hiki;
+
+            if (myama >= 5)
+            {
+                for (j = mthd; j < 5;)
+                {
+                    int seed = Environment.TickCount;
+                    Random mthd = new Random(seed++);
+                    int m = mthd.Next(1, 30);
+
+                    int index1 = Array.IndexOf(mdk, m);
+                    if (index1 > 0)
+                    {
+                        // 何番目にあるか？
+                        deck = deck - 1;
+                        mln[j] = m;
+                        j = j + 1;
+                        mdk[index1] = 0;
+                    }
+                }
+            }
+            button28.Text = deck.ToString();
+            //画像読み込み
+            for (int i = 1; i < imgs.Length; i++)
+            {
+                imgs[i] = Image.FromFile(string.Format(@"Resources\t{0}.jpg", i));
+                imgm[i] = Image.FromFile(string.Format(@"Resources\m{0}.jpg", i));
+            }
+            for (int i = 1; i < imgd.Length; i++)
+            {
+                imgd[i] = Image.FromFile(string.Format(@"Resources\d{0}.png", i));
+            }
+
+            mPara();
+            mDraw();
+            
+            //dicimg
+            for (int i = 1; i < ipda.Length; i++)
+            {
+                ipda[i] = Image.FromFile(string.Format(@"Resources\pda{0}.bmp", i));
+            }
+            for (int i = 1; i < ipdb.Length; i++)
+            {                
+                ipdb[i] = Image.FromFile(string.Format(@"Resources\pdb{0}.bmp", i));
+            }
+            //MessageBox.Show("");
+        }
+        public void mSetPhase()
+        {
+            M1Cost.Visible = false;
+            M2Cost.Visible = false;
+            M3Cost.Visible = false;
+            M4Cost.Visible = false;
+            M5Cost.Visible = false;
+
+            FileRead4 fr4 = new FileRead4();
+            fr4.deck1();
+            if (s == 1) button1.Top += 10;
+            if (s == 2) button2.Top += 10;
+            if (s == 3) button3.Top += 10;
+            if (s == 4) button4.Top += 10;
+            if (s == 5) button5.Top += 10;
+            s = 0;
+            //手札左詰め
+            for (i = 0; i < 4; i++)
+            {
+                if (mln[0] == 0)
+                {
+                    mln[0] = mln[1];
+                    mln[1] = 0;
+                }
+                if (mln[1] == 0)
+                {
+                    mln[1] = mln[2];
+                    mln[2] = 0;
+                }
+                if (mln[2] == 0)
+                {
+                    mln[2] = mln[3];
+                    mln[3] = 0;
+                }
+                if (mln[3] == 0)
+                {
+                    mln[3] = mln[4];
+                    mln[4] = 0;
+                }
+            }
+
+            mPara();
+
+            if (mln1 != 0)
+            {
+                button1.Visible = true;
+                button1.BackgroundImage = imgs[mid1];
+                M1Cost.Visible = true;
+            }
+            else
+            {
+                button1.Visible = false;
+            }
+            if (mln2 != 0)
+            {
+                button2.Visible = true;
+                button2.BackgroundImage = imgs[mid2];
+                M2Cost.Visible = true;
+            }
+            else
+            {
+                button2.Visible = false;
+            }
+            if (mln3 != 0)
+            {
+                button3.Visible = true;
+                button3.BackgroundImage = imgs[mid3];
+                M3Cost.Visible = true;
+            }
+            else
+            {
+                button3.Visible = false;
+            }
+            if (mln4 != 0)
+            {
+                button4.Visible = true;
+                button4.BackgroundImage = imgs[mid4];
+                M4Cost.Visible = true;
+            }
+            else
+            {
+                button4.Visible = false;
+            }
+            if (mln5 != 0)
+            {
+                button5.Visible = true;
+                button5.BackgroundImage = imgs[mid5];
+                M5Cost.Visible = true;
+            }
+            else
+            {
+                button5.Visible = false;
+            }            
+            bPara();
+            step++;
+            Main1();
+        }
+        private void TurnCost()
+        {
+            mtcst = turn - mcst;
+            ytcst = turn - ycst;
+            label3.Text = turn.ToString();
+            label4.Text = mtcst.ToString();
+            step++;
+            Main1();
+        }
+        public void yDrawPhase()
+        {
+            FileRead4 fr4 = new FileRead4();
+            fr4.deck2();          
+
+            for (k = 0; k < 30; k++)
+            {
+                ydk[k] = k;
+            }
+
+            
+            hiki = 5 - ythd;
+            yyama = yyama - hiki;
+
+            if (yyama >= 5)
+            {
+                for (j = ythd; j < 5;)
+                {
+                    int seed = Environment.TickCount;
+                    Random ythd = new Random(seed++);
+                    int m = ythd.Next(1, 30);
+                    int index1 = Array.IndexOf(ydk, m);
+                    if (index1 > 0)
+                    {
+                        deck = deck - 1;
+                        yln[j] = m;
+                        j = j + 1;
+                        ydk[index1] = 0;
+                    }
+                }
+            }
+            button28.Text = deck.ToString();
+            
+            for (int i = 1; i < imgs.Length; i++)
+            {
+                imgs[i] = Image.FromFile(string.Format(@"Resources\t{0}.jpg", i));
+                imgm[i] = Image.FromFile(string.Format(@"Resources\m{0}.jpg", i));
+            }
+            for (int i = 1; i < imgd.Length; i++)
+            {
+                imgd[i] = Image.FromFile(string.Format(@"Resources\d{0}.png", i));
+            }
+            //MessageBox.Show("");
+            yPara();
+            yDraw();
+        }
+        public void ySetPhase()
+        {
+            //並び替え、高コスト
+            for (i = 0; i < 4; i++)
+            {
+                if (yc1 < yc2)
+                {
+                    ith = yln[0];
+                    yln[0] = yln[1];
+                    yln[1] = ith;
+                    ith = yc1;
+                    yc1 = yc2;
+                    yc2 = ith;
+                }
+                if (yc2 < yc3)
+                {
+                    ith = yln[1];
+                    yln[1] = yln[2];
+                    yln[2] = ith;
+                    ith = yc2;
+                    yc2 = yc3;
+                    yc3 = ith;
+                }
+                if (yc3 < yc4)
+                {
+                    ith = yln[2];
+                    yln[2] = yln[3];
+                    yln[3] = ith;
+                    ith = yc3;
+                    yc3 = yc4;
+                    yc4 = ith;
+                }
+                if (yc4 < yc5)
+                {
+                    ith = yln[3];
+                    yln[3] = yln[4];
+                    yln[4] = ith;
+                    ith = yc4;
+                    yc4 = yc5;
+                    yc5 = ith;
+                }
+
+            }
+            yPara();
+
+            button21.BackgroundImage = imgs[int.Parse(yte1[1])];
+            button22.BackgroundImage = imgs[int.Parse(yte2[1])];
+            button23.BackgroundImage = imgs[int.Parse(yte3[1])];
+            button24.BackgroundImage = imgs[int.Parse(yte4[1])];
+            button25.BackgroundImage = imgs[int.Parse(yte5[1])];
+            //MessageBox.Show(yc1.ToString() + yc2.ToString() + yc3.ToString() + yc4.ToString() + yc5.ToString());
+
+            //ターンコスト以内、高コスト、モンスター優先、相対優先
+            if (yln[0] > 0 & yc1 <= ytcst & yt1 == 1)
+            {
+                if (ba1ln > 0 & ba6ln == 0)
+                {
+                    ba6ln = yln[0];
+                    ytcst = ytcst - yc1;
+                    ycst = ycst + ycc1;
+                    field6.BackgroundImage = imgs[int.Parse(yte1[1])];
+                    button21.Visible = false;
+                    yln[0] = 0;
+                    ythd--;
+                }
+                else if (ba2ln > 0 & ba7ln == 0)
+                {
+                    ba7ln = yln[0];
+                    ytcst = ytcst - yc1;
+                    ycst = ycst + ycc1;
+                    field7.BackgroundImage = imgs[int.Parse(yte1[1])];
+                    button21.Visible = false;
+                    yln[0] = 0;
+                    ythd--;
+                }
+                else if (ba3ln > 0 & ba8ln == 0)
+                {
+                    ba8ln = yln[0];
+                    ytcst = ytcst - yc1;
+                    ycst = ycst + ycc1;
+                    field8.BackgroundImage = imgs[int.Parse(yte1[1])];
+                    button21.Visible = false;
+                    yln[0] = 0;
+                    ythd--;
+                }                
+            }
+            if (yln[1] > 0 & yc2 <= ytcst & yt2 == 1)
+            {
+                if (ba1ln > 0 & ba6ln == 0)
+                {
+                    ba6ln = yln[1];
+                    ytcst = ytcst - yc2;
+                    ycst = ycst + ycc2;
+                    field6.BackgroundImage = imgs[int.Parse(yte2[1])];
+                    button22.Visible = false;
+                    yln[1] = 0;
+                    ythd--;
+                }
+                else if (ba2ln > 0 & ba7ln == 0)
+                {
+                    ba7ln = yln[1];
+                    ytcst = ytcst - yc2;
+                    ycst = ycst + ycc2;
+                    field7.BackgroundImage = imgs[int.Parse(yte2[1])];
+                    button22.Visible = false;
+                    yln[1] = 0;
+                    ythd--;
+                }
+                else if (ba3ln > 0 & ba8ln == 0)
+                {
+                    ba8ln = yln[1];
+                    ytcst = ytcst - yc2;
+                    ycst = ycst + ycc2;
+                    field8.BackgroundImage = imgs[int.Parse(yte2[1])];
+                    button22.Visible = false;
+                    yln[1] = 0;
+                    ythd--;
+                }
+            }
+            if (yln[2] > 0 & yc3 <= ytcst & yt3 == 1)
+            {
+                if (ba1ln > 0 & ba6ln == 0)
+                {
+                    ba6ln = yln[2];
+                    ytcst = ytcst - yc3;
+                    ycst = ycst + ycc3;
+                    field6.BackgroundImage = imgs[int.Parse(yte3[1])];
+                    button23.Visible = false;
+                    yln[2] = 0;
+                    ythd--;
+                }
+                else if (ba2ln > 0 & ba7ln == 0)
+                {
+                    ba7ln = yln[2];
+                    ytcst = ytcst - yc3;
+                    ycst = ycst + ycc3;
+                    field7.BackgroundImage = imgs[int.Parse(yte3[1])];
+                    button23.Visible = false;
+                    yln[2] = 0;
+                    ythd--;
+                }
+                else if (ba3ln > 0 & ba8ln == 0)
+                {
+                    ba8ln = yln[2];
+                    ytcst = ytcst - yc3;
+                    ycst = ycst + ycc3;
+                    field8.BackgroundImage = imgs[int.Parse(yte3[1])];
+                    button23.Visible = false;
+                    yln[2] = 0;
+                    ythd--;
+                }
+            }
+            if (yln[3] > 0 & yc4 <= ytcst & yt4 == 1)
+            {
+                if (ba1ln > 0 & ba6ln == 0)
+                {
+                    ba6ln = yln[3];
+                    ytcst = ytcst - yc4;
+                    ycst = ycst + ycc4;
+                    field6.BackgroundImage = imgs[int.Parse(yte4[1])];
+                    button24.Visible = false;
+                    yln[3] = 0;
+                    ythd--;
+                }
+                else if (ba2ln > 0 & ba7ln == 0)
+                {
+                    ba7ln = yln[3];
+                    ytcst = ytcst - yc4;
+                    ycst = ycst + ycc4;
+                    field7.BackgroundImage = imgs[int.Parse(yte4[1])];
+                    button24.Visible = false;
+                    yln[3] = 0;
+                    ythd--;
+                }
+                else if (ba3ln > 0 & ba8ln == 0)
+                {
+                    ba8ln = yln[3];
+                    ytcst = ytcst - yc4;
+                    ycst = ycst + ycc4;
+                    field8.BackgroundImage = imgs[int.Parse(yte4[1])];
+                    button24.Visible = false;
+                    yln[3] = 0;
+                    ythd--;
+                }                
+            }
+            if (yln[4] > 0 & yc5 <= ytcst & yt5 == 1)
+            {
+                if (ba1ln > 0 & ba6ln == 0)
+                {
+                    ba6ln = yln[4];
+                    ytcst = ytcst - yc5;
+                    ycst = ycst + ycc5;
+                    field6.BackgroundImage = imgs[int.Parse(yte5[1])];
+                    button25.Visible = false;
+                    yln[4] = 0;
+                    ythd--;
+                }
+                else if (ba2ln > 0 & ba7ln == 0)
+                {
+                    ba7ln = yln[4];
+                    ytcst = ytcst - yc5;
+                    ycst = ycst + ycc5;
+                    field7.BackgroundImage = imgs[int.Parse(yte5[1])];
+                    button25.Visible = false;
+                    yln[4] = 0;
+                    ythd--;
+                }
+                else if (ba3ln > 0 & ba8ln == 0)
+                {
+                    ba8ln = yln[4];
+                    ytcst = ytcst - yc5;
+                    ycst = ycst + ycc5;
+                    field8.BackgroundImage = imgs[int.Parse(yte5[1])];
+                    button25.Visible = false;
+                    yln[4] = 0;
+                    ythd--;
+                }                
+            }
+
+            // 相手の場にモンスターがいない
+            if (yln[0] > 0 & yc1 <= ytcst & yt1 == 1)
+            {
+                if (ba6ln == 0)
+                {
+                    ba6ln = yln[0];
+                    ytcst = ytcst - yc1;
+                    ycst = ycst + ycc1;
+                    field6.BackgroundImage = imgs[int.Parse(yte1[1])];
+                    button21.Visible = false;
+                    yln[0] = 0;
+                    ythd--;
+                }
+                else if (ba7ln == 0)
+                {
+                    ba7ln = yln[0];
+                    ytcst = ytcst - yc1;
+                    ycst = ycst + ycc1;
+                    field7.BackgroundImage = imgs[int.Parse(yte1[1])];
+                    button21.Visible = false;
+                    yln[0] = 0;
+                    ythd--;
+                }
+                else if (ba8ln == 0)
+                {
+                    ba8ln = yln[0];
+                    ytcst = ytcst - yc1;
+                    ycst = ycst + ycc1;
+                    field8.BackgroundImage = imgs[int.Parse(yte1[1])];
+                    button21.Visible = false;
+                    yln[0] = 0;
+                    ythd--;
+                }                
+            }
+            if (yln[1] > 0 & yc2 <= ytcst & yt2 == 1)
+            {
+                if (ba6ln == 0)
+                {
+                    ba6ln = yln[1];
+                    ytcst = ytcst - yc2;
+                    ycst = ycst + ycc2;
+                    field6.BackgroundImage = imgs[int.Parse(yte2[1])];
+                    button22.Visible = false;
+                    yln[1] = 0;
+                    ythd--;
+                }
+                else if (ba7ln == 0)
+                {
+                    ba7ln = yln[1];
+                    ytcst = ytcst - yc2;
+                    ycst = ycst + ycc2;
+                    field7.BackgroundImage = imgs[int.Parse(yte2[1])];
+                    button22.Visible = false;
+                    yln[1] = 0;
+                    ythd--;
+                }
+                else if (ba8ln == 0)
+                {
+                    ba8ln = yln[1];
+                    ytcst = ytcst - yc2;
+                    ycst = ycst + ycc2;
+                    field8.BackgroundImage = imgs[int.Parse(yte2[1])];
+                    button22.Visible = false;
+                    yln[1] = 0;
+                    ythd--;
+                }                
+            }
+            if (yln[2] > 0 & yc3 <= ytcst & yt3 == 1)
+            {
+                if (ba6ln == 0)
+                {
+                    ba6ln = yln[2];
+                    ytcst = ytcst - yc3;
+                    ycst = ycst + ycc3;
+                    field6.BackgroundImage = imgs[int.Parse(yte3[1])];
+                    button23.Visible = false;
+                    yln[2] = 0;
+                    ythd--;
+                }
+                else if (ba7ln == 0)
+                {
+                    ba7ln = yln[2];
+                    ytcst = ytcst - yc3;
+                    ycst = ycst + ycc3;
+                    field7.BackgroundImage = imgs[int.Parse(yte3[1])];
+                    button23.Visible = false;
+                    yln[2] = 0;
+                    ythd--;
+                }
+                else if (ba8ln == 0)
+                {
+                    ba8ln = yln[2];
+                    ytcst = ytcst - yc3;
+                    ycst = ycst + ycc3;
+                    field8.BackgroundImage = imgs[int.Parse(yte3[1])];
+                    button23.Visible = false;
+                    yln[2] = 0;
+                    ythd--;
+                }                
+            }
+            if (yln[3] > 0 & yc4 <= ytcst & yt4 == 1)
+            {
+                if (ba6ln == 0)
+                {
+                    ba6ln = yln[3];
+                    ytcst = ytcst - yc4;
+                    ycst = ycst + ycc4;
+                    field6.BackgroundImage = imgs[int.Parse(yte4[1])];
+                    button24.Visible = false;
+                    yln[3] = 0;
+                    ythd--;
+                }
+                else if (ba7ln == 0)
+                {
+                    ba7ln = yln[3];
+                    ytcst = ytcst - yc4;
+                    ycst = ycst + ycc4;
+                    field7.BackgroundImage = imgs[int.Parse(yte4[1])];
+                    button24.Visible = false;
+                    yln[3] = 0;
+                    ythd--;
+                }
+                else if (ba8ln == 0)
+                {
+                    ba8ln = yln[3];
+                    ytcst = ytcst - yc4;
+                    ycst = ycst + ycc4;
+                    field8.BackgroundImage = imgs[int.Parse(yte4[1])];
+                    button24.Visible = false;
+                    yln[3] = 0;
+                    ythd--;
+                }                
+            }
+            if (yln[4] > 0 & yc5 <= ytcst & yt5 == 1)
+            {
+                if (ba6ln == 0)
+                {
+                    ba6ln = yln[4];
+                    ytcst = ytcst - yc5;
+                    ycst = ycst + ycc5;
+                    field6.BackgroundImage = imgs[int.Parse(yte5[1])];
+                    button25.Visible = false;
+                    yln[4] = 0;
+                    ythd--;
+                }
+                else if (ba7ln == 0)
+                {
+                    ba7ln = yln[4];
+                    ytcst = ytcst - yc5;
+                    ycst = ycst + ycc5;
+                    field7.BackgroundImage = imgs[int.Parse(yte5[1])];
+                    button25.Visible = false;
+                    yln[4] = 0;
+                    ythd--;
+                }
+                else if (ba8ln == 0)
+                {
+                    ba8ln = yln[4];
+                    ytcst = ytcst - yc5;
+                    ycst = ycst + ycc5;
+                    field8.BackgroundImage = imgs[int.Parse(yte5[1])];
+                    button25.Visible = false;
+                    yln[4] = 0;
+                    ythd--;
+                }                
+            }
+            //ターンコスト以内、低コスト、スキル優先
+            if (yln[0] > 0 & yc1 <= ytcst & yt1 == 2)
+            {
+                if (ba9ln == 0)
+                {
+                    ba9ln = yln[0];
+                    ytcst = ytcst - yc1;
+                    ycst = ycst + ycc1;
+                    field9.BackgroundImage = imgs[int.Parse(yte1[1])];
+                    button21.Visible = false;
+                    yln[0] = 0;
+                    ythd--;
+                }
+                else if (ba10ln == 0)
+                {
+                    ba10ln = yln[0];
+                    ytcst = ytcst - yc1;
+                    ycst = ycst + ycc1;
+                    field10.BackgroundImage = imgs[int.Parse(yte1[1])];
+                    button21.Visible = false;
+                    yln[0] = 0;
+                    ythd--;
+                }                
+            }
+            if (yln[1] > 0 & yc2 <= ytcst & yt2 == 2)
+            {
+                if (ba9ln == 0)
+                {
+                    ba9ln = yln[1];
+                    ytcst = ytcst - yc2;
+                    ycst = ycst + ycc2;
+                    field9.BackgroundImage = imgs[int.Parse(yte2[1])];
+                    button22.Visible = false;
+                    yln[1] = 0;
+                    ythd--;
+                }
+                else if (ba10ln == 0)
+                {
+                    ba10ln = yln[1];
+                    ytcst = ytcst - yc2;
+                    ycst = ycst + ycc2;
+                    field10.BackgroundImage = imgs[int.Parse(yte2[1])];
+                    button22.Visible = false;
+                    yln[1] = 0;
+                    ythd--;
+                }                
+            }
+            if (yln[2] > 0 & yc3 <= ytcst & yt3 == 2)
+            {
+                if (ba9ln == 0)
+                {
+                    ba9ln = yln[2];
+                    ytcst = ytcst - yc3;
+                    ycst = ycst + ycc3;
+                    field9.BackgroundImage = imgs[int.Parse(yte3[1])];
+                    button23.Visible = false;
+                    yln[2] = 0;
+                    ythd--;
+                }
+                else if (ba10ln == 0)
+                {
+                    ba10ln = yln[2];
+                    ytcst = ytcst - yc3;
+                    ycst = ycst + ycc3;
+                    field10.BackgroundImage = imgs[int.Parse(yte3[1])];
+                    button23.Visible = false;
+                    yln[2] = 0;
+                    ythd--;
+                }                
+            }
+            if (yln[3] > 0 & yc4 <= ytcst & yt4 == 2)
+            {
+                if (ba9ln == 0)
+                {
+                    ba9ln = yln[3];
+                    ytcst = ytcst - yc4;
+                    ycst = ycst + ycc4;
+                    field9.BackgroundImage = imgs[int.Parse(yte4[1])];
+                    button24.Visible = false;
+                    yln[3] = 0;
+                    ythd--;
+                }
+                else if (ba10ln == 0)
+                {
+                    ba10ln = yln[3];
+                    ytcst = ytcst - yc4;
+                    ycst = ycst + ycc4;
+                    field10.BackgroundImage = imgs[int.Parse(yte4[1])];
+                    button24.Visible = false;
+                    yln[3] = 0;
+                    ythd--;
+                }                
+            }
+            if (yln[4] > 0 & yc5 <= ytcst & yt5 == 2)
+            {
+                if (ba9ln == 0)
+                {
+                    ba9ln = yln[4];
+                    ytcst = ytcst - yc5;
+                    ycst = ycst + ycc5;
+                    field9.BackgroundImage = imgs[int.Parse(yte5[1])];
+                    button25.Visible = false;
+                    yln[4] = 0;
+                    ythd--;
+                }
+                else if (ba10ln == 0)
+                {
+                    ba10ln = yln[4];
+                    ytcst = ytcst - yc5;
+                    ycst = ycst + ycc5;
+                    field10.BackgroundImage = imgs[int.Parse(yte5[1])];
+                    button25.Visible = false;
+                    yln[4] = 0;
+                    ythd--;
+                }                
+            }
+
+            //手札左詰め
+            for (i = 0; i < 4; i++)
+            {
+                if (yln[0] == 0)
+                {
+                    yln[0] = yln[1];
+                    yln[1] = 0;
+                }
+                if (yln[1] == 0)
+                {
+                    yln[1] = yln[2];
+                    yln[2] = 0;
+                }
+                if (yln[2] == 0)
+                {
+                    yln[2] = yln[3];
+                    yln[3] = 0;
+                }
+                if (yln[3] == 0)
+                {
+                    yln[3] = yln[4];
+                    yln[4] = 0;
+                }
+            }
+
+            yPara();
+
+            if (yln[0] != 0)
+            {
+                button21.Visible = true;
+                button21.BackgroundImage = imgs[int.Parse(yte1[1])];
+            }
+            if (yln[1] != 0)
+            {
+                button22.Visible = true;
+                button22.BackgroundImage = imgs[int.Parse(yte2[1])];
+            }
+            if (yln[2] != 0)
+            {
+                button23.Visible = true;
+                button23.BackgroundImage = imgs[int.Parse(yte3[1])];
+            }
+            if (yln[3] != 0)
+            {
+                button24.Visible = true;
+                button24.BackgroundImage = imgs[int.Parse(yte4[1])];
+            }
+            if (yln[4] != 0)
+            {
+                button25.Visible = true;
+                button25.BackgroundImage = imgs[int.Parse(yte5[1])];
+            }
+            if (yln[0] == 0) button21.Visible = false;
+            if (yln[1] == 0) button22.Visible = false;
+            if (yln[2] == 0) button23.Visible = false;
+            if (yln[3] == 0) button24.Visible = false;
+            if (yln[4] == 0) button25.Visible = false;
+            bPara();
+            label18.Text = ycst.ToString();
+            step++;
+            Main1();
+        }
+        public void mPara()
+        {
+            FileRead4 fr4 = new FileRead4();
+            fr4.deck1();
+            for (i = 0; i < 20; i++)
+            {
+                mte1[i] = fr4.mData[mln[0], i];
+                mte2[i] = fr4.mData[mln[1], i];
+                mte3[i] = fr4.mData[mln[2], i];
+                mte4[i] = fr4.mData[mln[3], i];
+                mte5[i] = fr4.mData[mln[4], i];
+                ba1[i] = fr4.mData[ba1ln, i];
+                ba2[i] = fr4.mData[ba2ln, i];
+                ba3[i] = fr4.mData[ba3ln, i];
+                ba4[i] = fr4.mData[ba4ln, i];
+                ba5[i] = fr4.mData[ba5ln, i];
+            }
+            button1.BackgroundImage = imgs[int.Parse(mte1[1])];
+            button2.BackgroundImage = imgs[int.Parse(mte2[1])];
+            button3.BackgroundImage = imgs[int.Parse(mte3[1])];
+            button4.BackgroundImage = imgs[int.Parse(mte4[1])];
+            button5.BackgroundImage = imgs[int.Parse(mte5[1])];
+
+            //MessageBox.Show(mte1[0]+","+mte2[0]+","+mte3[0]+","+mte4[0]+","+mte5[0]);
+            mln1 = int.Parse(mte1[0]);
+            mln2 = int.Parse(mte2[0]);
+            mln3 = int.Parse(mte3[0]);
+            mln4 = int.Parse(mte4[0]);
+            mln5 = int.Parse(mte5[0]);
+
+            mid1 = int.Parse(mte1[1]);
+            mid2 = int.Parse(mte2[1]);
+            mid3 = int.Parse(mte3[1]);
+            mid4 = int.Parse(mte4[1]);
+            mid5 = int.Parse(mte5[1]);
+
+            mt1 = int.Parse(mte1[2]);
+            mt2 = int.Parse(mte2[2]);
+            mt3 = int.Parse(mte3[2]);
+            mt4 = int.Parse(mte4[2]);
+            mt5 = int.Parse(mte5[2]);
+
+            //セットコスト
+            mc1 = int.Parse(mte1[5]);
+            mc2 = int.Parse(mte2[5]);
+            mc3 = int.Parse(mte3[5]);
+            mc4 = int.Parse(mte4[5]);
+            mc5 = int.Parse(mte5[5]);
+
+            //維持コスト
+            mcc1 = int.Parse(mte1[6]);
+            mcc2 = int.Parse(mte2[6]);
+            mcc3 = int.Parse(mte3[6]);
+            mcc4 = int.Parse(mte4[6]);
+            mcc5 = int.Parse(mte5[6]);
+
+            //ac
+            mac1 = int.Parse(mte1[11]);
+            mac2 = int.Parse(mte2[11]);
+            mac3 = int.Parse(mte3[11]);
+            mac4 = int.Parse(mte4[11]);
+            mac5 = int.Parse(mte5[11]);
+
+            //hp
+            mhp1 = int.Parse(mte1[12]);
+            mhp2 = int.Parse(mte2[12]);
+            mhp3 = int.Parse(mte3[12]);
+            mhp4 = int.Parse(mte4[12]);
+            mhp5 = int.Parse(mte5[12]);
+
+            mte1d1 = int.Parse(mte1[13]);
+            mte1d2 = int.Parse(mte1[14]);
+            mte2d1 = int.Parse(mte2[13]);
+            mte2d2 = int.Parse(mte2[14]);
+            mte3d1 = int.Parse(mte3[13]);
+            mte3d2 = int.Parse(mte3[14]);
+            mte4d1 = int.Parse(mte4[13]);
+            mte4d2 = int.Parse(mte4[14]);
+            mte5d1 = int.Parse(mte5[13]);
+            mte5d2 = int.Parse(mte5[14]);
+
+            //pow
+            mp11 = int.Parse(mte1[15]);
+            mp12 = int.Parse(mte1[16]);
+            mp21 = int.Parse(mte2[15]);
+            mp22 = int.Parse(mte2[16]);
+            mp31 = int.Parse(mte3[15]);
+            mp32 = int.Parse(mte3[16]);
+            mp41 = int.Parse(mte4[15]);
+            mp42 = int.Parse(mte4[16]);
+            mp51 = int.Parse(mte5[15]);
+            mp52 = int.Parse(mte5[16]);
+
+            //手札コスト表示
+            M1Cost.Text = mc1.ToString();
+            M2Cost.Text = mc2.ToString();
+            M3Cost.Text = mc3.ToString();
+            M4Cost.Text = mc4.ToString();
+            M5Cost.Text = mc5.ToString();
+        }
+        public void yPara()
+        {
+            FileRead4 fr4 = new FileRead4();
+            fr4.deck2();
+            for (i = 0; i < 20; i++)
+            {
+                yte1[i] = fr4.yData[yln[0], i];
+                yte2[i] = fr4.yData[yln[1], i];
+                yte3[i] = fr4.yData[yln[2], i];
+                yte4[i] = fr4.yData[yln[3], i];
+                yte5[i] = fr4.yData[yln[4], i];
+                ba6[i] = fr4.yData[ba6ln, i];
+                ba7[i] = fr4.yData[ba7ln, i];
+                ba8[i] = fr4.yData[ba8ln, i];
+                ba9[i] = fr4.yData[ba9ln, i];
+                ba10[i] = fr4.yData[ba10ln, i];
+            }
+            button21.BackgroundImage = imgs[int.Parse(yte1[1])];
+            button22.BackgroundImage = imgs[int.Parse(yte2[1])];
+            button23.BackgroundImage = imgs[int.Parse(yte3[1])];
+            button24.BackgroundImage = imgs[int.Parse(yte4[1])];
+            button25.BackgroundImage = imgs[int.Parse(yte5[1])];
+
+            yt1 = int.Parse(yte1[2]);
+            yt2 = int.Parse(yte2[2]);
+            yt3 = int.Parse(yte3[2]);
+            yt4 = int.Parse(yte4[2]);
+            yt5 = int.Parse(yte5[2]);
+
+            //cost
+            yc1 = int.Parse(yte1[5]);
+            yc2 = int.Parse(yte2[5]);
+            yc3 = int.Parse(yte3[5]);
+            yc4 = int.Parse(yte4[5]);
+            yc5 = int.Parse(yte5[5]);
+
+            //維持cost
+            ycc1 = int.Parse(yte1[6]);
+            ycc2 = int.Parse(yte2[6]);
+            ycc3 = int.Parse(yte3[6]);
+            ycc4 = int.Parse(yte4[6]);
+            ycc5 = int.Parse(yte5[6]);
+
+            //ac
+            yac1 = int.Parse(yte1[11]);
+            yac2 = int.Parse(yte2[11]);
+            yac3 = int.Parse(yte3[11]);
+            yac4 = int.Parse(yte4[11]);
+            yac5 = int.Parse(yte5[11]);
+
+            //hp
+            yhp1 = int.Parse(yte1[12]);
+            yhp2 = int.Parse(yte2[12]);
+            yhp3 = int.Parse(yte3[12]);
+            yhp4 = int.Parse(yte4[12]);
+            yhp5 = int.Parse(yte5[12]);
+        }
+        public void bPara()
+        {
+            FileRead4 fr4 = new FileRead4();
+            fr4.deck1();
+            fr4.deck2();
+            for (i = 0; i < 20; i++)
+            {
+                ba1[i] = fr4.mData[ba1ln, i];
+                ba2[i] = fr4.mData[ba2ln, i];
+                ba3[i] = fr4.mData[ba3ln, i];
+                ba4[i] = fr4.mData[ba4ln, i];
+                ba5[i] = fr4.mData[ba5ln, i];
+                ba6[i] = fr4.yData[ba6ln, i];
+                ba7[i] = fr4.yData[ba7ln, i];
+                ba8[i] = fr4.yData[ba8ln, i];
+                ba9[i] = fr4.yData[ba9ln, i];
+                ba10[i] = fr4.yData[ba10ln, i];
+            }
+
+            ba1id = int.Parse(ba1[1]);
+            ba2id = int.Parse(ba2[1]);
+            ba3id = int.Parse(ba3[1]);
+            ba4id = int.Parse(ba4[1]);
+            ba5id = int.Parse(ba5[1]);
+            ba6id = int.Parse(ba6[1]);
+            ba7id = int.Parse(ba7[1]);
+            ba8id = int.Parse(ba8[1]);
+            ba9id = int.Parse(ba9[1]);
+            ba10id = int.Parse(ba10[1]);
+
+            ba1c = int.Parse(ba1[5]);
+            ba2c = int.Parse(ba2[5]);
+            ba3c = int.Parse(ba3[5]);
+            ba4c = int.Parse(ba4[5]);
+            ba5c = int.Parse(ba5[5]);
+            ba1cc = int.Parse(ba1[6]);
+            ba2cc = int.Parse(ba2[6]);
+            ba3cc = int.Parse(ba3[6]);
+            ba4cc = int.Parse(ba4[6]);
+            ba5cc = int.Parse(ba5[6]);
+            ba6c = int.Parse(ba6[5]);
+            ba7c = int.Parse(ba7[5]);
+            ba8c = int.Parse(ba8[5]);
+            ba9c = int.Parse(ba9[5]);
+            ba10c = int.Parse(ba10[5]);
+            ba6cc = int.Parse(ba6[6]);
+            ba7cc = int.Parse(ba7[6]);
+            ba8cc = int.Parse(ba8[6]);
+            ba9cc = int.Parse(ba9[6]);
+            ba10cc = int.Parse(ba10[6]);
+
+            ba1ac = int.Parse(ba1[11]);
+            ba2ac = int.Parse(ba2[11]);
+            ba3ac = int.Parse(ba3[11]);
+            ba6ac = int.Parse(ba6[11]);
+            ba7ac = int.Parse(ba7[11]);
+            ba8ac = int.Parse(ba8[11]);
+            ba1hp = int.Parse(ba1[12]);
+            ba2hp = int.Parse(ba2[12]);
+            ba3hp = int.Parse(ba3[12]);
+            ba6hp = int.Parse(ba6[12]);
+            ba7hp = int.Parse(ba7[12]);
+            ba8hp = int.Parse(ba8[12]);
+
+            ba1d1 = int.Parse(ba1[13]);
+            ba2d1 = int.Parse(ba2[13]);
+            ba3d1 = int.Parse(ba3[13]);
+            ba1d2 = int.Parse(ba1[14]);
+            ba2d2 = int.Parse(ba2[14]);
+            ba3d2 = int.Parse(ba3[14]);
+            ba6d1 = int.Parse(ba6[13]);
+            ba7d1 = int.Parse(ba7[13]);
+            ba8d1 = int.Parse(ba8[13]);
+            ba6d2 = int.Parse(ba6[14]);
+            ba7d2 = int.Parse(ba7[14]);
+            ba8d2 = int.Parse(ba8[14]);
+
+            ba1p1 = int.Parse(ba1[15]);
+            ba2p1 = int.Parse(ba2[15]);
+            ba3p1 = int.Parse(ba3[15]);
+            ba1p2 = int.Parse(ba1[16]);
+            ba2p2 = int.Parse(ba2[16]);
+            ba3p2 = int.Parse(ba3[16]);
+            ba6p1 = int.Parse(ba6[15]);
+            ba7p1 = int.Parse(ba7[15]);
+            ba8p1 = int.Parse(ba8[15]);
+            ba6p2 = int.Parse(ba6[16]);
+            ba7p2 = int.Parse(ba7[16]);
+            ba8p2 = int.Parse(ba8[16]);
+        }
+        private void AttackBattlePhase()
+        {
+            if (ba1ln > 0) btlflg1 = "on";
+            if (ba2ln > 0) btlflg2 = "on";
+            if (ba3ln > 0) btlflg3 = "on";
+            abtlp1();
+        }
+        private void abtlp1()
+        {
+            next = "off";
+            FileRead4 fr4 = new FileRead4();
+            fr4.deck1();
+            fr4.deck2();
+            if (btlflg1 == "on")
+            {
+                field1.Top -= 20;
+                btl1 = "on";
+                if (ba4ln > 0)
+                {
+
+                }
+                else
+                {
+
+                }
+                Dice();
+            }
+            else if (btlflg2 == "on" & btl1 == "off")
+            {
+                field2.Top -= 20;
+                btl2 = "on";                
+                if (ba4ln > 0)
+                {
+
+                }
+                else
+                {
+
+                }
+                Dice();
+            }
+            else if (btlflg3 == "on" & btl1 == "off" & btl2 == "off")
+            {
+                field3.Top -= 20;
+                btl3 = "on";                
+                if (ba4ln > 0)
+                {
+                }
+                else
+                {
+
+                }
+                Dice();
+            }
+            else
+            {
+                bPara();
+                step++;
+                Main1();
+            }
+        }       
+        private void abtlp2()
+        {
+            if (btl1 == "on")
+            {
+                if (ba1d1 <= m)
+                {
+                    atk = ba1p1;
+                    ac = ba6ac;
+                    hp = ba6hp;
+                    dmg = ac - atk;
+                    field6hp = hp + ac - atk;
+                }
+                else if (ba1d2 <= 6 - m)
+                {
+                    atk = ba1p2;
+                    ac = ba6ac;
+                    hp = ba6hp;
+                    dmg = ac - atk;
+                    field6hp = hp + ac - atk;
+                }
+                else
+                {
+                    Field6Damage.Visible = true;
+                    Field6Damage.Text = "miss";
+                }                               
+                btl1 = "off";
+                btlflg1 = "off";
+                field1.Top += 20;
+                if (ba6ln > 0)
+                {
+                    Field6Damage.Visible = true;
+                    Field6Damage.Text = dmg.ToString();
+                }
+                else
+                {
+                    EnemyDamage.Visible = true;
+                    EnemyDamage.Text = dmg.ToString();
+                }
+                sound_hit();
+                DmgEffectTime.Enabled = true;
+                if (field6hp <= 0)
+                {
+                    field6.BackgroundImage = null;
+                    ba6ln = 0;
+                }
+            }
+            else if (btl2 == "on")
+            {
+                if (ba2d1 <= m)
+                {
+                    atk = ba2p1;
+                    ac = ba7ac;
+                    hp = ba7hp;
+                    dmg = ac - atk;
+                    field7hp = hp + ac - atk;
+                }
+                else if (ba2d2 <= 6 - m)
+                {
+                    atk = ba2p2;
+                    ac = ba7ac;
+                    hp = ba7hp;
+                    dmg = ac - atk;
+                    field7hp = hp + ac - atk;
+                }
+                else
+                {
+                    Field7Damage.Visible = true;
+                    Field7Damage.Text = "miss";
+                }
+                btl2 = "off";
+                btlflg2 = "off";
+                field2.Top += 20;
+                if (ba7ln > 0)
+                {
+                    Field7Damage.Visible = true;
+                    Field7Damage.Text = dmg.ToString();
+                }
+                else
+                {
+                    EnemyDamage.Visible = true;
+                    EnemyDamage.Text = dmg.ToString();
+                }
+                sound_hit();
+                DmgEffectTime.Enabled = true;
+                if (field7hp <= 0)
+                {
+                    field7.BackgroundImage = null;
+                    ba7ln = 0;
+                }
+            }
+            else if (btl3 == "on")
+            {
+                if (ba3d1 <= m)
+                {
+                    atk = ba3p1;
+                    ac = ba8ac;
+                    hp = ba8hp;
+                    dmg = ac - atk;
+                    field8hp = hp + ac - atk;
+                }
+                else if (ba3d2 <= 6 - m)
+                {
+                    atk = ba3p2;
+                    ac = ba8ac;
+                    hp = ba8hp;
+                    dmg = ac - atk;
+                    field8hp = hp + ac - atk;
+                }
+                else
+                {
+                    Field8Damage.Visible = true;
+                    Field8Damage.Text = "miss";
+                }
+                btl3 = "off";
+                btlflg3 = "off";
+                field3.Top += 20;
+                if (ba8ln > 0)
+                {
+                    Field8Damage.Visible = true;
+                    Field8Damage.Text = dmg.ToString();
+                }
+                else
+                {
+                    EnemyDamage.Visible = true;
+                    EnemyDamage.Text = dmg.ToString();
+                }
+                sound_hit();
+                DmgEffectTime.Enabled = true;
+                if (field8hp <= 0)
+                {
+                    field8.BackgroundImage = null;
+                    ba8ln = 0;
+                }
+            }
+            if (next == "on") abtlp1();
+        }
+        private void DmgEffectTime_Tick(object sender, EventArgs e)
+        {
+            Field6Damage.Visible = false;
+            Field7Damage.Visible = false;
+            Field8Damage.Visible = false;
+            EnemyDamage.Visible = false;
+            next = "on";
+            DmgEffectTime.Enabled = false;
+            abtlp2();
+        }
+        private void Dice()
+        {
+            if (timer == "on")
+            {
+                t = 0;
+                DiceTimer1.Enabled = false;
+                DiceTimer2.Enabled = true;
+            }
+            else if (timer == "cnt")
+            {
+                t = 0;
+                DiceTimer2.Enabled = false;
+                myDice.Visible = false;
+                timer = "off";
+                abtlp2();
+            }
+            else
+            {
+                myDice.Visible = true;
+                DiceTimer1.Enabled = true;
+            }
+        }
+        private void DiceTimer50(object sender, EventArgs e)
+        {
+            rdm6();
+            t++;
+            if (t == 20)
+            {
+                timer = "on";
+                Dice();
+            }
+        }
+        private void DiceTimer1000(object sender, EventArgs e)
+        {
+                timer = "cnt";
+                Dice();
+        }
+        private void rdm6()
+        {
+            seed = Environment.TickCount;
+            Random mthd = new Random(seed++);
+            m = mthd.Next(1, 6);
+            myDice.BackgroundImage = imgd[m];
+        }
+        private void btn_Enable()
+        {
+            button1.Enabled = true;
+            button2.Enabled = true;
+            button3.Enabled = true;
+            button4.Enabled = true;
+            button5.Enabled = true;
+            button26.Visible = true;
+        }
+        private void button1_Click(object sender, EventArgs e)
+        {
+            if (mtcst >= mc1)
+            {
+                if (s != 1)
+                {
+                    if (s == 2)button2.Top += 10;
+                    else if (s == 3)button3.Top += 10;
+                    else if (s == 4)button4.Top += 10;
+                    else if (s == 5)button5.Top += 10;
+                    s = 1;
+                    M1Cost.Visible = false;
+                    button1.Top -= 10;
+                    textBox1.Text = "場を選択してください。";
+                    if (mt1 == 1)     //  ct = 1：モンスター
+                    {
+                        bacheck1();
+                    }
+                    else if (mt1 == 2)     //  ct = 2：アイテムorスキル
+                    {
+                        bacheck2();
+                    }
+                }
+                else
+                {
+                    s = 0;
+                    bacheck1();
+                    bacheck2();
+                    button1.Top += 10;
+                    M1Cost.Visible = true;
+                    textBox1.Text = "";
+                }
+            }
+            else textBox1.Text = "コスト不足です。";
+        }
+        private void button2_Click(object sender, EventArgs e)
+        {
+            if (mtcst >= mc2)
+            {
+                if (s != 2)
+                {
+                    if (s == 1)button1.Top += 10;
+                    else if (s == 3)button3.Top += 10;
+                    else if (s == 4)button4.Top += 10;
+                    else if (s == 5)button5.Top += 10;
+                    s = 2;
+                    M2Cost.Visible = false;
+                    button2.Top -= 10;                    
+                    textBox1.Text = "場を選択してください。";
+                    if (mt2 == 1)     //  ct = 1：モンスター
+                    {
+                        bacheck1();
+                    }
+                    else if (mt2 == 2)     //  ct = 2：アイテムorスキル
+                    {
+                        bacheck2();
+                    }
+                }
+                else
+                {
+                    s = 0;
+                    bacheck1();
+                    bacheck2();
+                    button2.Top += 10;
+                    M2Cost.Visible = true;
+                    textBox1.Text = "";
+                }
+            }
+            else textBox1.Text = "コスト不足です。";
+        }
+        private void button3_Click(object sender, EventArgs e)
+        {
+            if (mtcst >= mc3)
+            {
+                if (s != 3)
+                {
+                    if (s == 1) button1.Top += 10;
+                    else if (s == 2) button2.Top += 10;
+                    else if (s == 4) button4.Top += 10;
+                    else if (s == 5) button5.Top += 10;
+                    s = 3;
+                    M3Cost.Visible = false;
+                    button3.Top -= 10;
+                    textBox1.Text = "場を選択してください。";
+                    if (mt3 == 1)     //  ct = 1：モンスター
+                    {
+                        bacheck1();
+                    }
+                    else if (mt3 == 2)     //  ct = 2：アイテムorスキル
+                    {
+                        bacheck2();
+                    }
+                }
+                else
+                {
+                    s = 0;
+                    bacheck1();
+                    bacheck2();
+                    button3.Top += 10;
+                    M3Cost.Visible = true;
+                    textBox1.Text = "";
+                }
+            }
+            else textBox1.Text = "コスト不足です。";
+        }
+        private void button4_Click(object sender, EventArgs e)
+        {
+            if (mtcst >= mc4)
+            {
+                if (s != 4)
+                {
+                    if (s == 1) button1.Top += 10;
+                    else if (s == 2) button2.Top += 10;
+                    else if (s == 3) button3.Top += 10;
+                    else if (s == 5) button5.Top += 10;
+                    s = 4;
+                    M4Cost.Visible = false;
+                    button4.Top -= 10;                    
+                    textBox1.Text = "場を選択してください。";
+                    if (mt4 == 1)     //  ct = 1：モンスター
+                    {
+                        bacheck1();
+                    }
+                    else if (mt4 == 2)     //  ct = 2：アイテムorスキル
+                    {
+                        bacheck2();
+                    }
+                }
+                else
+                {
+                    s = 0;
+                    bacheck1();
+                    bacheck2();
+                    button4.Top += 10;
+                    M4Cost.Visible = true;
+                    textBox1.Text = "";
+                }
+            }
+            else textBox1.Text = "コスト不足です。";
+
+        }
+        private void button5_Click(object sender, EventArgs e)
+        {
+            if (mtcst >= mc5)
+            {
+                if (s != 5)
+                {
+                    if (s == 1) button1.Top += 10;
+                    else if (s == 2) button2.Top += 10;
+                    else if (s == 3) button3.Top += 10;
+                    else if (s == 4) button4.Top += 10;
+                    s = 5;
+                    M5Cost.Visible = false;
+                    button5.Top -= 10;
+                    textBox1.Text = "場を選択してください。";
+                    if (mt5 == 1)     //  ct = 1：モンスター
+                    {
+                        bacheck1();
+                    }
+                    else if (mt5 == 2)     //  ct = 2：アイテムorスキル
+                    {
+                        bacheck2();
+                    }
+                }
+                else
+                {
+                    s = 0;
+                    bacheck1();
+                    bacheck2();
+                    button5.Top += 10;
+                    M5Cost.Visible = true;
+                    textBox1.Text = "";
+                }
+            }
+            else textBox1.Text = "コスト不足です。";
+        }
+        private void bacheck1()
+        {
+            if (ba1ln == 0)
+            {
+                field1.BackgroundImage = imgselect;
+                field1.Cursor = Cursors.Hand;
+                if (s == 0)
+                {
+                    field1.BackgroundImage = imgnull;
+                    field1.Cursor = Cursors.Default;
+                }
+            }
+            if (ba2ln == 0)
+            {
+                field2.BackgroundImage = imgselect;
+                field2.Cursor = Cursors.Hand;
+                if (s == 0)
+                {
+                    field2.BackgroundImage = imgnull;
+                    field2.Cursor = Cursors.Default;
+                }
+            }
+            if (ba3ln == 0)
+            {
+                field3.BackgroundImage = imgselect;
+                field3.Cursor = Cursors.Hand;
+                if (s == 0)
+                {
+                    field3.BackgroundImage = imgnull;
+                    field3.Cursor = Cursors.Default;
+                }
+            }
+        }
+        private void bacheck2()
+        {
+            if (ba4ln == 0)
+            {
+                field4.BackgroundImage = imgselect;
+                field4.Cursor = Cursors.Hand;
+                if (s == 0)
+                {
+                    field4.BackgroundImage = imgnull;
+                    field4.Cursor = Cursors.Default;
+                }
+            }
+            if (ba5ln == 0)
+            {
+                field5.BackgroundImage = imgselect;
+                field5.Cursor = Cursors.Hand;
+                if (s == 0)
+                {
+                    field5.BackgroundImage = imgnull;
+                    field5.Cursor = Cursors.Default;
+                }
+            }
+        }
+        private void field1_Click(object sender, EventArgs e)
+        {
+            if (ba1ln == 0)
+            {
+                //手札処理
+                if (s == 1)
+                {
+                    Array.Copy(mte1, 0, ba1, 0, 19);
+                    ba1ln = int.Parse(ba1[0]);
+                    field1.BackgroundImage = imgs[int.Parse(ba1[1])];
+                    button1.BackgroundImage = null;
+                    button1.Visible = false;
+                    mtcst = mtcst - mc1;
+                    mcst = mcst + mcc1;
+                    mln[0] = 0;
+                    button1.Top += 10;
+                    mthd--;
+                }
+                else if (s == 2)
+                {
+                    Array.Copy(mte2, 0, ba1, 0, 19);
+                    ba1ln = int.Parse(ba1[0]);
+                    field1.BackgroundImage = imgs[int.Parse(ba1[1])];
+                    button2.BackgroundImage = null;
+                    button2.Visible = false;
+                    mtcst = mtcst - mc2;
+                    mcst = mcst + mcc2;
+                    mln[1] = 0;
+                    button2.Top += 10;
+                    mthd--;
+                }
+                else if (s == 3)
+                {
+                    Array.Copy(mte3, 0, ba1, 0, 19);
+                    ba1ln = int.Parse(ba1[0]);
+                    field1.BackgroundImage = imgs[int.Parse(ba1[1])];
+                    button3.BackgroundImage = null;
+                    button3.Visible = false;
+                    mtcst = mtcst - mc3;
+                    mcst = mcst + mcc3;
+                    mln[2] = 0;
+                    button3.Top += 10;
+                    mthd--;
+                }
+                else if (s == 4)
+                {
+                    Array.Copy(mte4, 0, ba1, 0, 19);
+                    ba1ln = int.Parse(ba1[0]);
+                    field1.BackgroundImage = imgs[int.Parse(ba1[1])];
+                    button4.BackgroundImage = null;
+                    button4.Visible = false;
+                    mtcst = mtcst - mc4;
+                    mcst = mcst + mcc4;
+                    mln[3] = 0;
+                    button4.Top += 10;
+                    mthd--;
+                }
+                else if (s == 5)
+                {
+                    Array.Copy(mte5, 0, ba1, 0, 19);
+                    ba1ln = int.Parse(ba1[0]);
+                    field1.BackgroundImage = imgs[int.Parse(ba1[1])];
+                    button5.BackgroundImage = null;
+                    button5.Visible = false;
+                    mtcst = mtcst - mc5;
+                    mcst = mcst + mcc5;
+                    mln[4] = 0;
+                    button5.Top += 10;
+                    mthd--;
+                }
+                s = 0;
+                bacheck1();
+                bPara();
+                label4.Text = mtcst.ToString();
+            }
+        }
+        private void field2_Click(object sender, EventArgs e)
+        {
+            if (ba2ln == 0)
+            {
+                if (s == 1)
+                {
+                    Array.Copy(mte1, ba2, 0);
+                    ba2ln = int.Parse(ba2[0]);
+                    field2.BackgroundImage = imgs[int.Parse(ba2[1])];
+                    button1.BackgroundImage = null;
+                    button1.Visible = false;
+                    mtcst = mtcst - mc1;
+                    mcst = mcst + mcc1;
+                    mln[0] = 0;
+                    button1.Top += 10;
+                    mthd--;
+                }
+                else if (s == 2)
+                {
+                    Array.Copy(mte2, 0, ba2, 0, 19);
+                    ba2ln = int.Parse(ba2[0]);
+                    field2.BackgroundImage = imgs[int.Parse(ba2[1])];
+                    button2.BackgroundImage = null;
+                    button2.Visible = false;
+                    mtcst = mtcst - mc2;
+                    mcst = mcst + mcc2;
+                    mln[1] = 0;
+                    button2.Top += 10;
+                    mthd--;
+                }
+                else if (s == 3)
+                {
+                    Array.Copy(mte3, 0, ba2, 0, 19);
+                    ba2ln = int.Parse(ba2[0]);
+                    field2.BackgroundImage = imgs[int.Parse(ba2[1])];
+                    button3.BackgroundImage = null;
+                    button3.Visible = false;
+                    mtcst = mtcst - mc3;
+                    mcst = mcst + mcc3;
+                    mln[2] = 0;
+                    button3.Top += 10;
+                    mthd--;
+                }
+                else if (s == 4)
+                {
+                    Array.Copy(mte4, 0, ba2, 0, 19);
+                    ba2ln = int.Parse(ba2[0]);
+                    field2.BackgroundImage = imgs[int.Parse(ba2[1])];
+                    button4.BackgroundImage = null;
+                    button4.Visible = false;
+                    mtcst = mtcst - mc4;
+                    mcst = mcst + mcc4;
+                    mln[3] = 0;
+                    button4.Top += 10;
+                    mthd--;
+                }
+                else if (s == 5)
+                {
+                    Array.Copy(mte5, 0, ba2, 0, 19);
+                    ba2ln = int.Parse(ba2[0]);
+                    field2.BackgroundImage = imgs[int.Parse(ba2[1])];
+                    button5.BackgroundImage = null;
+                    button5.Visible = false;
+                    mtcst = mtcst - mc5;
+                    mcst = mcst + mcc5;
+                    mln[4] = 0;
+                    button5.Top += 10;
+                    mthd--;
+                }
+                s = 0;
+                bacheck1();
+                bPara();
+                label4.Text = mtcst.ToString();
+            }
+        }
+        private void field3_Click(object sender, EventArgs e)
+        {
+            if (ba3ln == 0)
+            {
+                if (s == 1)
+                {
+                    Array.Copy(mte1, 0, ba3, 0, 19);
+                    ba3ln = int.Parse(ba3[0]);
+                    field3.BackgroundImage = imgs[int.Parse(ba3[1])];
+                    button1.BackgroundImage = null;
+                    button1.Visible = false;
+                    mtcst = mtcst - mc1;
+                    mcst = mcst + mcc1;
+                    mln[0] = 0;
+                    button1.Top += 10;
+                    mthd--;
+                }
+                else if (s == 2)
+                {
+                    Array.Copy(mte2, 0, ba3, 0, 19);
+                    ba3ln = int.Parse(ba3[0]);
+                    field3.BackgroundImage = imgs[int.Parse(ba3[1])];
+                    button2.BackgroundImage = null;
+                    button2.Visible = false;
+                    mtcst = mtcst - mc2;
+                    mcst = mcst + mcc2;
+                    mln[1] = 0;
+                    button2.Top += 10;
+                    mthd--;
+                }
+                else if (s == 3)
+                {
+                    Array.Copy(mte3, 0, ba3, 0, 19);
+                    ba3ln = int.Parse(ba3[0]);
+                    field3.BackgroundImage = imgs[int.Parse(ba3[1])];
+                    button3.BackgroundImage = null;
+                    button3.Visible = false;
+                    mtcst = mtcst - mc3;
+                    mcst = mcst + mcc3;
+                    mln[2] = 0;
+                    button3.Top += 10;
+                    mthd--;
+                }
+                else if (s == 4)
+                {
+                    Array.Copy(mte4, 0, ba3, 0, 19);
+                    ba3ln = int.Parse(ba3[0]);
+                    field3.BackgroundImage = imgs[int.Parse(ba3[1])];
+                    button4.BackgroundImage = null;
+                    button4.Visible = false;
+                    mtcst = mtcst - mc4;
+                    mcst = mcst + mcc4;
+                    mln[3] = 0;
+                    button4.Top += 10;
+                    mthd--;
+                }
+                else if (s == 5)
+                {
+                    Array.Copy(mte5, 0, ba3, 0, 19);
+                    ba3ln = int.Parse(ba3[0]);
+                    field3.BackgroundImage = imgs[int.Parse(ba3[1])];
+                    button5.BackgroundImage = null;
+                    button5.Visible = false;
+                    mtcst = mtcst - mc5;
+                    mcst = mcst + mcc5;
+                    mln[4] = 0;
+                    button5.Top += 10;
+                    mthd--;
+                }
+                s = 0;
+                bacheck1();
+                bPara();
+                label4.Text = mtcst.ToString();
+            }
+        }
+        private void field4_Click(object sender, EventArgs e)
+        {
+            if (ba4ln == 0)
+            {
+                if (s == 1)
+                {
+                    ba4ln = mln1;
+                    button1.BackgroundImage = null;
+                    field4.BackgroundImage = imgs[int.Parse(mte1[1])];
+                    button1.Visible = false;
+                    mtcst = mtcst - mc1;
+                    mcst = mcst + mcc1;
+                    mln[0] = 0;
+                    button1.Top += 10;
+                    mthd--;
+                }
+                else if (s == 2)
+                {
+                    ba4ln = mln2;
+                    button2.BackgroundImage = null;
+                    field4.BackgroundImage = imgs[int.Parse(mte2[1])];
+                    button2.Visible = false;
+                    mtcst = mtcst - mc2;
+                    mcst = mcst + mcc2;
+                    mln[1] = 0;
+                    button2.Top += 10;
+                    mthd--;
+                }
+                else if (s == 3)
+                {
+                    ba4ln = mln3;
+                    button3.BackgroundImage = null;
+                    field4.BackgroundImage = imgs[int.Parse(mte3[1])];
+                    button3.Visible = false;
+                    mtcst = mtcst - mc3;
+                    mcst = mcst + mcc3;
+                    mln[2] = 0;
+                    button3.Top += 10;
+                    mthd--;
+                }
+                else if (s == 4)
+                {
+                    ba4ln = mln4;
+                    button4.BackgroundImage = null;
+                    field4.BackgroundImage = imgs[int.Parse(mte4[1])];
+                    button4.Visible = false;
+                    mtcst = mtcst - mc4;
+                    mcst = mcst + mcc4;
+                    mln[3] = 0;
+                    button4.Top += 10;
+                    mthd--;
+                }
+                else if (s == 5)
+                {
+                    ba4ln = mln5;
+                    button5.BackgroundImage = null;
+                    field4.BackgroundImage = imgs[int.Parse(mte5[1])];
+                    button5.Visible = false;
+                    mtcst = mtcst - mc5;
+                    mcst = mcst + mcc5;
+                    mln[4] = 0;
+                    button5.Top += 10;
+                    mthd--;
+                }
+                s = 0;
+                bacheck2();
+                bPara();
+                label4.Text = mtcst.ToString();
+            }
+        }
+        private void button1_MouseMove(object sender, MouseEventArgs e)
+        {
+            CardImage.BackgroundImage = imgm[int.Parse(mte1[1])];
+            Dice1Image.Visible = true;
+            Dice2Image.Visible = true;
+            label5.Visible = true;
+            label6.Visible = true;
+            label7.Visible = true;
+            label8.Visible = true;
+            label11.Visible = true;
+            label15.Visible = true;
+            label16.Visible = true;
+            label17.Visible = true;
+            
+
+            Dice1Image.Size = new Size(15 * mte1d1, 15);
+            Dice1Image.BackgroundImage = ipda[mte1d1];
+            
+            Dice2Image.Size = new Size(15 * mte1d2, 15);
+            Dice2Image.BackgroundImage = ipdb[mte1d2];
+            
+            label7.Text = mp11.ToString();
+            label8.Text = mp12.ToString();
+            label15.Text = mc1.ToString();
+            label17.Text = mcc1.ToString();
+
+            label9.Visible = true;
+            label9.Text = mhp1.ToString();
+            label10.Visible = true;
+            label10.Text = string.Format("AC: {0}", mac1);
+        }
+        private void button2_MouseMove(object sender, MouseEventArgs e)
+        {
+            CardImage.BackgroundImage = imgm[int.Parse(mte2[1])];
+            Dice1Image.Visible = true;
+            Dice2Image.Visible = true;
+            label5.Visible = true;
+            label6.Visible = true;
+            label7.Visible = true;
+            label8.Visible = true;
+            label11.Visible = true;
+            label15.Visible = true;
+            label16.Visible = true;
+            label17.Visible = true;
+
+            Dice1Image.Size = new Size(15 * mte2d1, 15);
+            Dice1Image.BackgroundImage = ipda[mte2d1];
+
+            Dice2Image.Size = new Size(15 * mte2d2, 15);
+            Dice2Image.BackgroundImage = ipdb[mte2d2];
+
+            label7.Text = mp21.ToString();
+            label8.Text = mp22.ToString();
+            label15.Text = mc2.ToString();
+            label17.Text = mcc2.ToString();
+            label9.Visible = true;
+            label9.Text = mhp2.ToString();
+            label10.Visible = true;
+            label10.Text = string.Format("AC: {0}", mac2);
+        }
+        private void button3_MouseMove(object sender, MouseEventArgs e)
+        {
+
+            CardImage.BackgroundImage = imgm[int.Parse(mte3[1])];
+            Dice1Image.Visible = true;
+            Dice2Image.Visible = true;
+            label5.Visible = true;
+            label6.Visible = true;
+            label7.Visible = true;
+            label8.Visible = true;
+            label11.Visible = true;
+            label15.Visible = true;
+            label16.Visible = true;
+            label17.Visible = true;
+
+            Dice1Image.Size = new Size(15 * mte3d1, 15);
+            Dice1Image.BackgroundImage = ipda[mte3d1];            
+
+            Dice2Image.Size = new Size(15 * mte3d2, 15);
+            Dice2Image.BackgroundImage = ipdb[mte3d2];
+            
+            label7.Text = mp31.ToString();
+            label8.Text = mp32.ToString();
+            label15.Text = mc3.ToString();
+            label17.Text = mcc3.ToString();
+            label9.Visible = true;
+            label9.Text = mhp3.ToString();
+            label10.Visible = true;
+            label10.Text = string.Format("AC: {0}", mac3);
+        }
+        private void button4_MouseMove(object sender, MouseEventArgs e)
+        {
+            CardImage.BackgroundImage = imgm[int.Parse(mte4[1])];
+            Dice1Image.Visible = true;
+            Dice2Image.Visible = true;
+            label5.Visible = true;
+            label6.Visible = true;
+            label7.Visible = true;
+            label8.Visible = true;
+            label11.Visible = true;
+            label15.Visible = true;
+            label16.Visible = true;
+            label17.Visible = true;
+
+            Dice1Image.Size = new Size(15 * mte4d1, 15);
+            Dice1Image.BackgroundImage = ipda[mte4d1];
+            
+            Dice2Image.Size = new Size(15 * mte4d2, 15);
+            Dice2Image.BackgroundImage = ipdb[mte4d2];
+            
+            label7.Text = mp41.ToString();
+            label8.Text = mp42.ToString();
+            label15.Text = mc4.ToString();
+            label17.Text = mcc4.ToString();
+            label9.Visible = true;
+            label9.Text = mhp4.ToString();
+            label10.Visible = true;
+            label10.Text = string.Format("AC: {0}", mac4);
+        }
+        private void button5_MouseMove(object sender, MouseEventArgs e)
+        {
+            CardImage.BackgroundImage = imgm[int.Parse(mte5[1])];
+            Dice1Image.Visible = true;
+            Dice2Image.Visible = true;
+            label5.Visible = true;
+            label6.Visible = true;
+            label7.Visible = true;
+            label8.Visible = true;
+            label11.Visible = true;
+            label15.Visible = true;
+            label16.Visible = true;
+            label17.Visible = true;
+
+            Dice1Image.Size = new Size(15 * mte5d1, 15);
+            Dice1Image.BackgroundImage = ipda[mte5d1];
+            
+            Dice2Image.Size = new Size(15 * mte5d2, 15);
+            Dice2Image.BackgroundImage = ipdb[mte5d2];
+            
+            label7.Text = mp51.ToString();
+            label8.Text = mp52.ToString();
+            label15.Text = mc5.ToString();
+            label17.Text = mcc5.ToString();
+            label9.Visible = true;
+            label9.Text = mhp5.ToString();
+            label10.Visible = true;
+            label10.Text = string.Format("AC: {0}", mac5);
+        }
+        private void field1_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (ba1ln > 0)
+            {
+                CardImage.BackgroundImage = imgm[ba1id];
+                Dice1Image.Visible = true;
+                Dice2Image.Visible = true;
+                label5.Visible = true;
+                label6.Visible = true;
+                label7.Visible = true;
+                label8.Visible = true;
+                label15.Visible = true;
+                label16.Visible = true;
+                label17.Visible = true;
+
+
+                Dice1Image.Size = new Size(15 * ba1d1, 15);
+                Dice1Image.BackgroundImage = ipda[ba1d1];
+
+                Dice2Image.Size = new Size(15 * ba1d2, 15);
+                Dice2Image.BackgroundImage = ipdb[ba1d2];
+
+                label7.Text = ba1p1.ToString();
+                label8.Text = ba1p2.ToString();
+                label15.Text = ba1c.ToString();
+                label17.Text = ba1cc.ToString();
+            }
+            else
+            {
+                CardImage.BackgroundImage = null;
+                Dice1Image.Visible = false;
+                Dice2Image.Visible = false;
+                label5.Visible = false;
+                label6.Visible = false;
+                label7.Visible = false;
+                label8.Visible = false;
+                label15.Visible = false;
+                label16.Visible = false;
+                label17.Visible = false;
+            }
+        }
+        private void field2_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (ba2ln > 0)
+            {
+                CardImage.BackgroundImage = imgm[ba2id];
+                Dice1Image.Visible = true;
+                Dice2Image.Visible = true;
+                label5.Visible = true;
+                label6.Visible = true;
+                label7.Visible = true;
+                label8.Visible = true;
+                label15.Visible = true;
+                label16.Visible = true;
+                label17.Visible = true;
+
+
+                Dice1Image.Size = new Size(15 * ba2d1, 15);
+                Dice1Image.BackgroundImage = ipda[ba2d1];
+
+                Dice2Image.Size = new Size(15 * ba2d2, 15);
+                Dice2Image.BackgroundImage = ipdb[ba2d2];
+
+                label7.Text = ba2p1.ToString();
+                label8.Text = ba2p2.ToString();
+                label15.Text = ba2c.ToString();
+                label17.Text = ba2cc.ToString();
+            }
+            else
+            {
+                CardImage.BackgroundImage = null;
+                Dice1Image.Visible = false;
+                Dice2Image.Visible = false;
+                label5.Visible = false;
+                label6.Visible = false;
+                label7.Visible = false;
+                label8.Visible = false;
+                label15.Visible = false;
+                label16.Visible = false;
+                label17.Visible = false;
+            }
+        }
+        private void field3_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (ba3ln > 0)
+            {
+                CardImage.BackgroundImage = imgm[ba3id];
+                Dice1Image.Visible = true;
+                Dice2Image.Visible = true;
+                label5.Visible = true;
+                label6.Visible = true;
+                label7.Visible = true;
+                label8.Visible = true;
+                label15.Visible = true;
+                label16.Visible = true;
+                label17.Visible = true;
+
+
+                Dice1Image.Size = new Size(15 * ba3d1, 15);
+                Dice1Image.BackgroundImage = ipda[ba3d1];
+
+                Dice2Image.Size = new Size(15 * ba3d2, 15);
+                Dice2Image.BackgroundImage = ipdb[ba3d2];
+
+                label7.Text = ba3p1.ToString();
+                label8.Text = ba3p2.ToString();
+                label15.Text = ba3c.ToString();
+                label17.Text = ba3cc.ToString();
+            }
+            else
+            {
+                CardImage.BackgroundImage = null;
+                Dice1Image.Visible = false;
+                Dice2Image.Visible = false;
+                label5.Visible = false;
+                label6.Visible = false;
+                label7.Visible = false;
+                label8.Visible = false;
+                label15.Visible = false;
+                label16.Visible = false;
+                label17.Visible = false;
+            }
+        }
+        private void field6_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (ba6ln > 0)
+            {
+                CardImage.BackgroundImage = imgm[ba6id];
+                Dice1Image.Visible = true;
+                Dice2Image.Visible = true;
+                label5.Visible = true;
+                label6.Visible = true;
+                label7.Visible = true;
+                label8.Visible = true;
+                label15.Visible = true;
+                label16.Visible = true;
+                label17.Visible = true;
+
+
+                Dice1Image.Size = new Size(15 * ba6d1, 15);
+                Dice1Image.BackgroundImage = ipda[ba6d1];
+
+                Dice2Image.Size = new Size(15 * ba6d2, 15);
+                Dice2Image.BackgroundImage = ipdb[ba6d2];
+
+                label7.Text = ba6p1.ToString();
+                label8.Text = ba6p2.ToString();
+                label15.Text = ba6c.ToString();
+                label17.Text = ba6cc.ToString();
+            }
+            else
+            {
+                CardImage.BackgroundImage = null;
+                Dice1Image.Visible = false;
+                Dice2Image.Visible = false;
+                label5.Visible = false;
+                label6.Visible = false;
+                label7.Visible = false;
+                label8.Visible = false;
+                label15.Visible = false;
+                label16.Visible = false;
+                label17.Visible = false;
+            }
+        }
+        private void field7_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (ba7ln > 0)
+            {
+                CardImage.BackgroundImage = imgm[ba7id];
+                Dice1Image.Visible = true;
+                Dice2Image.Visible = true;
+                label5.Visible = true;
+                label6.Visible = true;
+                label7.Visible = true;
+                label8.Visible = true;
+                label15.Visible = true;
+                label16.Visible = true;
+                label17.Visible = true;
+
+
+                Dice1Image.Size = new Size(15 * ba7d1, 15);
+                Dice1Image.BackgroundImage = ipda[ba7d1];
+
+                Dice2Image.Size = new Size(15 * ba7d2, 15);
+                Dice2Image.BackgroundImage = ipdb[ba7d2];
+
+                label7.Text = ba7p1.ToString();
+                label8.Text = ba7p2.ToString();
+                label15.Text = ba7c.ToString();
+                label17.Text = ba7cc.ToString();
+            }
+            else
+            {
+                CardImage.BackgroundImage = null;
+                Dice1Image.Visible = false;
+                Dice2Image.Visible = false;
+                label5.Visible = false;
+                label6.Visible = false;
+                label7.Visible = false;
+                label8.Visible = false;
+                label15.Visible = false;
+                label16.Visible = false;
+                label17.Visible = false;
+            }
+        }
+        private void field8_MouseMove(object sender, MouseEventArgs e)
+        {
+            if (ba8ln > 0)
+            {
+                CardImage.BackgroundImage = imgm[ba8id];
+                Dice1Image.Visible = true;
+                Dice2Image.Visible = true;
+                label5.Visible = true;
+                label6.Visible = true;
+                label7.Visible = true;
+                label8.Visible = true;
+                label15.Visible = true;
+                label16.Visible = true;
+                label17.Visible = true;
+
+
+                Dice1Image.Size = new Size(15 * ba8d1, 15);
+                Dice1Image.BackgroundImage = ipda[ba8d1];
+
+                Dice2Image.Size = new Size(15 * ba8d2, 15);
+                Dice2Image.BackgroundImage = ipdb[ba8d2];
+
+                label7.Text = ba8p1.ToString();
+                label8.Text = ba8p2.ToString();
+                label15.Text = ba8c.ToString();
+                label17.Text = ba8cc.ToString();
+            }
+            else
+            {
+                CardImage.BackgroundImage = null;
+                Dice1Image.Visible = false;
+                Dice2Image.Visible = false;
+                label5.Visible = false;
+                label6.Visible = false;
+                label7.Visible = false;
+                label8.Visible = false;
+                label15.Visible = false;
+                label16.Visible = false;
+                label17.Visible = false;
+            }
+        }
+        private void Form1_MouseEnter(object sender, EventArgs e)
+        {
+            CardImage.BackgroundImage = null;
+            
+            Dice1Image.Visible = false;
+            Dice2Image.Visible = false;
+            label5.Visible = false;
+            label6.Visible = false;
+            label7.Visible = false;
+            label8.Visible = false;
+            label9.Visible = false;
+            label10.Visible = false;
+            label11.Visible = false;
+            label15.Visible = false;
+            label16.Visible = false;
+            label17.Visible = false;
+            toolStrip1.Size = new Size(884, 5);
+        }
+        private void Form1_Click(object sender, EventArgs e)
+        {
+            trackBar1.Visible = false;
+        }
+        private void toolStripLabel1_Click(object sender, EventArgs e)
+        {
+            trackBar1.Visible = true;
+            trackBar1.Location = new Point(7, 0);
+        }
+        private void trackBar1_Scroll(object sender, EventArgs e)
+        {
+            volume = trackBar1.Value;
+            sound_volume();
+        }
+        private void toolStrip1_MouseEnter(object sender, EventArgs e)
+        {
+            toolStrip1.Size = new Size(884, 25);
+        }
+        //Button26のClickイベントハンドラ
+        public void Button26_Click(object sender, EventArgs e)
+        {
+            //turn++;
+            DialogResult result = MessageBox.Show("メインフェイズを終了しますか？","",
+            MessageBoxButtons.YesNo,
+            MessageBoxIcon.None,
+            MessageBoxDefaultButton.Button2);
+
+            //何が選択されたか調べる
+            if (result == DialogResult.Yes)
+            {
+                button26.Visible = false;
+                step++;
+                Main1();
+            }
+            else if (result == DialogResult.No)
+            {
+
+            }
+        }
+        private void Phase1()
+        {
+            if (timer == "on")
+            {
+                PhaseTimer1.Enabled = false;
+                t = 0;
+                obi.Visible = true;
+                if (NextPhase == 1) obi.Text = "Draw Phase";
+                else if (NextPhase == 2) obi.Text = "Attack Set Phase";
+                else if (NextPhase == 3) obi.Text = "Battle Phase";
+                else if (NextPhase == 4)
+                {
+                    obi.Text = "Next Turn";
+                    turn++;
+                }
+                else if (NextPhase == 5) obi.Text = "Defence Set Phase";
+                else if (NextPhase == 6) obi.Text = "Battle Phase";
+                PhaseTimer2.Enabled = true;
+            }
+            else if (timer == "cnt")
+            {
+                PhaseTimer2.Enabled = false;
+                t = 0;
+                obi.Visible = false;
+                NextPhase++;
+                step = 1;
+                timer = "off";
+                Main1();
+            }
+            else
+            {
+                PhaseTimer1.Enabled = true;
+            }
+        }
+        private void PhaseTimer50(object sender, EventArgs e)
+        {
+            timer = "on";
+            Phase1();
+        }
+        private void PhaseTimer500(object sender, EventArgs e)
+        {
+            timer = "cnt";
+            Phase1();
+        }
+        private void Form1_FormClosing(object sender, FormClosingEventArgs e)
+        {
+            DialogResult result = MessageBox.Show("ウィンドウを閉じますか？", "質問", MessageBoxButtons.YesNo, MessageBoxIcon.None);
+
+            if (result == DialogResult.No)
+            {
+                e.Cancel = true;
+            }
+            else
+            {
+                sound_stop();
+                ((Form2)this.Owner).fm1end();
+            }
+        }
+        private void yjs1()
+        {
+
+            //描画先とするImageオブジェクトを作成する
+            Bitmap canvas = new Bitmap(field1.Width, field1.Height);
+            //ImageオブジェクトのGraphicsオブジェクトを作成する
+            Graphics g = Graphics.FromImage(canvas);
+
+            string drawString = "↑";
+            //Fontを作成
+            Font fnt = new Font("MS UI Gothic", 20);
+            //線形グラデーション（横に黄色から赤）を作成
+            LinearGradientBrush b = new LinearGradientBrush(
+                                        field1.ClientRectangle,
+                                        Color.Red,
+                                        Color.WhiteSmoke,
+                                        LinearGradientMode.Vertical);
+            //StringFormatを作成
+            StringFormat sf = new StringFormat();
+            //文字を真ん中に表示
+            sf.Alignment = StringAlignment.Center;
+            sf.LineAlignment = StringAlignment.Center;
+            //文字を書く
+            g.DrawString(drawString,fnt , b,
+                field1.ClientRectangle, sf);
+
+            //リソースを解放する
+            fnt.Dispose();
+            b.Dispose();
+            g.Dispose();
+
+            //PictureBox3に表示する
+            field1.Image = canvas;
+        }
+        private void bgm_OnOff_Click(object sender, EventArgs e)
+        {
+            if (bgm == "off")
+            {
+                bgm = "on";
+                sound_play();
+            }
+            else if (bgm == "on")
+            {
+                bgm = "off";
+                sound_stop();
+            }
+
+        }
+        // BGM用　ここから
+        [System.Runtime.InteropServices.DllImport("winmm.dll")]
+        private static extern int mciSendString(String command,
+        StringBuilder buffer, int bufferSize, IntPtr hwndCallback);
+        private static int MM_MCINOTIFY = 0x3B9;
+        private static int MCI_NOTIFY_SUCCESSFUL = 1;
+        // ファイルオープン（path : ファイルパス）
+        private int sound_open()
+        {
+            // alias : デバイス名（任意の文字列）を my_sound と定義
+            return mciSendString("open \"" + path + "\" alias my_sound", null, 0, IntPtr.Zero);
+        }
+        // ファイルクローズ
+        private void sound_close()
+        {
+            mciSendString("close my_sound", null, 0, IntPtr.Zero);
+        }
+        // 再生
+        private void sound_play()
+        {
+            bgm = "on";
+            mciSendString("play my_sound from 0 notify", null, 0, this.Handle);
+        }
+        // 停止
+        private void sound_stop()
+        {
+            mciSendString("stop my_sound", null, 0, IntPtr.Zero);
+        }
+        // 一時停止
+        private void sound_pause()
+        {
+            mciSendString("pause my_sound", null, 0, IntPtr.Zero);
+        }
+        // 一時停止解除
+        private void sound_resume()
+        {
+            mciSendString("resume my_sound", null, 0, IntPtr.Zero);
+        }
+        // 音量設定（volume:音量、0で最小、1000程で最大）（*1）
+        private void sound_volume()
+        {
+            mciSendString("setaudio my_sound volume to " + volume.ToString(), null, 0, IntPtr.Zero);
+        }
+        // 曲終了時の処理
+        protected override void WndProc(ref Message m)
+        {
+            if (m.Msg == MM_MCINOTIFY && (int)m.WParam == MCI_NOTIFY_SUCCESSFUL)
+            {
+                sound_play();
+            }
+            base.WndProc(ref m);
+        }
+
+        private void sound_hit()
+        {
+            //URLプロパティが指定されたら自動的に再生されるようにする
+            axWindowsMediaPlayer1.settings.autoStart = true;
+            //オーディオファイルを指定する（自動的に再生される）
+            axWindowsMediaPlayer1.URL = waveFile;
+            axWindowsMediaPlayer1.settings.volume = 40;
+            //autoStartがfalseのときは、次のようにして再生する
+            axWindowsMediaPlayer1.Ctlcontrols.play();
+        }
+
+
+        //var assm = Assembly.GetExecutingAssembly();
+
+        // リソースとして埋め込んだ画像ファイルのストリームを取得
+        // using (var stream = assm.GetManifestResourceStream("test1.n62.mp3"))
+        //{
+        //   // ストリームの内容をMemoryStreamにコピー
+        //   var length = (int)stream.Length;
+        //    var reader = new BinaryReader(stream);
+        //    var memoryStream = new MemoryStream(length);
+
+        //    memoryStream.Write(reader.ReadBytes(length), 0, length);
+
+        // コピーしたMemoryStreamからBitmapを作成し、背景に設定
+
+        // }
+
+
+
+    }
+}
+
+// 控え
+
+//パス取得
+
+//Path = Directory.GetCurrentDirectory();
+//Path = Path + "\\test.txt";
+//textBox1.Text = Path;
+
+//1文読み込み
+
+//StreamReader file = new StreamReader("test.txt");
+
+// while ((line[counter] = file.ReadLine()) != null)
+// {
+//     MessageBox.Show(line[counter]);
+//     counter++;
+// }
+
+// カンマ区切り
+
+//StreamReader file = new StreamReader("kanma.txt");
+//kanma = file.ReadToEnd();
+          //  string[] kanma1 = kanma.Split(',');
+          //  foreach (string stData in kanma1)
+          //  {
+          //     MessageBox.Show(stData);
+          // }
