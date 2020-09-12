@@ -33,7 +33,7 @@ namespace test1
                 frm.Owner = this;
                 frm.Show();
                 opn = 1;
-                frm.Main();
+                frm.StartConfig();
                 //this.Hide();
             }
             else

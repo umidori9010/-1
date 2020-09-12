@@ -30,17 +30,17 @@
         {
             this.components = new System.ComponentModel.Container();
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Form1));
-            this.button1 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button4 = new System.Windows.Forms.Button();
-            this.button5 = new System.Windows.Forms.Button();
-            this.button21 = new System.Windows.Forms.Button();
-            this.button22 = new System.Windows.Forms.Button();
-            this.button23 = new System.Windows.Forms.Button();
-            this.button24 = new System.Windows.Forms.Button();
-            this.button25 = new System.Windows.Forms.Button();
-            this.button26 = new System.Windows.Forms.Button();
+            this.mthd1 = new System.Windows.Forms.Button();
+            this.mthd2 = new System.Windows.Forms.Button();
+            this.mthd3 = new System.Windows.Forms.Button();
+            this.mthd4 = new System.Windows.Forms.Button();
+            this.mthd5 = new System.Windows.Forms.Button();
+            this.ythd1 = new System.Windows.Forms.Button();
+            this.ythd2 = new System.Windows.Forms.Button();
+            this.ythd3 = new System.Windows.Forms.Button();
+            this.ythd4 = new System.Windows.Forms.Button();
+            this.ythd5 = new System.Windows.Forms.Button();
+            this.NextPb = new System.Windows.Forms.Button();
             this.myamahuda = new System.Windows.Forms.Button();
             this.yyamahuda = new System.Windows.Forms.Button();
             this.button32 = new System.Windows.Forms.Button();
@@ -50,7 +50,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label4 = new System.Windows.Forms.Label();
-            this.DiceTimerStart = new System.Windows.Forms.Timer(this.components);
+            this.DiceTimer = new System.Windows.Forms.Timer(this.components);
             this.Dice1Image = new System.Windows.Forms.PictureBox();
             this.Dice2Image = new System.Windows.Forms.PictureBox();
             this.label5 = new System.Windows.Forms.Label();
@@ -76,7 +76,6 @@
             this.toolStrip1 = new System.Windows.Forms.ToolStrip();
             this.toolStripLabel1 = new System.Windows.Forms.ToolStripLabel();
             this.trackBar1 = new System.Windows.Forms.TrackBar();
-            this.DmgEffectTime = new System.Windows.Forms.Timer(this.components);
             this.field4 = new System.Windows.Forms.PictureBox();
             this.field5 = new System.Windows.Forms.PictureBox();
             this.field6 = new System.Windows.Forms.PictureBox();
@@ -104,8 +103,10 @@
             this.label19 = new System.Windows.Forms.Label();
             this.label20 = new System.Windows.Forms.Label();
             this.yyamahuda_n = new System.Windows.Forms.Label();
+            this.Drawtimer1 = new System.Windows.Forms.Timer(this.components);
             this.axWindowsMediaPlayer1 = new AxWMPLib.AxWindowsMediaPlayer();
-            this.timer1 = new System.Windows.Forms.Timer(this.components);
+            this.label12 = new System.Windows.Forms.Label();
+            this.label21 = new System.Windows.Forms.Label();
             ((System.ComponentModel.ISupportInitialize)(this.Dice1Image)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.Dice2Image)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.field1)).BeginInit();
@@ -128,158 +129,158 @@
             ((System.ComponentModel.ISupportInitialize)(this.axWindowsMediaPlayer1)).BeginInit();
             this.SuspendLayout();
             // 
-            // button1
+            // mthd1
             // 
-            this.button1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button1.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button1.Location = new System.Drawing.Point(220, 500);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(72, 100);
-            this.button1.TabIndex = 6;
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.button1_Click);
-            this.button1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button1_MouseMove);
+            this.mthd1.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.mthd1.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.mthd1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.mthd1.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.mthd1.Location = new System.Drawing.Point(220, 500);
+            this.mthd1.Name = "mthd1";
+            this.mthd1.Size = new System.Drawing.Size(72, 100);
+            this.mthd1.TabIndex = 6;
+            this.mthd1.UseVisualStyleBackColor = true;
+            this.mthd1.Click += new System.EventHandler(this.mthd1_Click);
+            this.mthd1.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mthd1_MouseMove);
             // 
-            // button2
+            // mthd2
             // 
-            this.button2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button2.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button2.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button2.Location = new System.Drawing.Point(300, 500);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(72, 100);
-            this.button2.TabIndex = 7;
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Visible = false;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            this.button2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button2_MouseMove);
+            this.mthd2.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.mthd2.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.mthd2.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.mthd2.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.mthd2.Location = new System.Drawing.Point(300, 500);
+            this.mthd2.Name = "mthd2";
+            this.mthd2.Size = new System.Drawing.Size(72, 100);
+            this.mthd2.TabIndex = 7;
+            this.mthd2.UseVisualStyleBackColor = true;
+            this.mthd2.Visible = false;
+            this.mthd2.Click += new System.EventHandler(this.mthd2_Click);
+            this.mthd2.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mthd2_MouseMove);
             // 
-            // button3
+            // mthd3
             // 
-            this.button3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button3.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button3.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button3.Location = new System.Drawing.Point(380, 500);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(72, 100);
-            this.button3.TabIndex = 8;
-            this.button3.UseVisualStyleBackColor = true;
-            this.button3.Visible = false;
-            this.button3.Click += new System.EventHandler(this.button3_Click);
-            this.button3.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button3_MouseMove);
+            this.mthd3.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.mthd3.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.mthd3.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.mthd3.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.mthd3.Location = new System.Drawing.Point(380, 500);
+            this.mthd3.Name = "mthd3";
+            this.mthd3.Size = new System.Drawing.Size(72, 100);
+            this.mthd3.TabIndex = 8;
+            this.mthd3.UseVisualStyleBackColor = true;
+            this.mthd3.Visible = false;
+            this.mthd3.Click += new System.EventHandler(this.mthd3_Click);
+            this.mthd3.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mthd3_MouseMove);
             // 
-            // button4
+            // mthd4
             // 
-            this.button4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button4.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button4.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button4.Location = new System.Drawing.Point(460, 500);
-            this.button4.Name = "button4";
-            this.button4.Size = new System.Drawing.Size(72, 100);
-            this.button4.TabIndex = 9;
-            this.button4.UseVisualStyleBackColor = true;
-            this.button4.Visible = false;
-            this.button4.Click += new System.EventHandler(this.button4_Click);
-            this.button4.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button4_MouseMove);
+            this.mthd4.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.mthd4.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.mthd4.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.mthd4.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.mthd4.Location = new System.Drawing.Point(460, 500);
+            this.mthd4.Name = "mthd4";
+            this.mthd4.Size = new System.Drawing.Size(72, 100);
+            this.mthd4.TabIndex = 9;
+            this.mthd4.UseVisualStyleBackColor = true;
+            this.mthd4.Visible = false;
+            this.mthd4.Click += new System.EventHandler(this.mthd4_Click);
+            this.mthd4.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mthd4_MouseMove);
             // 
-            // button5
+            // mthd5
             // 
-            this.button5.BackColor = System.Drawing.SystemColors.Control;
-            this.button5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
-            this.button5.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button5.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
-            this.button5.Location = new System.Drawing.Point(540, 500);
-            this.button5.Name = "button5";
-            this.button5.Size = new System.Drawing.Size(72, 100);
-            this.button5.TabIndex = 10;
-            this.button5.UseVisualStyleBackColor = true;
-            this.button5.Visible = false;
-            this.button5.Click += new System.EventHandler(this.button5_Click);
-            this.button5.MouseMove += new System.Windows.Forms.MouseEventHandler(this.button5_MouseMove);
+            this.mthd5.BackColor = System.Drawing.SystemColors.Control;
+            this.mthd5.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.mthd5.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.mthd5.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.mthd5.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
+            this.mthd5.Location = new System.Drawing.Point(540, 500);
+            this.mthd5.Name = "mthd5";
+            this.mthd5.Size = new System.Drawing.Size(72, 100);
+            this.mthd5.TabIndex = 10;
+            this.mthd5.UseVisualStyleBackColor = true;
+            this.mthd5.Visible = false;
+            this.mthd5.Click += new System.EventHandler(this.mthd5_Click);
+            this.mthd5.MouseMove += new System.Windows.Forms.MouseEventHandler(this.mthd5_MouseMove);
             // 
-            // button21
+            // ythd1
             // 
-            this.button21.Enabled = false;
-            this.button21.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button21.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button21.Location = new System.Drawing.Point(220, 10);
-            this.button21.Name = "button21";
-            this.button21.Size = new System.Drawing.Size(72, 100);
-            this.button21.TabIndex = 21;
-            this.button21.Text = "敵手札1";
-            this.button21.UseVisualStyleBackColor = true;
-            this.button21.Visible = false;
+            this.ythd1.Enabled = false;
+            this.ythd1.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.ythd1.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ythd1.Location = new System.Drawing.Point(220, 10);
+            this.ythd1.Name = "ythd1";
+            this.ythd1.Size = new System.Drawing.Size(72, 100);
+            this.ythd1.TabIndex = 21;
+            this.ythd1.Text = "敵手札1";
+            this.ythd1.UseVisualStyleBackColor = true;
+            this.ythd1.Visible = false;
             // 
-            // button22
+            // ythd2
             // 
-            this.button22.Enabled = false;
-            this.button22.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button22.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button22.Location = new System.Drawing.Point(300, 10);
-            this.button22.Name = "button22";
-            this.button22.Size = new System.Drawing.Size(72, 100);
-            this.button22.TabIndex = 22;
-            this.button22.Text = "敵手札2";
-            this.button22.UseVisualStyleBackColor = true;
-            this.button22.Visible = false;
+            this.ythd2.Enabled = false;
+            this.ythd2.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.ythd2.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ythd2.Location = new System.Drawing.Point(300, 10);
+            this.ythd2.Name = "ythd2";
+            this.ythd2.Size = new System.Drawing.Size(72, 100);
+            this.ythd2.TabIndex = 22;
+            this.ythd2.Text = "敵手札2";
+            this.ythd2.UseVisualStyleBackColor = true;
+            this.ythd2.Visible = false;
             // 
-            // button23
+            // ythd3
             // 
-            this.button23.Enabled = false;
-            this.button23.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button23.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button23.Location = new System.Drawing.Point(380, 10);
-            this.button23.Name = "button23";
-            this.button23.Size = new System.Drawing.Size(72, 100);
-            this.button23.TabIndex = 23;
-            this.button23.Text = "敵手札3";
-            this.button23.UseVisualStyleBackColor = true;
-            this.button23.Visible = false;
+            this.ythd3.Enabled = false;
+            this.ythd3.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.ythd3.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ythd3.Location = new System.Drawing.Point(380, 10);
+            this.ythd3.Name = "ythd3";
+            this.ythd3.Size = new System.Drawing.Size(72, 100);
+            this.ythd3.TabIndex = 23;
+            this.ythd3.Text = "敵手札3";
+            this.ythd3.UseVisualStyleBackColor = true;
+            this.ythd3.Visible = false;
             // 
-            // button24
+            // ythd4
             // 
-            this.button24.Enabled = false;
-            this.button24.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button24.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button24.Location = new System.Drawing.Point(460, 10);
-            this.button24.Name = "button24";
-            this.button24.Size = new System.Drawing.Size(72, 100);
-            this.button24.TabIndex = 24;
-            this.button24.Text = "敵手札4";
-            this.button24.UseVisualStyleBackColor = true;
-            this.button24.Visible = false;
+            this.ythd4.Enabled = false;
+            this.ythd4.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.ythd4.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ythd4.Location = new System.Drawing.Point(460, 10);
+            this.ythd4.Name = "ythd4";
+            this.ythd4.Size = new System.Drawing.Size(72, 100);
+            this.ythd4.TabIndex = 24;
+            this.ythd4.Text = "敵手札4";
+            this.ythd4.UseVisualStyleBackColor = true;
+            this.ythd4.Visible = false;
             // 
-            // button25
+            // ythd5
             // 
-            this.button25.Enabled = false;
-            this.button25.FlatAppearance.BorderColor = System.Drawing.Color.Black;
-            this.button25.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
-            this.button25.Location = new System.Drawing.Point(540, 13);
-            this.button25.Name = "button25";
-            this.button25.Size = new System.Drawing.Size(72, 100);
-            this.button25.TabIndex = 25;
-            this.button25.Text = "敵手札5";
-            this.button25.UseVisualStyleBackColor = true;
-            this.button25.Visible = false;
+            this.ythd5.Enabled = false;
+            this.ythd5.FlatAppearance.BorderColor = System.Drawing.Color.Black;
+            this.ythd5.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.ythd5.Location = new System.Drawing.Point(540, 13);
+            this.ythd5.Name = "ythd5";
+            this.ythd5.Size = new System.Drawing.Size(72, 100);
+            this.ythd5.TabIndex = 25;
+            this.ythd5.Text = "敵手札5";
+            this.ythd5.UseVisualStyleBackColor = true;
+            this.ythd5.Visible = false;
             // 
-            // button26
+            // NextPb
             // 
-            this.button26.Cursor = System.Windows.Forms.Cursors.Hand;
-            this.button26.Enabled = false;
-            this.button26.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
-            this.button26.Location = new System.Drawing.Point(625, 522);
-            this.button26.Name = "button26";
-            this.button26.Size = new System.Drawing.Size(55, 71);
-            this.button26.TabIndex = 26;
-            this.button26.Text = "終了";
-            this.button26.UseVisualStyleBackColor = true;
-            this.button26.Click += new System.EventHandler(this.Button26_Click);
+            this.NextPb.Cursor = System.Windows.Forms.Cursors.Hand;
+            this.NextPb.Font = new System.Drawing.Font("MS UI Gothic", 18F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.NextPb.Location = new System.Drawing.Point(625, 522);
+            this.NextPb.Name = "NextPb";
+            this.NextPb.Size = new System.Drawing.Size(55, 71);
+            this.NextPb.TabIndex = 26;
+            this.NextPb.Text = "終了";
+            this.NextPb.UseVisualStyleBackColor = true;
+            this.NextPb.Visible = false;
+            this.NextPb.Click += new System.EventHandler(this.NextPb_Click);
             // 
             // myamahuda
             // 
@@ -385,10 +386,10 @@
             this.label4.Text = "0";
             this.label4.Visible = false;
             // 
-            // DiceTimerStart
+            // DiceTimer
             // 
-            this.DiceTimerStart.Interval = 50;
-            this.DiceTimerStart.Tick += new System.EventHandler(this.DiceTimerStart_Tick);
+            this.DiceTimer.Interval = 50;
+            this.DiceTimer.Tick += new System.EventHandler(this.DiceTimer_Tick);
             // 
             // Dice1Image
             // 
@@ -645,7 +646,6 @@
             // DiceTimerEnd
             // 
             this.DiceTimerEnd.Interval = 1000;
-            this.DiceTimerEnd.Tick += new System.EventHandler(this.DiceTimerEnd_Tick);
             // 
             // toolStrip1
             // 
@@ -683,11 +683,6 @@
             this.trackBar1.Value = 150;
             this.trackBar1.Visible = false;
             this.trackBar1.Scroll += new System.EventHandler(this.trackBar1_Scroll);
-            // 
-            // DmgEffectTime
-            // 
-            this.DmgEffectTime.Interval = 1000;
-            this.DmgEffectTime.Tick += new System.EventHandler(this.DmgEffectTime_Tick);
             // 
             // field4
             // 
@@ -1007,6 +1002,11 @@
             this.yyamahuda_n.TabIndex = 97;
             this.yyamahuda_n.Text = "30";
             // 
+            // Drawtimer1
+            // 
+            this.Drawtimer1.Interval = 20;
+            this.Drawtimer1.Tick += new System.EventHandler(this.Drawtimer1_Tick);
+            // 
             // axWindowsMediaPlayer1
             // 
             this.axWindowsMediaPlayer1.Enabled = true;
@@ -1017,6 +1017,26 @@
             this.axWindowsMediaPlayer1.TabIndex = 68;
             this.axWindowsMediaPlayer1.Visible = false;
             // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label12.Location = new System.Drawing.Point(261, 285);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(31, 15);
+            this.label12.TabIndex = 98;
+            this.label12.Text = "F6D";
+            // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Font = new System.Drawing.Font("Meiryo UI", 9F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(128)));
+            this.label21.Location = new System.Drawing.Point(313, 285);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(31, 15);
+            this.label21.TabIndex = 99;
+            this.label21.Text = "F6D";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1025,6 +1045,8 @@
             this.BackgroundImage = global::test1.Properties.Resources.kabe21;
             this.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.ClientSize = new System.Drawing.Size(884, 611);
+            this.Controls.Add(this.label21);
+            this.Controls.Add(this.label12);
             this.Controls.Add(this.yyamahuda_n);
             this.Controls.Add(this.label20);
             this.Controls.Add(this.label19);
@@ -1071,17 +1093,17 @@
             this.Controls.Add(this.textBox1);
             this.Controls.Add(this.yyamahuda);
             this.Controls.Add(this.myamahuda);
-            this.Controls.Add(this.button26);
-            this.Controls.Add(this.button25);
-            this.Controls.Add(this.button24);
-            this.Controls.Add(this.button23);
-            this.Controls.Add(this.button22);
-            this.Controls.Add(this.button21);
-            this.Controls.Add(this.button5);
-            this.Controls.Add(this.button4);
-            this.Controls.Add(this.button3);
-            this.Controls.Add(this.button2);
-            this.Controls.Add(this.button1);
+            this.Controls.Add(this.NextPb);
+            this.Controls.Add(this.ythd5);
+            this.Controls.Add(this.ythd4);
+            this.Controls.Add(this.ythd3);
+            this.Controls.Add(this.ythd2);
+            this.Controls.Add(this.ythd1);
+            this.Controls.Add(this.mthd5);
+            this.Controls.Add(this.mthd4);
+            this.Controls.Add(this.mthd3);
+            this.Controls.Add(this.mthd2);
+            this.Controls.Add(this.mthd1);
             this.Controls.Add(this.button32);
             this.Controls.Add(this.field3);
             this.Controls.Add(this.label16);
@@ -1129,27 +1151,27 @@
         }
 
         #endregion
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button4;
-        private System.Windows.Forms.Button button5;
-        private System.Windows.Forms.Button button21;
-        private System.Windows.Forms.Button button22;
-        private System.Windows.Forms.Button button23;
-        private System.Windows.Forms.Button button24;
-        private System.Windows.Forms.Button button25;
-        private System.Windows.Forms.Button button26;
+        private System.Windows.Forms.Button mthd2;
+        private System.Windows.Forms.Button mthd3;
+        private System.Windows.Forms.Button mthd4;
+        private System.Windows.Forms.Button mthd5;
+        private System.Windows.Forms.Button ythd1;
+        private System.Windows.Forms.Button ythd2;
+        private System.Windows.Forms.Button ythd3;
+        private System.Windows.Forms.Button ythd4;
+        private System.Windows.Forms.Button ythd5;
+        private System.Windows.Forms.Button NextPb;
         private System.Windows.Forms.Button myamahuda;
         private System.Windows.Forms.Button yyamahuda;
         private System.Windows.Forms.Button button32;
         private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.Button bgm_OnOff;
-        private System.Windows.Forms.Button button1;
+        private System.Windows.Forms.Button mthd1;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Label label3;
         private System.Windows.Forms.Label label4;
-        private System.Windows.Forms.Timer DiceTimerStart;
+        private System.Windows.Forms.Timer DiceTimer;
         private System.Windows.Forms.PictureBox Dice1Image;
         private System.Windows.Forms.PictureBox Dice2Image;
         private System.Windows.Forms.Label label5;
@@ -1175,7 +1197,6 @@
         private System.Windows.Forms.ToolStrip toolStrip1;
         private System.Windows.Forms.ToolStripLabel toolStripLabel1;
         private System.Windows.Forms.TrackBar trackBar1;
-        private System.Windows.Forms.Timer DmgEffectTime;
         private AxWMPLib.AxWindowsMediaPlayer axWindowsMediaPlayer1;
         private System.Windows.Forms.PictureBox field4;
         private System.Windows.Forms.PictureBox field5;
@@ -1204,6 +1225,8 @@
         private System.Windows.Forms.Label label19;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label yyamahuda_n;
-        private System.Windows.Forms.Timer timer1;
+        private System.Windows.Forms.Timer Drawtimer1;
+        private System.Windows.Forms.Label label12;
+        private System.Windows.Forms.Label label21;
     }
 }

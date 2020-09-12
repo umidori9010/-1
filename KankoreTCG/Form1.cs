@@ -21,7 +21,7 @@ namespace test1
 
     public partial class Form1 : Form
     {
-        int d, i, j, k = 0, s,m=0, n, t = 0, dr = 0;
+        int d, i, j, k = 0, s, n, t = 0;
         int mcst = 0, mtcst = 0, ytcst = 0, ycst = 0;       //  残コスト、ターンコスト
         int seed;
         int StartTime = 0, EndTime = 0, TimePara = 0;
@@ -49,10 +49,9 @@ namespace test1
         int ycc1, ycc2, ycc3, ycc4, ycc5;
         int volume = 150;
         int turn = 1, NowPhase = 0;
-        string who;
-        int hiki, mhiki, yhiki, mthd = 0, ythd = 0, myama,yyama;
+        int hiki, mhiki = 0, yhiki, mthd = 0, ythd = 0, myama = 30, yyama = 30;
         int dicenmb = 0;
-        int ba1set = 0, ba2set = 0, ba3set = 0, ba4set = 0, ba5set = 0;
+        int ba1set, ba2set, ba3set, ba4set;
         int ba6set = 0, ba7set = 0, ba8set = 0, ba9set = 0, ba10set = 0;
         int ba1move = 0, ba2move = 0, ba3move = 0, ba4move = 0, ba5move = 0;
         int ba6move = 0, ba7move = 0, ba8move = 0, ba9move = 0, ba10move = 0;
@@ -60,6 +59,7 @@ namespace test1
         int ba6ln = 0, ba7ln = 0, ba8ln = 0, ba9ln = 0, ba10ln = 0;
         int ba1id = 0, ba2id = 0, ba3id = 0, ba4id = 0, ba5id = 0;
         int ba6id = 0, ba7id = 0, ba8id = 0, ba9id = 0, ba10id = 0;
+
         int ba1c = 0, ba2c = 0, ba3c = 0, ba4c = 0, ba5c = 0, ba6c = 0, ba7c = 0, ba8c = 0, ba9c = 0, ba10c = 0;
         int mbacc =0,ybacc=0,ba1cc=0, ba2cc = 0, ba3cc = 0, ba4cc = 0, ba5cc = 0, ba6cc = 0, ba7cc = 0, ba8cc = 0, ba9cc = 0, ba10cc = 0;
         int ba1ac = 0, ba2ac = 0, ba3ac = 0, ba6ac = 0, ba7ac = 0, ba8ac = 0;
@@ -68,11 +68,9 @@ namespace test1
         int ba6d1 = 0, ba7d1 = 0, ba8d1 = 0, ba6d2 = 0, ba7d2 = 0, ba8d2 = 0;
         int ba1p1 = 0, ba2p1 = 0, ba3p1 = 0, ba1p2 = 0, ba2p2 = 0, ba3p2 = 0;
         int ba6p1 = 0, ba7p1 = 0, ba8p1 = 0, ba6p2 = 0, ba7p2 = 0, ba8p2 = 0;
-        int btlflg1 = 0, btlflg2 = 0, btlflg3 = 0;
         int btlflg6 = 0, btlflg7 = 0, btlflg8 = 0;
         int btl1 = 0, btl2 = 0, btl3 = 0;
         int btl6 = 0, btl7 = 0, btl8 = 0;
-        int TimerStep = 0;
         int atk = 0, hp = 0, ac = 0, dmg = 0;
         int ith=0;        //退避
         int[] mln = new int[5];
@@ -100,6 +98,8 @@ namespace test1
         int[] ba8 = new int[20];
         int[] ba9 = new int[20];
         int[] ba10 = new int[20];
+        //flg[0]：Phase、[1]：自分(1)か相手(2)か
+        int[] flg = new int[2];
         int[,] mdk = new int[31,20];
         int[,] ydk = new int[31,20];
         Image[] imgs = new Image[12];
@@ -125,107 +125,14 @@ namespace test1
             InitializeComponent();
         }
 
-        public void Main()
-        {
-            if (mainflag == 0)
-            {
-                NowPhase = 0;
-                StartConfig();
-                //上の動作後にmain2に行く動作を入れるのね・・・。20200907
-                //仮として・・・
-                mDraw();
-                mSetPhase();
-                mPara();
-                DrawTime();
-                //yDraw();
-                
-            }
-            /*
-            else if (mainflag == 1)
-            {
-                who = "m";
-                Phase_on();
-            }
-            else if (mainflag == 2)
-            {
-                NowPhase = 1;
-                Phase_on();
-            }
-            
-            else if (mainflag == 2)
-            {
-                mainflag = 999;
-                
-                mtcst = turn - mbacc;
-                ytcst = turn - ybacc;
-                label4.Text = turn.ToString();
-                btn_Enable();                
-            }
-            else if (mainflag == 3)
-            {
-                mainflag = 999;
-                mSetPhase();
-                ySetPhase();
-                Phase_on();
-                mainflag = 4;
-            }
-            else if (mainflag == 4)
-            {
-                mainflag = 999;
-                AttackBattlePhase();
-                Phase_on();
-                mainflag = 5;
-            }
-            */
-        }
-        public void Main2()
-        {
-            mSetPhase();
-            ySetPhase();
-            NowPhase = 1;
-            
-            //Phase_on();
-            //NowPhase=3;
-            //Phase_on();
-        }
-        public void Main3()
-        {
-            AttackBattlePhase();
-            //ySetPhase();
-            //NowPhase=4;
-            //Phase_on();
-        }
-        public void Main4()
-        {
-            mtcst = turn - mbacc;
-            ytcst = turn - ybacc;
-            label4.Text = turn.ToString();
-            NowPhase = 5;
-            Phase_on();
-            //AttackBattlePhase();
-        }
-        public void Main5()
-        {
-            ySetPhase();
-            btn_Enable();
-            /*
-            DrawPhase();
-            turn++;
-            label3.Text = turn.ToString();
-            mtcst = turn - mbacc;
-            ytcst = turn - ybacc;
-            label4.Text = turn.ToString();
-            btn_Enable();
-            */
-        }
-        private void StartConfig()
+        public void StartConfig()
         {             //BGM_ON
             sound_open();
             sound_play();
             sound_volume();
 
             // 自フェイズ 初期
-            button26.Enabled = true;
+            NextPb.Enabled = true;
             label1.Visible = true;
             label2.Visible = true;
             label3.Visible = true;
@@ -275,16 +182,16 @@ namespace test1
             label16.BackColor = Color.FromArgb(150, 0, 0, 0);
             label16.Location -= (Size)this.CardImage.Location;
 
-            button1.Location = new Point(690, 500);
-            button2.Location = new Point(690, 500);
-            button3.Location = new Point(690, 500);
-            button4.Location = new Point(690, 500);
-            button5.Location = new Point(690, 500);
-            button21.Location = new Point(690, 10);
-            button22.Location = new Point(690, 10);
-            button23.Location = new Point(690, 10);
-            button24.Location = new Point(690, 10);
-            button25.Location = new Point(690, 10);
+            mthd1.Location = new Point(690, 500);
+            mthd2.Location = new Point(690, 500);
+            mthd3.Location = new Point(690, 500);
+            mthd4.Location = new Point(690, 500);
+            mthd5.Location = new Point(690, 500);
+            ythd1.Location = new Point(690, 10);
+            ythd2.Location = new Point(690, 10);
+            ythd3.Location = new Point(690, 10);
+            ythd4.Location = new Point(690, 10);
+            ythd5.Location = new Point(690, 10);
 
             M1Cost.Location = new Point(250, 485);
             M1Cost.ForeColor = Color.White;
@@ -353,13 +260,13 @@ namespace test1
             obi.Size = new Size(884, 110);
             obi.BackColor = Color.FromArgb(150, 0, 0, 0);
 
-            myDice.Parent = CardImage;
-            myDice.Location = new Point(110, 310);
+            //myDice.Parent = CardImage;
+            myDice.Location = new Point(40, 440);
             myDice.BackColor = Color.FromArgb(0, 0, 0, 0);
-            myDice.Location -= (Size)this.CardImage.Location;
-            
+            //myDice.Location -= (Size)this.CardImage.Location;
 
-            youDice.Parent = CardImage;
+
+            //youDice.Parent = CardImage;
             youDice.Location = new Point(110, 200);
             youDice.BackColor = Color.FromArgb(0, 0, 0, 0);
             youDice.Location -= (Size)this.CardImage.Location;
@@ -407,7 +314,7 @@ namespace test1
             {
                 for (j = 0; j < 20; j++)
                 {
-                    mdk[i, j] = int.Parse(fr4.mData[mdeck[i-1], j]);
+                    mdk[i, j] = int.Parse(fr4.mData[mdeck[i - 1], j]);
                 }
             }
             fr4.deck2();
@@ -415,15 +322,9 @@ namespace test1
             {
                 for (j = 0; j < 20; j++)
                 {
-                    ydk[i, j] = int.Parse(fr4.yData[ydeck[i-1], j]);
+                    ydk[i, j] = int.Parse(fr4.yData[ydeck[i - 1], j]);
                 }
             }
-            mln1 = mdk[1, 0];
-            mln2 = mdk[2, 0];
-            mln3 = mdk[3, 0];
-            mln4 = mdk[4, 0];
-            mln5 = mdk[5, 0];
-            mhiki = 5;
             yln1 = ydk[1, 0];
             yln2 = ydk[2, 0];
             yln3 = ydk[3, 0];
@@ -431,10 +332,8 @@ namespace test1
             yln5 = ydk[5, 0];
             yhiki = 5;
 
-            myama = 30 - mhiki;
-            yyama = 30 - yhiki;
-
-            //mte[],yte[]初期化mPara等の停止を防ぐ
+            //mte[],yte[]初期化mPara等の停止を防ぐ？
+            /*
             for (i = 0; i < 20; i++)
             {
                 mte1[i] = 0;
@@ -458,6 +357,7 @@ namespace test1
                 ba9[i] = 0;
                 ba10[i] = 0;
             }
+            */
             //画像読み込み
             imgs[0] = Image.FromFile(@"Resources\null.png");
             imgm[0] = Image.FromFile(@"Resources\null.png");
@@ -484,235 +384,69 @@ namespace test1
             myamahuda.BackgroundImage = imgura;
             yyamahuda.BackgroundImage = imgura;
             TurnCost();
-            //mainflag = 1;
-
+            flg[0] = 0;
+            Main1_m();
         }
+        public void Main1_m()
+        {
+
+            mSet();
+            
+            mDraw();
+            mPara();
+
+            label21.Text = mln1.ToString();
+        }
+        public void Main1_y()
+        {
+            ySet();
+            yPara();
+            yDraw();
+        }
+        public void Main2()
+        {
+            AttackBattle();
+            //ySet();
+            //NowPhase=4;
+            //Phase_on();
+        }
+        public void Main4()
+        {
+            mtcst = turn - mbacc;
+            ytcst = turn - ybacc;
+            label4.Text = turn.ToString();
+            NowPhase = 5;
+            Phase_on();
+            //AttackBattlePhase();
+        }
+        public void Main5()
+        {
+            ySet();
+            btn_Enable();
+            /*
+            DrawPhase();
+            turn++;
+            label3.Text = turn.ToString();
+            mtcst = turn - mbacc;
+            ytcst = turn - ybacc;
+            label4.Text = turn.ToString();
+            btn_Enable();
+            */
+        }
+        
         private void PhaseEnd()
         {
-            mSetPhase();
-            ySetPhase();
+            mSet();
+            ySet();
         }
-        private void mDraw()
-        {
-            //hiki：一時的なカード引き数
-            //mhiki：トータルのカード引き数
-            who = "m";
-            d = 690;
-            hiki = 5 - mthd;
-
-            for (i = 0; i < hiki; i++)
-            {
-                mhiki++;
-                if (hiki == 5) mln1 = mdk[mhiki, 0];
-                if (hiki == 4) mln2 = mdk[mhiki, 0];
-                if (hiki == 3) mln3 = mdk[mhiki, 0];
-                if (hiki == 2) mln4 = mdk[mhiki, 0];
-                if (hiki == 1) mln5 = mdk[mhiki, 0];
-                hiki--;
-                
-            }
-
-
-            //DrawTime();
-        }
-        private void yDraw()
-        {
-            who = "y";
-            d = 690;
-            hiki = ythd;
-
-            for (i = 0; i < 5 - ythd; i++)
-            {                
-                yhiki++;
-                if (hiki == 0) yln1 = yhiki;
-                if (hiki == 1) yln2 = yhiki;
-                if (hiki == 2) yln3 = yhiki;
-                if (hiki == 3) yln4 = yhiki;
-                if (hiki == 4) yln5 = yhiki;
-                hiki++;
-
-            }
-
-            yPara();
-
-            DrawTime();
-
-        }
-        private void DrawTime()
-        {
-            while (who != "end")
-            {
-                //Time50();
-                timer1.Interval = 100;
-                timer1.Enabled = true;
-                d = d - 50;
-
-                //A用
-                if (who == "m" & mthd == 0)
-                {
-                    button1.Visible = true;
-                    button1.Location = new Point(d, 500);
-                    button1.BackgroundImage = imgs[mid1];
-                    if (d - 30 < 220)
-                    {
-                        button1.Location = new Point(220, 500);
-                        mthd = 1;
-                        M1Cost.Visible = true;
-                        myama = myama - 1;
-                        myamahuda_n.Text = myama.ToString();
-                        d = 690;
-                        timer1.Enabled = false;
-                    }
-
-                }
-                else if (who == "m" & mthd == 1)
-                {
-                    button2.Visible = true;
-                    button2.Location = new Point(d, 500);
-                    if (d - 30 < 300)
-                    {
-                        button2.Location = new Point(300, 500);
-                        mthd = 2;
-                        M2Cost.Visible = true;
-                        myama = myama - 1;
-                        myamahuda_n.Text = myama.ToString();
-                        d = 690;
-                        timer1.Enabled = false;
-                    }
-                }
-                else if (who == "m" & mthd == 2)
-                {
-                    button3.Visible = true;
-                    button3.Location = new Point(d, 500);
-                    if (d - 30 < 380)
-                    {
-                        button3.Location = new Point(380, 500);
-                        mthd = 3;
-                        M3Cost.Visible = true;
-                        myama = myama - 1;
-                        myamahuda_n.Text = myama.ToString();
-                        d = 690;
-                        timer1.Enabled = false;
-                    }
-                }
-                else if (who == "m" & mthd == 3)
-                {
-                    button4.Visible = true;
-                    button4.Location = new Point(d, 500);
-                    if (d - 30 < 460)
-                    {
-                        button4.Location = new Point(460, 500);
-                        mthd = 4;
-                        M4Cost.Visible = true;
-                        myama = myama - 1;
-                        myamahuda_n.Text = myama.ToString();
-                        d = 690;
-                        timer1.Enabled = false;
-                    }
-                }
-                else if (who == "m" & mthd == 4)
-                {
-                    button5.Visible = true;
-                    button5.Location = new Point(d, 500);
-                    if (d - 30 < 540)
-                    {
-                        button5.Location = new Point(540, 500);
-                        mthd = 5;
-                        M5Cost.Visible = true;
-                        myama = myama - 1;
-                        myamahuda_n.Text = myama.ToString();
-                        d = 690;
-                        timer1.Enabled = false;
-                    }
-                }
-                else if (who == "m" & mthd == 5)
-                {
-                    who = "end";
-                    timer1.Enabled = false;
-                }
-
-                // B用
-                else if (who == "y" & ythd == 0)
-                {
-                    button21.Visible = true;
-                    button21.Location = new Point(d, 10);
-
-                    if (d - 30 < 220)
-                    {
-                        button21.Location = new Point(220, 10);
-                        ythd = 1;
-                        yyama = yyama - 1;
-                        yyamahuda_n.Text = yyama.ToString();
-                        d = 690;
-                    }
-
-                }
-                else if (who == "y" & ythd == 1)
-                {
-                    button22.Visible = true;
-                    button22.Location = new Point(d, 10);
-                    if (d - 30 < 300)
-                    {
-                        button22.Location = new Point(300, 10);
-                        ythd = 2;
-                        yyama = yyama - 1;
-                        yyamahuda_n.Text = yyama.ToString();
-                        d = 690;
-                    }
-                }
-                else if (who == "y" & ythd == 2)
-                {
-                    button23.Visible = true;
-                    button23.Location = new Point(d, 10);
-                    if (d - 30 < 380)
-                    {
-                        button23.Location = new Point(380, 10);
-                        ythd = 3;
-                        yyama = yyama - 1;
-                        yyamahuda_n.Text = yyama.ToString();
-                        d = 690;
-                    }
-                }
-                else if (who == "y" & ythd == 3)
-                {
-                    button24.Visible = true;
-                    button24.Location = new Point(d, 10);
-                    if (d - 30 < 460)
-                    {
-                        button24.Location = new Point(460, 10);
-                        ythd = 4;
-                        yyama = yyama - 1;
-                        yyamahuda_n.Text = yyama.ToString();
-                        d = 690;
-                    }
-                }
-                else if (who == "y" & ythd == 4)
-                {
-                    button25.Visible = true;
-                    button25.Location = new Point(d, 10);
-                    if (d - 30 < 540)
-                    {
-                        button25.Location = new Point(540, 10);
-                        ythd = 5;
-                        yyama = yyama - 1;
-                        yyamahuda_n.Text = yyama.ToString();
-                        d = 690;
-                    }
-                }
-                else if (who == "y" & ythd == 5)
-                {
-                    who = "end";
-                }
-            }
-        }
-        public void mSetPhase()
+        public void mSet()
         {
 
-            if (s == 1) button1.Top += 10;
-            if (s == 2) button2.Top += 10;
-            if (s == 3) button3.Top += 10;
-            if (s == 4) button4.Top += 10;
-            if (s == 5) button5.Top += 10;
+            if (s == 1) mthd1.Top += 10;
+            if (s == 2) mthd2.Top += 10;
+            if (s == 3) mthd3.Top += 10;
+            if (s == 4) mthd4.Top += 10;
+            if (s == 5) mthd5.Top += 10;
             s = 0;
             //手札左詰め
             for (i = 0; i < 4; i++)
@@ -739,6 +473,211 @@ namespace test1
                 }
             }
         }
+        private void mDraw()
+        {
+            //hiki：一時的なカード引き数
+            //mhiki：トータルのカード引き数
+            flg[1] = 1;
+            d = 690;
+            hiki = 5 - mthd;
+            //ドロー
+            while (hiki != 0)
+            {
+                mhiki++;
+                if (hiki == 5) mln1 = mdk[mhiki, 0];
+                if (hiki == 4) mln2 = mdk[mhiki, 0];
+                if (hiki == 3) mln3 = mdk[mhiki, 0];
+                if (hiki == 2) mln4 = mdk[mhiki, 0];
+                if (hiki == 1) mln5 = mdk[mhiki, 0];
+                hiki--;
+
+            }
+
+            //ドロー後に更新。
+            mPara();
+            //タイマーでカードを動かす。
+            Drawtimer1.Enabled = true;
+        }
+        private void yDraw()
+        {
+            flg[1] = 2;
+            d = 690;
+            hiki = 5 - ythd;
+
+            for (i = 0; i < hiki; i++)
+            {
+                yhiki++;
+                if (hiki == 5) yln1 = ydk[yhiki, 0];
+                if (hiki == 4) yln2 = ydk[yhiki, 0];
+                if (hiki == 3) yln3 = ydk[yhiki, 0];
+                if (hiki == 2) yln4 = ydk[yhiki, 0];
+                if (hiki == 1) yln5 = ydk[yhiki, 0];
+                hiki--;
+            }
+            //タイマーでカードをドローさせる。
+            Drawtimer1.Enabled = true;
+        }
+        private void Drawtimer1_Tick(object sender, EventArgs e)
+        {
+
+            d = d - 50;
+
+            //A用
+            if (flg[1] == 1 & mthd == 0)
+            {
+                mthd1.Visible = true;
+                mthd1.Location = new Point(d, 500);
+                //mthd1.BackgroundImage = imgs[];
+                if (d - 30 < 220)
+                {
+                    mthd1.Location = new Point(220, 500);
+                    mthd = 1;
+                    M1Cost.Visible = true;
+                    myama = myama - 1;
+                    myamahuda_n.Text = myama.ToString();
+                    d = 690;
+                }
+
+            }
+            else if (flg[1] == 1 & mthd == 1)
+            {
+                mthd2.Visible = true;
+                mthd2.Location = new Point(d, 500);
+                if (d - 30 < 300)
+                {
+                    mthd2.Location = new Point(300, 500);
+                    mthd = 2;
+                    M2Cost.Visible = true;
+                    myama = myama - 1;
+                    myamahuda_n.Text = myama.ToString();
+                    d = 690;
+                }
+            }
+            else if (flg[1] == 1 & mthd == 2)
+            {
+                mthd3.Visible = true;
+                mthd3.Location = new Point(d, 500);
+                if (d - 30 < 380)
+                {
+                    mthd3.Location = new Point(380, 500);
+                    mthd = 3;
+                    M3Cost.Visible = true;
+                    myama = myama - 1;
+                    myamahuda_n.Text = myama.ToString();
+                    d = 690;
+                }
+            }
+            else if (flg[1] == 1 & mthd == 3)
+            {
+                mthd4.Visible = true;
+                mthd4.Location = new Point(d, 500);
+                if (d - 30 < 460)
+                {
+                    mthd4.Location = new Point(460, 500);
+                    mthd = 4;
+                    M4Cost.Visible = true;
+                    myama = myama - 1;
+                    myamahuda_n.Text = myama.ToString();
+                    d = 690;
+                }
+            }
+            else if (flg[1] == 1 & mthd == 4)
+            {
+                mthd5.Visible = true;
+                mthd5.Location = new Point(d, 500);
+                if (d - 30 < 540)
+                {
+                    mthd5.Location = new Point(540, 500);
+                    mthd = 5;
+                    M5Cost.Visible = true;
+                    myama = myama - 1;
+                    myamahuda_n.Text = myama.ToString();
+                    d = 690;
+                }
+            }
+            else if (flg[1] == 1 & mthd == 5)
+            {
+                flg[1] = 0;
+                Drawtimer1.Enabled = false;
+                if (flg[0] == 0) { Main1_y(); }
+            }
+
+            // B用
+            else if (flg[1] == 2 & ythd == 0)
+            {
+                ythd1.Visible = true;
+                ythd1.Location = new Point(d, 10);
+
+                if (d - 30 < 220)
+                {
+                    ythd1.Location = new Point(220, 10);
+                    ythd = 1;
+                    yyama = yyama - 1;
+                    yyamahuda_n.Text = yyama.ToString();
+                    d = 690;
+                }
+
+            }
+            else if (flg[1] == 2 & ythd == 1)
+            {
+                ythd2.Visible = true;
+                ythd2.Location = new Point(d, 10);
+                if (d - 30 < 300)
+                {
+                    ythd2.Location = new Point(300, 10);
+                    ythd = 2;
+                    yyama = yyama - 1;
+                    yyamahuda_n.Text = yyama.ToString();
+                    d = 690;
+                }
+            }
+            else if (flg[1] == 2 & ythd == 2)
+            {
+                ythd3.Visible = true;
+                ythd3.Location = new Point(d, 10);
+                if (d - 30 < 380)
+                {
+                    ythd3.Location = new Point(380, 10);
+                    ythd = 3;
+                    yyama = yyama - 1;
+                    yyamahuda_n.Text = yyama.ToString();
+                    d = 690;
+                }
+            }
+            else if (flg[1] == 2 & ythd == 3)
+            {
+                ythd4.Visible = true;
+                ythd4.Location = new Point(d, 10);
+                if (d - 30 < 460)
+                {
+                    ythd4.Location = new Point(460, 10);
+                    ythd = 4;
+                    yyama = yyama - 1;
+                    yyamahuda_n.Text = yyama.ToString();
+                    d = 690;
+                }
+            }
+            else if (flg[1] == 2 & ythd == 4)
+            {
+                ythd5.Visible = true;
+                ythd5.Location = new Point(d, 10);
+                if (d - 30 < 540)
+                {
+                    ythd5.Location = new Point(540, 10);
+                    ythd = 5;
+                    yyama = yyama - 1;
+                    yyamahuda_n.Text = yyama.ToString();
+                    d = 690;
+                }
+            }
+            else if (flg[1] == 2 & ythd == 5)
+            {
+                flg[1] = 0;
+                Drawtimer1.Enabled = false;
+                if (flg[0] == 0) { flg[0] = 1; NextPb.Visible = true; }
+            }
+
+        }       
         private void TurnCost()
         {
             mtcst = turn - mcst;
@@ -747,7 +686,34 @@ namespace test1
             label4.Text = mtcst.ToString();
             //step++;
         }
-        public void ySetPhase()
+        public void ySet()
+        {
+            //並び替え、高コスト
+            for (i = 0; i < 4; i++)
+            {
+                if (yln1 == 0)
+                {
+                    yln1 = yln2;
+                    yln2 = 0;
+                }
+                if (yln2 == 0)
+                {
+                    yln2 = yln3;
+                    yln3 = 0;
+                }
+                if (yln3 == 0)
+                {
+                    yln3 = yln4;
+                    yln4 = 0;
+                }
+                if (yln4 == 0)
+                {
+                    yln4 = yln5;
+                    yln5 = 0;
+                }
+            }
+        }
+        public void ySet_old()
         {
             //並び替え、高コスト
             for (i = 0; i < 4; i++)
@@ -805,7 +771,7 @@ namespace test1
                     ytcst = ytcst - yc1;
                     ycst = ycst + ycc1;
                     field6.BackgroundImage = imgs[yid1];
-                    button21.Visible = false;
+                    ythd1.Visible = false;
                     yln1 = 0;
                     ythd--;
                 }
@@ -816,7 +782,7 @@ namespace test1
                     ytcst = ytcst - yc1;
                     ycst = ycst + ycc1;
                     field7.BackgroundImage = imgs[yid1];
-                    button21.Visible = false;
+                    ythd1.Visible = false;
                     yln1 = 0;
                     ythd--;
                 }
@@ -827,10 +793,10 @@ namespace test1
                     ytcst = ytcst - yc1;
                     ycst = ycst + ycc1;
                     field8.BackgroundImage = imgs[yid1];
-                    button21.Visible = false;
+                    ythd1.Visible = false;
                     yln1 = 0;
                     ythd--;
-                }                
+                }
             }
             if (yln2 > 0 & yc2 <= ytcst & yt2 == 1)
             {
@@ -841,7 +807,7 @@ namespace test1
                     ytcst = ytcst - yc2;
                     ycst = ycst + ycc2;
                     field6.BackgroundImage = imgs[yid2];
-                    button22.Visible = false;
+                    ythd2.Visible = false;
                     yln2 = 0;
                     ythd--;
                 }
@@ -852,7 +818,7 @@ namespace test1
                     ytcst = ytcst - yc2;
                     ycst = ycst + ycc2;
                     field7.BackgroundImage = imgs[yid2];
-                    button22.Visible = false;
+                    ythd2.Visible = false;
                     yln2 = 0;
                     ythd--;
                 }
@@ -863,7 +829,7 @@ namespace test1
                     ytcst = ytcst - yc2;
                     ycst = ycst + ycc2;
                     field8.BackgroundImage = imgs[yid2];
-                    button22.Visible = false;
+                    ythd2.Visible = false;
                     yln2 = 0;
                     ythd--;
                 }
@@ -877,7 +843,7 @@ namespace test1
                     ytcst = ytcst - yc3;
                     ycst = ycst + ycc3;
                     field6.BackgroundImage = imgs[yid3];
-                    button23.Visible = false;
+                    ythd3.Visible = false;
                     yln3 = 0;
                     ythd--;
                 }
@@ -888,7 +854,7 @@ namespace test1
                     ytcst = ytcst - yc3;
                     ycst = ycst + ycc3;
                     field7.BackgroundImage = imgs[yid3];
-                    button23.Visible = false;
+                    ythd3.Visible = false;
                     yln3 = 0;
                     ythd--;
                 }
@@ -899,7 +865,7 @@ namespace test1
                     ytcst = ytcst - yc3;
                     ycst = ycst + ycc3;
                     field8.BackgroundImage = imgs[yid3];
-                    button23.Visible = false;
+                    ythd3.Visible = false;
                     yln3 = 0;
                     ythd--;
                 }
@@ -913,7 +879,7 @@ namespace test1
                     ytcst = ytcst - yc4;
                     ycst = ycst + ycc4;
                     field6.BackgroundImage = imgs[yid4];
-                    button24.Visible = false;
+                    ythd4.Visible = false;
                     yln4 = 0;
                     ythd--;
                 }
@@ -924,7 +890,7 @@ namespace test1
                     ytcst = ytcst - yc4;
                     ycst = ycst + ycc4;
                     field7.BackgroundImage = imgs[yid4];
-                    button24.Visible = false;
+                    ythd4.Visible = false;
                     yln4 = 0;
                     ythd--;
                 }
@@ -935,10 +901,10 @@ namespace test1
                     ytcst = ytcst - yc4;
                     ycst = ycst + ycc4;
                     field8.BackgroundImage = imgs[yid4];
-                    button24.Visible = false;
+                    ythd4.Visible = false;
                     yln4 = 0;
                     ythd--;
-                }                
+                }
             }
             if (yln5 > 0 & yc5 <= ytcst & yt5 == 1)
             {
@@ -949,7 +915,7 @@ namespace test1
                     ytcst = ytcst - yc5;
                     ycst = ycst + ycc5;
                     field6.BackgroundImage = imgs[yid5];
-                    button25.Visible = false;
+                    ythd5.Visible = false;
                     yln5 = 0;
                     ythd--;
                 }
@@ -960,7 +926,7 @@ namespace test1
                     ytcst = ytcst - yc5;
                     ycst = ycst + ycc5;
                     field7.BackgroundImage = imgs[yid5];
-                    button25.Visible = false;
+                    ythd5.Visible = false;
                     yln5 = 0;
                     ythd--;
                 }
@@ -971,10 +937,10 @@ namespace test1
                     ytcst = ytcst - yc5;
                     ycst = ycst + ycc5;
                     field8.BackgroundImage = imgs[yid5];
-                    button25.Visible = false;
+                    ythd5.Visible = false;
                     yln5 = 0;
                     ythd--;
-                }                
+                }
             }
 
             // 相手の場にモンスターがいない
@@ -987,7 +953,7 @@ namespace test1
                     ytcst = ytcst - yc1;
                     ycst = ycst + ycc1;
                     field6.BackgroundImage = imgs[yid1];
-                    button21.Visible = false;
+                    ythd1.Visible = false;
                     yln1 = 0;
                     ythd--;
                 }
@@ -998,7 +964,7 @@ namespace test1
                     ytcst = ytcst - yc1;
                     ycst = ycst + ycc1;
                     field7.BackgroundImage = imgs[yid1];
-                    button21.Visible = false;
+                    ythd1.Visible = false;
                     yln1 = 0;
                     ythd--;
                 }
@@ -1009,10 +975,10 @@ namespace test1
                     ytcst = ytcst - yc1;
                     ycst = ycst + ycc1;
                     field8.BackgroundImage = imgs[yid1];
-                    button21.Visible = false;
+                    ythd1.Visible = false;
                     yln1 = 0;
                     ythd--;
-                }                
+                }
             }
             if (yln2 > 0 & yc2 <= ytcst & yt2 == 1)
             {
@@ -1023,7 +989,7 @@ namespace test1
                     ytcst = ytcst - yc2;
                     ycst = ycst + ycc2;
                     field6.BackgroundImage = imgs[yid2];
-                    button22.Visible = false;
+                    ythd2.Visible = false;
                     yln2 = 0;
                     ythd--;
                 }
@@ -1034,7 +1000,7 @@ namespace test1
                     ytcst = ytcst - yc2;
                     ycst = ycst + ycc2;
                     field7.BackgroundImage = imgs[yid2];
-                    button22.Visible = false;
+                    ythd2.Visible = false;
                     yln2 = 0;
                     ythd--;
                 }
@@ -1045,10 +1011,10 @@ namespace test1
                     ytcst = ytcst - yc2;
                     ycst = ycst + ycc2;
                     field8.BackgroundImage = imgs[yid2];
-                    button22.Visible = false;
+                    ythd2.Visible = false;
                     yln2 = 0;
                     ythd--;
-                }                
+                }
             }
             if (yln3 > 0 & yc3 <= ytcst & yt3 == 1)
             {
@@ -1059,7 +1025,7 @@ namespace test1
                     ytcst = ytcst - yc3;
                     ycst = ycst + ycc3;
                     field6.BackgroundImage = imgs[yid3];
-                    button23.Visible = false;
+                    ythd3.Visible = false;
                     yln3 = 0;
                     ythd--;
                 }
@@ -1070,7 +1036,7 @@ namespace test1
                     ytcst = ytcst - yc3;
                     ycst = ycst + ycc3;
                     field7.BackgroundImage = imgs[yid3];
-                    button23.Visible = false;
+                    ythd3.Visible = false;
                     yln3 = 0;
                     ythd--;
                 }
@@ -1081,10 +1047,10 @@ namespace test1
                     ytcst = ytcst - yc3;
                     ycst = ycst + ycc3;
                     field8.BackgroundImage = imgs[yid3];
-                    button23.Visible = false;
+                    ythd3.Visible = false;
                     yln3 = 0;
                     ythd--;
-                }                
+                }
             }
             if (yln4 > 0 & yc4 <= ytcst & yt4 == 1)
             {
@@ -1095,7 +1061,7 @@ namespace test1
                     ytcst = ytcst - yc4;
                     ycst = ycst + ycc4;
                     field6.BackgroundImage = imgs[yid4];
-                    button24.Visible = false;
+                    ythd4.Visible = false;
                     yln4 = 0;
                     ythd--;
                 }
@@ -1106,7 +1072,7 @@ namespace test1
                     ytcst = ytcst - yc4;
                     ycst = ycst + ycc4;
                     field7.BackgroundImage = imgs[yid4];
-                    button24.Visible = false;
+                    ythd4.Visible = false;
                     yln4 = 0;
                     ythd--;
                 }
@@ -1117,10 +1083,10 @@ namespace test1
                     ytcst = ytcst - yc4;
                     ycst = ycst + ycc4;
                     field8.BackgroundImage = imgs[yid4];
-                    button24.Visible = false;
+                    ythd4.Visible = false;
                     yln4 = 0;
                     ythd--;
-                }                
+                }
             }
             if (yln5 > 0 & yc5 <= ytcst & yt5 == 1)
             {
@@ -1131,7 +1097,7 @@ namespace test1
                     ytcst = ytcst - yc5;
                     ycst = ycst + ycc5;
                     field6.BackgroundImage = imgs[yid5];
-                    button25.Visible = false;
+                    ythd5.Visible = false;
                     yln5 = 0;
                     ythd--;
                 }
@@ -1142,7 +1108,7 @@ namespace test1
                     ytcst = ytcst - yc5;
                     ycst = ycst + ycc5;
                     field7.BackgroundImage = imgs[yid5];
-                    button25.Visible = false;
+                    ythd5.Visible = false;
                     yln5 = 0;
                     ythd--;
                 }
@@ -1153,10 +1119,10 @@ namespace test1
                     ytcst = ytcst - yc5;
                     ycst = ycst + ycc5;
                     field8.BackgroundImage = imgs[yid5];
-                    button25.Visible = false;
+                    ythd5.Visible = false;
                     yln5 = 0;
                     ythd--;
-                }                
+                }
             }
             //ターンコスト以内、低コスト、スキル優先
             if (yln1 > 0 & yc1 <= ytcst & yt1 == 2)
@@ -1168,7 +1134,7 @@ namespace test1
                     ytcst = ytcst - yc1;
                     ycst = ycst + ycc1;
                     field9.BackgroundImage = imgs[yid1];
-                    button21.Visible = false;
+                    ythd1.Visible = false;
                     yln1 = 0;
                     ythd--;
                 }
@@ -1179,10 +1145,10 @@ namespace test1
                     ytcst = ytcst - yc1;
                     ycst = ycst + ycc1;
                     field10.BackgroundImage = imgs[yid1];
-                    button21.Visible = false;
+                    ythd1.Visible = false;
                     yln1 = 0;
                     ythd--;
-                }                
+                }
             }
             if (yln2 > 0 & yc2 <= ytcst & yt2 == 2)
             {
@@ -1193,7 +1159,7 @@ namespace test1
                     ytcst = ytcst - yc2;
                     ycst = ycst + ycc2;
                     field9.BackgroundImage = imgs[yid2];
-                    button22.Visible = false;
+                    ythd2.Visible = false;
                     yln2 = 0;
                     ythd--;
                 }
@@ -1204,10 +1170,10 @@ namespace test1
                     ytcst = ytcst - yc2;
                     ycst = ycst + ycc2;
                     field10.BackgroundImage = imgs[yid2];
-                    button22.Visible = false;
+                    ythd2.Visible = false;
                     yln2 = 0;
                     ythd--;
-                }                
+                }
             }
             if (yln3 > 0 & yc3 <= ytcst & yt3 == 2)
             {
@@ -1218,7 +1184,7 @@ namespace test1
                     ytcst = ytcst - yc3;
                     ycst = ycst + ycc3;
                     field9.BackgroundImage = imgs[yid3];
-                    button23.Visible = false;
+                    ythd3.Visible = false;
                     yln3 = 0;
                     ythd--;
                 }
@@ -1229,10 +1195,10 @@ namespace test1
                     ytcst = ytcst - yc3;
                     ycst = ycst + ycc3;
                     field10.BackgroundImage = imgs[yid3];
-                    button23.Visible = false;
+                    ythd3.Visible = false;
                     yln3 = 0;
                     ythd--;
-                }                
+                }
             }
             if (yln4 > 0 & yc4 <= ytcst & yt4 == 2)
             {
@@ -1243,7 +1209,7 @@ namespace test1
                     ytcst = ytcst - yc4;
                     ycst = ycst + ycc4;
                     field9.BackgroundImage = imgs[yid4];
-                    button24.Visible = false;
+                    ythd4.Visible = false;
                     yln4 = 0;
                     ythd--;
                 }
@@ -1254,10 +1220,10 @@ namespace test1
                     ytcst = ytcst - yc4;
                     ycst = ycst + ycc4;
                     field10.BackgroundImage = imgs[yid4];
-                    button24.Visible = false;
+                    ythd4.Visible = false;
                     yln4 = 0;
                     ythd--;
-                }                
+                }
             }
             if (yln5 > 0 & yc5 <= ytcst & yt5 == 2)
             {
@@ -1268,7 +1234,7 @@ namespace test1
                     ytcst = ytcst - yc5;
                     ycst = ycst + ycc5;
                     field9.BackgroundImage = imgs[yid5];
-                    button25.Visible = false;
+                    ythd5.Visible = false;
                     yln5 = 0;
                     ythd--;
                 }
@@ -1279,13 +1245,13 @@ namespace test1
                     ytcst = ytcst - yc5;
                     ycst = ycst + ycc5;
                     field10.BackgroundImage = imgs[yid5];
-                    button25.Visible = false;
+                    ythd5.Visible = false;
                     yln5 = 0;
                     ythd--;
-                }                
+                }
             }
             //場にカードがセットされた場合のみ参照
-            if(ba6set==1)
+            if (ba6set == 1)
             {
                 for (i = 0; i < 20; i++)
                 {
@@ -1321,7 +1287,7 @@ namespace test1
                 }
             }
 
-                //手札左詰め               
+            //手札左詰め               
 
 
             for (i = 0; i < 4; i++)
@@ -1377,39 +1343,34 @@ namespace test1
 
             if (mln1 > 0)
             {
-                button1.Visible = true;
-                button1.BackgroundImage = imgs[mid1];
-                M1Cost.Visible = true;
+                mthd1.Visible = true;
+                mthd1.BackgroundImage = imgs[mid1];
             }
-            else { button1.Visible = false; M1Cost.Visible = false; }
+            else { mthd1.Visible = false; }
             if (mln2 > 0)
             {
-                button2.Visible = true;
-                button2.BackgroundImage = imgs[mid2];
-                M2Cost.Visible = true;
+                mthd2.Visible = true;
+                mthd2.BackgroundImage = imgs[mid2];
             }
-            else { button2.Visible = false; M2Cost.Visible = false; }
+            else { mthd2.Visible = false; }
             if (mln3 > 0)
             {
-                button3.Visible = true;
-                button3.BackgroundImage = imgs[mid3];
-                M3Cost.Visible = true;
+                mthd3.Visible = true;
+                mthd3.BackgroundImage = imgs[mid3];
             }
-            else { button3.Visible = false; M3Cost.Visible = false; }
+            else { mthd3.Visible = false; }
             if (mln4 > 0)
             {
-                button4.Visible = true;
-                button4.BackgroundImage = imgs[mid4];
-                M4Cost.Visible = true;
+                mthd4.Visible = true;
+                mthd4.BackgroundImage = imgs[mid4];
             }
-            else { button4.Visible = false; M4Cost.Visible = false; }
+            else { mthd4.Visible = false; }
             if (mln5 > 0)
             {
-                button5.Visible = true;
-                button5.BackgroundImage = imgs[mid5];
-                M5Cost.Visible = true;
+                mthd5.Visible = true;
+                mthd5.BackgroundImage = imgs[mid5];
             }
-            else { button5.Visible = false; M5Cost.Visible = false; }
+            else { mthd5.Visible = false; }
 
             mt1 = mte1[2];
             mt2 = mte2[2];
@@ -1501,34 +1462,34 @@ namespace test1
             //手札表示 BackgroundImage = imgs[0]でvisibleがtrueになってしまう
             if (yln1 > 0)
             {
-                button21.Visible = true;
-                button21.BackgroundImage = imgs[yid1];
+                ythd1.Visible = true;
+                ythd1.BackgroundImage = imgs[yid1];
             }
-            else button21.Visible = false;
+            else ythd1.Visible = false;
             if (yln2 > 0)
             {
-                button22.Visible = true;
-                button22.BackgroundImage = imgs[yid2];
+                ythd2.Visible = true;
+                ythd2.BackgroundImage = imgs[yid2];
             }
-            else button22.Visible = false;
+            else ythd2.Visible = false;
             if (yln3 > 0)
             {
-                button23.Visible = true;
-                button23.BackgroundImage = imgs[yid3];
+                ythd3.Visible = true;
+                ythd3.BackgroundImage = imgs[yid3];
             }
-            else button23.Visible = false;
+            else ythd3.Visible = false;
             if (yln4 > 0)
             {
-                button24.Visible = true;
-                button24.BackgroundImage = imgs[yid4];
+                ythd4.Visible = true;
+                ythd4.BackgroundImage = imgs[yid4];
             }
-            else button24.Visible = false;
+            else ythd4.Visible = false;
             if (yln5 > 0)
             {
-                button25.Visible = true;
-                button25.BackgroundImage = imgs[yid5];
+                ythd5.Visible = true;
+                ythd5.BackgroundImage = imgs[yid5];
             }
-            else button25.Visible = false;
+            else ythd5.Visible = false;
 
             yt1 = yte1[2];
             yt2 = yte2[2];
@@ -1566,45 +1527,91 @@ namespace test1
         }
         public void bPara()
         {
-            if (ba1set == 1)
+            for (i = 0; i < 20; i++)
             {
-                ba1id = ba1[1];
-                field1.BackgroundImage = imgs[ba1id];
-                ba1c = ba1[5];
-                ba1cc = ba1[6];
-                ba1ac = ba1[11];
-                ba1hp = ba1[12];
-                ba1d1 = ba1[13];
-                ba1d2 = ba1[14];
-                ba1p1 = ba1[15];
-                ba1p2 = ba1[16];
+                ba1[i] = mdk[ba1ln, i];
+                ba2[i] = mdk[ba2ln, i];
+                ba3[i] = mdk[ba3ln, i];
+                ba6[i] = ydk[ba6ln, i];
+                ba7[i] = ydk[ba7ln, i];
+                ba8[i] = ydk[ba8ln, i];
             }
-            if (ba2set == 1)
-            {
-                ba2id = ba2[1];
-                field2.BackgroundImage = imgs[ba2id];
-                ba2c = ba2[5];
-                ba2cc = ba2[6];
-                ba2ac = ba2[11];
-                ba2hp = ba2[12];
-                ba2d1 = ba2[13];
-                ba2d2 = ba2[14];
-                ba2p1 = ba2[15];
-                ba2p2 = ba2[16];
-            }
-            if (ba3set == 1)
-            {
-                ba3id = ba3[1];
-                field3.BackgroundImage = imgs[ba3id];
-                ba3c = ba3[5];
-                ba3cc = ba3[6];
-                ba3ac = ba3[11];
-                ba3hp = ba3[12];
-                ba3d1 = ba3[13];
-                ba3d2 = ba3[14];
-                ba3p1 = ba3[15];
-                ba3p2 = ba3[16];
-            }
+
+            ba1id = ba1[1];
+            ba2id = ba2[1];
+            ba3id = ba3[1];
+            ba6id = ba6[1];
+            ba7id = ba7[1];
+            ba8id = ba8[1];
+
+            if (ba1ln > 0) { field1.BackgroundImage = imgs[ba1id]; }
+            else { field1.BackgroundImage = null; }
+            if (ba2ln > 0) { field2.BackgroundImage = imgs[ba2id]; }
+            else { field2.BackgroundImage = null; }
+            if (ba3ln > 0) { field3.BackgroundImage = imgs[ba3id]; }
+            else { field3.BackgroundImage = null; }
+            if (ba6ln > 0) { field6.BackgroundImage = imgs[ba6id]; }
+            else { field6.BackgroundImage = null; }
+            if (ba7ln > 0) { field7.BackgroundImage = imgs[ba7id]; }
+            else { field7.BackgroundImage = null; }
+            if (ba8ln > 0) { field8.BackgroundImage = imgs[ba8id]; }
+            else { field8.BackgroundImage = null; }
+
+            ba1c = ba1[5];
+            ba1cc = ba1[6];
+            ba1ac = ba1[11];
+            ba1hp = ba1[12];
+            ba1d1 = ba1[13];
+            ba1d2 = ba1[14];
+            ba1p1 = ba1[15];
+            ba1p2 = ba1[16];
+
+            ba2c = ba2[5];
+            ba2cc = ba2[6];
+            ba2ac = ba2[11];
+            ba2hp = ba2[12];
+            ba2d1 = ba2[13];
+            ba2d2 = ba2[14];
+            ba2p1 = ba2[15];
+            ba2p2 = ba2[16];
+
+            ba3c = ba3[5];
+            ba3cc = ba3[6];
+            ba3ac = ba3[11];
+            ba3hp = ba3[12];
+            ba3d1 = ba3[13];
+            ba3d2 = ba3[14];
+            ba3p1 = ba3[15];
+            ba3p2 = ba3[16];
+
+            ba6c = ba6[5];
+            ba6cc = ba6[6];
+            ba6ac = ba6[11];
+            ba6hp = ba6[12];
+            ba6d1 = ba6[13];
+            ba6d2 = ba6[14];
+            ba6p1 = ba6[15];
+            ba6p2 = ba6[16];
+
+            ba7c = ba7[5];
+            ba7cc = ba7[6];
+            ba7ac = ba7[11];
+            ba7hp = ba7[12];
+            ba7d1 = ba7[13];
+            ba7d2 = ba7[14];
+            ba7p1 = ba7[15];
+            ba7p2 = ba7[16];
+
+            ba8c = ba8[5];
+            ba8cc = ba8[6];
+            ba8ac = ba8[11];
+            ba8hp = ba8[12];
+            ba8d1 = ba8[13];
+            ba8d2 = ba8[14];
+            ba8p1 = ba8[15];
+            ba8p2 = ba8[16];
+
+            /*
             if (ba4set == 1)
             {
                 ba4id = ba4[1];
@@ -1619,45 +1626,7 @@ namespace test1
                 ba5c = ba5[5];
                 ba5cc = ba5[6];
             }
-            if (ba6set == 1)
-            {
-                ba6id = ba6[1];
-                field6.BackgroundImage = imgs[ba6id];
-                ba6c = ba6[5];
-                ba6cc = ba6[6];
-                ba6ac = ba6[11];
-                ba6hp = ba6[12];
-                ba6d1 = ba6[13];
-                ba6d2 = ba6[14];
-                ba6p1 = ba6[15];
-                ba6p2 = ba6[16];
-            }
-            if (ba7set == 1)
-            {
-                ba7id = ba7[1];
-                field7.BackgroundImage = imgs[ba7id];
-                ba7c = ba7[5];
-                ba7cc = ba7[6];
-                ba7ac = ba7[11];
-                ba7hp = ba7[12];
-                ba7d1 = ba7[13];
-                ba7d2 = ba7[14];
-                ba7p1 = ba7[15];
-                ba7p2 = ba7[16];
-            }
-            if (ba8set == 1)
-            {
-                ba8id = ba8[1];
-                field8.BackgroundImage = imgs[ba8id];
-                ba8c = ba8[5];
-                ba8cc = ba8[6];
-                ba8ac = ba8[11];
-                ba8hp = ba8[12];
-                ba8d1 = ba8[13];
-                ba8d2 = ba8[14];
-                ba8p1 = ba8[15];
-                ba8p2 = ba8[16];
-            }
+
             if (ba9set == 1)
             {
                 ba9id = ba9[1];
@@ -1672,80 +1641,59 @@ namespace test1
                 ba10c = ba10[5];
                 ba10cc = ba10[6];
             }
+            */
 
             mbacc = ba1cc + ba2cc + ba3cc + ba4cc + ba5cc;
             ybacc = ba6cc + ba7cc + ba8cc + ba9cc + ba10cc;
-
+            label12.Text = ba1id.ToString();
+            
         }
-        private void AttackBattlePhase()
+        //バトル中はbParaによる参照は禁止
+        public void AttackBattle()
         {
-            if (ba1ln > 0) btlflg1 = 1;
-            if (ba2ln > 0) btlflg2 = 1;
-            if (ba3ln > 0) btlflg3 = 1;
-            who = "m";
-            abtlp1();
+            flg[1] = 1;
+            if (ba1ln > 0) { btl1 = ba1ln; }
+            if (ba2ln > 0) { btl2 = ba2ln; }
+            if (ba3ln > 0) { btl3 = ba3ln; }            
+            
+            if (ba1ln > 0 )
+            {
+                field1.Top -= 20;
+                if (ba4ln > 0) {  }
+                else { }
+                DiceTimer.Enabled = true;
+            }
+
+            if (ba2ln > 0)
+            {
+                field2.Top -= 20;
+                if (ba4ln > 0) { }
+                else { }
+                DiceTimer.Enabled = true;
+            }
+            if (ba3ln > 0)
+            {
+                field3.Top -= 20;
+                if (ba4ln > 0) { }
+                else { }
+                DiceTimer.Enabled = true;
+            }
+            if (ba1ln == 0 & ba2ln == 0 & ba3ln == 0)
+            {
+                turn++;
+                ba1ln = btl1; ba2ln = btl2; ba3ln = btl3;
+                //label3.Text = turn.ToString();
+                //NowPhase = 4;
+                //Phase_on();
+            }
         }
         private void DefenceBattlePhase()
         {
             if (ba6ln > 0) btlflg6 = 1;
             if (ba7ln > 0) btlflg7 = 1;
             if (ba8ln > 0) btlflg8 = 1;
-            who = "y";
+            flg[1] = 2;
             dbtlp1();
-        }
-        private void abtlp1()
-        {
-            if (btlflg1 == 1 & btl2 == 0 & btl3 == 0)
-            {
-                field1.Top -= 20;
-                btlflg1 = 0;
-                btl1 = 1;
-                if (ba4ln > 0)
-                {
-
-                }
-                else
-                {
-
-                }
-                DiceTimerStart.Enabled = true;
-            }
-            else if (btlflg2 == 1 & btl1 == 0 & btl3 == 0)
-            {
-                field2.Top -= 20;
-                btlflg2 = 0;
-                btl2 = 1;                
-                if (ba4ln > 0)
-                {
-
-                }
-                else
-                {
-
-                }
-                DiceTimerStart.Enabled = true;
-            }
-            else if (btlflg3 == 1 & btl1 == 0 & btl2 == 0)
-            {
-                field3.Top -= 20;
-                btlflg3 = 0;
-                btl3 = 1;                
-                if (ba4ln > 0)
-                {
-                }
-                else
-                {
-
-                }
-                DiceTimerStart.Enabled = true;
-            }
-            else if(btlflg1 == 0 & btlflg2 == 0 & btlflg3 == 0)
-            {
-                turn++;
-                label3.Text = turn.ToString();
-                NowPhase = 4;
-                Phase_on();
-            }
         }
         private void dbtlp1()
         {
@@ -1761,7 +1709,7 @@ namespace test1
                 {
 
                 }
-                DiceTimerStart.Enabled = true;
+                DiceTimer.Enabled = true;
             }
             else if (btlflg7 == 1 & btl6 == 0)
             {
@@ -1775,7 +1723,7 @@ namespace test1
                 {
 
                 }
-                DiceTimerStart.Enabled = true;
+                DiceTimer.Enabled = true;
             }
             else if (btlflg8 == 1 & btl6 == 0 & btl7 == 0)
             {
@@ -1788,151 +1736,13 @@ namespace test1
                 {
 
                 }
-                DiceTimerStart.Enabled = true;
+                DiceTimer.Enabled = true;
             }
             else
             {
                 bPara();
                 
             }
-        }
-        private void abtlp2()
-        {
-            if (btl1 == 1)
-            {
-                if (ba1d1 >= 7 - dicenmb)
-                {
-                    atk = ba1p1;
-                    ac = ba6ac;
-                    hp = ba6hp;
-                    dmg = ac - atk;
-                    ba6hp = hp + ac - atk;                    
-                }
-                else if (ba1d2 >=  dicenmb)
-                {
-                    atk = ba1p2;
-                    ac = ba6ac;
-                    hp = ba6hp;
-                    dmg = ac - atk;
-                    ba6hp = hp + ac - atk;
-                }
-                else
-                {
-                    Field6Damage.Visible = true;
-                    Field6Damage.Text = "miss";
-                }                     
-                if (ba6ln > 0)
-                {
-                    Field6Damage.Visible = true;
-                    Field6Damage.Text = dmg.ToString();
-                }
-                else
-                {
-                    EnemyDamage.Visible = true;
-                    EnemyDamage.Text = dmg.ToString();
-                }
-                
-                if (ba6hp <= 0)
-                {
-                    field6.BackgroundImage = imgnull;
-                    ba6ln = 0;
-                }
-                sound_hit();
-                DmgEffectTime.Enabled = true;
-                field1.Top += 20;
-                btl1 = 0;
-            }
-            else if (btl2 == 1)
-            {
-                if (ba2d1 >= 7 - dicenmb)
-                {
-                    atk = ba2p1;
-                    ac = ba7ac;
-                    hp = ba7hp;
-                    dmg = ac - atk;
-                    ba7hp = hp + ac - atk;
-                }
-                else if (ba2d2 >= dicenmb)
-                {
-                    atk = ba2p2;
-                    ac = ba7ac;
-                    hp = ba7hp;
-                    dmg = ac - atk;
-                    ba7hp = hp + ac - atk;
-                }
-                else
-                {
-                    Field7Damage.Visible = true;
-                    Field7Damage.Text = "miss";
-                }
-                
-                if (ba7ln > 0)
-                {
-                    Field7Damage.Visible = true;
-                    Field7Damage.Text = dmg.ToString();
-                }
-                else
-                {
-                    EnemyDamage.Visible = true;
-                    EnemyDamage.Text = dmg.ToString();
-                }
-                
-                if (ba7hp <= 0)
-                {
-                    field7.BackgroundImage = imgnull;
-                    ba7ln = 0;
-                }
-                sound_hit();
-                DmgEffectTime.Enabled = true;
-                field2.Top += 20;
-                btl2 = 0;
-            }
-            else if (btl3 == 1)
-            {
-                if (ba3d1 >= 7 - dicenmb)
-                {
-                    atk = ba3p1;
-                    ac = ba8ac;
-                    hp = ba8hp;
-                    dmg = ac - atk;
-                    ba8hp = hp + ac - atk;
-                }
-                else if (ba3d2 >= dicenmb)
-                {
-                    atk = ba3p2;
-                    ac = ba8ac;
-                    hp = ba8hp;
-                    dmg = ac - atk;
-                    ba8hp = hp + ac - atk;
-                }
-                else
-                {
-                    Field8Damage.Visible = true;
-                    Field8Damage.Text = "miss";
-                }
-               
-                if (ba8ln > 0)
-                {
-                    Field8Damage.Visible = true;
-                    Field8Damage.Text = dmg.ToString();
-                }
-                else
-                {
-                    EnemyDamage.Visible = true;
-                    EnemyDamage.Text = dmg.ToString();
-                }
-                
-                if (ba8hp <= 0)
-                {
-                    field8.BackgroundImage = imgnull;
-                    ba8ln = 0;
-                }
-                sound_hit();
-                DmgEffectTime.Enabled = true;
-                field3.Top += 20;
-                btl3 = 0;
-            }
-            bPara();
         }
         private void dbtlp2()
         {
@@ -1972,7 +1782,7 @@ namespace test1
                     UserDamage.Text = dmg.ToString();
                 }
                 sound_hit();
-                DmgEffectTime.Enabled = true;
+                //DmgEffectTime.Enabled = true;
                 field6.Top -= 20;
                 if (ba1hp <= 0)
                 {
@@ -2016,7 +1826,7 @@ namespace test1
                     UserDamage.Text = dmg.ToString();
                 }
                 sound_hit();
-                DmgEffectTime.Enabled = true;
+                //DmgEffectTime.Enabled = true;
                 field7.Top -= 20;
                 if (ba2hp <= 0)
                 {
@@ -2060,7 +1870,7 @@ namespace test1
                     UserDamage.Text = dmg.ToString();
                 }
                 sound_hit();
-                DmgEffectTime.Enabled = true;
+                //DmgEffectTime.Enabled = true;
                 field8.Top -= 20;
                 if (ba3hp <= 0)
                 {
@@ -2070,62 +1880,192 @@ namespace test1
             }
             if (next == "on") dbtlp1();
         }
-        private void DmgEffectTime_Tick(object sender, EventArgs e)
+        private void DiceTimer_Tick(object sender, EventArgs e)
         {
-            Field6Damage.Visible = false;
-            Field7Damage.Visible = false;
-            Field8Damage.Visible = false;
-            EnemyDamage.Visible = false;
-            DmgEffectTime.Enabled = false;
-            abtlp1();
-        }
-        private void DiceTimerStart_Tick(object sender, EventArgs e)
-        {
-            seed = Environment.TickCount;
-            Random rdm6 = new Random(seed++);
-            dicenmb = rdm6.Next(1, 6);
-            myDice.Visible = true;
-            myDice.BackgroundImage = imgd[dicenmb];
-            //if (who == "m") myDice.BackgroundImage = imgd[dicenmb];
-            //else if (who == "y") youDice.BackgroundImage = imgd[dicenmb];
+            
             t++;
-            if (t == 20)
+
+            if (t <= 20) {
+                seed = Environment.TickCount;
+                Random rdm6 = new Random(seed++);
+                dicenmb = rdm6.Next(1, 6);
+                myDice.Visible = true;
+                myDice.BackgroundImage = imgd[dicenmb];
+            }            
+            
+            //サイコロを1秒間停止
+            if (t == 20) { DiceTimer.Interval = 1000; }
+            //ダメージ処理
+            if (t == 21)
             {
-                //MessageBox.Show("DiceTimer50");
-                t = 0;
-                DiceTimerStart.Enabled = false;
-                DiceTimerEnd.Enabled = true;
+                if (ba1ln > 0)
+                {
+                    if (ba1d1 >= 7 - dicenmb)
+                    {
+                        atk = ba1p1;
+                        ac = ba6ac;
+                        hp = ba6hp;
+                        dmg = ac - atk;
+                        ba6hp = hp + ac - atk;
+                    }
+                    else if (ba1d2 >= dicenmb)
+                    {
+                        atk = ba1p2;
+                        ac = ba6ac;
+                        hp = ba6hp;
+                        dmg = ac - atk;
+                        ba6hp = hp + ac - atk;
+                    }
+                    else
+                    {
+                        Field6Damage.Visible = true;
+                        Field6Damage.Text = "miss";
+                    }
+                    // 対面に対戦相手がいる、いないなら本体へ
+                    if (ba6ln > 0)
+                    {
+                        Field6Damage.Visible = true;
+                        Field6Damage.Text = dmg.ToString();
+                    }
+                    else
+                    {
+                        EnemyDamage.Visible = true;
+                        EnemyDamage.Text = dmg.ToString();
+                    }
+                    //対面ダメージ超過
+                    if (ba6hp <= 0)
+                    {
+                        field6.BackgroundImage = imgnull;
+                        ba6ln = 0;
+                    }
+                    sound_hit();
+                    field1.Top += 20;
+                    ba1ln = 0;
+                }
+                else if (ba2ln > 0 )
+                {
+                    if (ba2d1 >= 7 - dicenmb)
+                    {
+                        atk = ba2p1;
+                        ac = ba7ac;
+                        hp = ba7hp;
+                        dmg = ac - atk;
+                        ba7hp = hp + ac - atk;
+                    }
+                    else if (ba2d2 >= dicenmb)
+                    {
+                        atk = ba2p2;
+                        ac = ba7ac;
+                        hp = ba7hp;
+                        dmg = ac - atk;
+                        ba7hp = hp + ac - atk;
+                    }
+                    else
+                    {
+                        Field7Damage.Visible = true;
+                        Field7Damage.Text = "miss";
+                    }
+
+                    if (ba7ln > 0)
+                    {
+                        Field7Damage.Visible = true;
+                        Field7Damage.Text = dmg.ToString();
+                    }
+                    else
+                    {
+                        EnemyDamage.Visible = true;
+                        EnemyDamage.Text = dmg.ToString();
+                    }
+
+                    if (ba7hp <= 0)
+                    {
+                        field7.BackgroundImage = imgnull;
+                        ba7ln = 0;
+                    }
+                    sound_hit();
+                    field2.Top += 20;
+                    ba2ln = 0;
+                }
+                else if (ba3ln > 0 )
+                {
+                    if (ba3d1 >= 7 - dicenmb)
+                    {
+                        atk = ba3p1;
+                        ac = ba8ac;
+                        hp = ba8hp;
+                        dmg = ac - atk;
+                        ba8hp = hp + ac - atk;
+                    }
+                    else if (ba3d2 >= dicenmb)
+                    {
+                        atk = ba3p2;
+                        ac = ba8ac;
+                        hp = ba8hp;
+                        dmg = ac - atk;
+                        ba8hp = hp + ac - atk;
+                    }
+                    else
+                    {
+                        Field8Damage.Visible = true;
+                        Field8Damage.Text = "miss";
+                    }
+
+                    if (ba8ln > 0)
+                    {
+                        Field8Damage.Visible = true;
+                        Field8Damage.Text = dmg.ToString();
+                    }
+                    else
+                    {
+                        EnemyDamage.Visible = true;
+                        EnemyDamage.Text = dmg.ToString();
+                    }
+
+                    if (ba8hp <= 0)
+                    {
+                        field8.BackgroundImage = imgnull;
+                        ba8ln = 0;
+                    }
+                    sound_hit();
+                    field3.Top += 20;
+                    ba3ln = 0;
+                }
+                myDice.Visible = false;
             }
-        }
-        private void DiceTimerEnd_Tick(object sender, EventArgs e)
-        {
-            DiceTimerEnd.Enabled = false;
-            myDice.Visible = false;
-            abtlp2();
-            //Dice();
+            if(t==22)
+            {
+                Field6Damage.Visible = false;
+                Field7Damage.Visible = false;
+                Field8Damage.Visible = false;
+                EnemyDamage.Visible = false;
+                t = 0;
+                DiceTimer.Enabled = false;
+                DiceTimer.Interval = 50;
+                AttackBattle();
+            }
         }
         private void btn_Enable()
         {
-            button1.Enabled = true;
-            button2.Enabled = true;
-            button3.Enabled = true;
-            button4.Enabled = true;
-            button5.Enabled = true;
-            button26.Visible = true;
+            mthd1.Enabled = true;
+            mthd2.Enabled = true;
+            mthd3.Enabled = true;
+            mthd4.Enabled = true;
+            mthd5.Enabled = true;
+            NextPb.Visible = true;
         }
-        private void button1_Click(object sender, EventArgs e)
+        private void mthd1_Click(object sender, EventArgs e)
         {
             if (mtcst >= mc1)
             {
                 if (s != 1)
                 {
-                    if (s == 2)button2.Top += 10;
-                    else if (s == 3)button3.Top += 10;
-                    else if (s == 4)button4.Top += 10;
-                    else if (s == 5)button5.Top += 10;
+                    if (s == 2)mthd2.Top += 10;
+                    else if (s == 3)mthd3.Top += 10;
+                    else if (s == 4)mthd4.Top += 10;
+                    else if (s == 5)mthd5.Top += 10;
                     s = 1;
                     M1Cost.Visible = false;
-                    button1.Top -= 10;
+                    mthd1.Top -= 10;
                     textBox1.Text = "場を選択してください。";
                     if (mt1 == 1)     //  ct = 1：モンスター
                     {
@@ -2141,26 +2081,26 @@ namespace test1
                     s = 0;
                     bacheck1();
                     bacheck2();
-                    button1.Top += 10;
+                    mthd1.Top += 10;
                     M1Cost.Visible = true;
                     textBox1.Text = "";
                 }
             }
             else textBox1.Text = "コスト不足です。";
         }
-        private void button2_Click(object sender, EventArgs e)
+        private void mthd2_Click(object sender, EventArgs e)
         {
             if (mtcst >= mc2)
             {
                 if (s != 2)
                 {
-                    if (s == 1)button1.Top += 10;
-                    else if (s == 3)button3.Top += 10;
-                    else if (s == 4)button4.Top += 10;
-                    else if (s == 5)button5.Top += 10;
+                    if (s == 1)mthd1.Top += 10;
+                    else if (s == 3)mthd3.Top += 10;
+                    else if (s == 4)mthd4.Top += 10;
+                    else if (s == 5)mthd5.Top += 10;
                     s = 2;
                     M2Cost.Visible = false;
-                    button2.Top -= 10;                    
+                    mthd2.Top -= 10;                    
                     textBox1.Text = "場を選択してください。";
                     if (mt2 == 1)     //  ct = 1：モンスター
                     {
@@ -2176,26 +2116,26 @@ namespace test1
                     s = 0;
                     bacheck1();
                     bacheck2();
-                    button2.Top += 10;
+                    mthd2.Top += 10;
                     M2Cost.Visible = true;
                     textBox1.Text = "";
                 }
             }
             else textBox1.Text = "コスト不足です。";
         }
-        private void button3_Click(object sender, EventArgs e)
+        private void mthd3_Click(object sender, EventArgs e)
         {
             if (mtcst >= mc3)
             {
                 if (s != 3)
                 {
-                    if (s == 1) button1.Top += 10;
-                    else if (s == 2) button2.Top += 10;
-                    else if (s == 4) button4.Top += 10;
-                    else if (s == 5) button5.Top += 10;
+                    if (s == 1) mthd1.Top += 10;
+                    else if (s == 2) mthd2.Top += 10;
+                    else if (s == 4) mthd4.Top += 10;
+                    else if (s == 5) mthd5.Top += 10;
                     s = 3;
                     M3Cost.Visible = false;
-                    button3.Top -= 10;
+                    mthd3.Top -= 10;
                     textBox1.Text = "場を選択してください。";
                     if (mt3 == 1)     //  ct = 1：モンスター
                     {
@@ -2211,26 +2151,26 @@ namespace test1
                     s = 0;
                     bacheck1();
                     bacheck2();
-                    button3.Top += 10;
+                    mthd3.Top += 10;
                     M3Cost.Visible = true;
                     textBox1.Text = "";
                 }
             }
             else textBox1.Text = "コスト不足です。";
         }
-        private void button4_Click(object sender, EventArgs e)
+        private void mthd4_Click(object sender, EventArgs e)
         {
             if (mtcst >= mc4)
             {
                 if (s != 4)
                 {
-                    if (s == 1) button1.Top += 10;
-                    else if (s == 2) button2.Top += 10;
-                    else if (s == 3) button3.Top += 10;
-                    else if (s == 5) button5.Top += 10;
+                    if (s == 1) mthd1.Top += 10;
+                    else if (s == 2) mthd2.Top += 10;
+                    else if (s == 3) mthd3.Top += 10;
+                    else if (s == 5) mthd5.Top += 10;
                     s = 4;
                     M4Cost.Visible = false;
-                    button4.Top -= 10;                    
+                    mthd4.Top -= 10;                    
                     textBox1.Text = "場を選択してください。";
                     if (mt4 == 1)     //  ct = 1：モンスター
                     {
@@ -2246,7 +2186,7 @@ namespace test1
                     s = 0;
                     bacheck1();
                     bacheck2();
-                    button4.Top += 10;
+                    mthd4.Top += 10;
                     M4Cost.Visible = true;
                     textBox1.Text = "";
                 }
@@ -2254,19 +2194,19 @@ namespace test1
             else textBox1.Text = "コスト不足です。";
 
         }
-        private void button5_Click(object sender, EventArgs e)
+        private void mthd5_Click(object sender, EventArgs e)
         {
             if (mtcst >= mc5)
             {
                 if (s != 5)
                 {
-                    if (s == 1) button1.Top += 10;
-                    else if (s == 2) button2.Top += 10;
-                    else if (s == 3) button3.Top += 10;
-                    else if (s == 4) button4.Top += 10;
+                    if (s == 1) mthd1.Top += 10;
+                    else if (s == 2) mthd2.Top += 10;
+                    else if (s == 3) mthd3.Top += 10;
+                    else if (s == 4) mthd4.Top += 10;
                     s = 5;
                     M5Cost.Visible = false;
-                    button5.Top -= 10;
+                    mthd5.Top -= 10;
                     textBox1.Text = "場を選択してください。";
                     if (mt5 == 1)     //  ct = 1：モンスター
                     {
@@ -2282,7 +2222,7 @@ namespace test1
                     s = 0;
                     bacheck1();
                     bacheck2();
-                    button5.Top += 10;
+                    mthd5.Top += 10;
                     M5Cost.Visible = true;
                     textBox1.Text = "";
                 }
@@ -2291,36 +2231,12 @@ namespace test1
         }
         private void bacheck1()
         {
-            if (ba1ln == 0)
-            {
-                field1.BackgroundImage = imgselect;
-                field1.Cursor = Cursors.Hand;
-                if (s == 0)
-                {
-                    field1.BackgroundImage = imgnull;
-                    field1.Cursor = Cursors.Default;
-                }
-            }
-            if (ba2ln == 0)
-            {
-                field2.BackgroundImage = imgselect;
-                field2.Cursor = Cursors.Hand;
-                if (s == 0)
-                {
-                    field2.BackgroundImage = imgnull;
-                    field2.Cursor = Cursors.Default;
-                }
-            }
-            if (ba3ln == 0)
-            {
-                field3.BackgroundImage = imgselect;
-                field3.Cursor = Cursors.Hand;
-                if (s == 0)
-                {
-                    field3.BackgroundImage = imgnull;
-                    field3.Cursor = Cursors.Default;
-                }
-            }
+            if (ba1ln == 0) { field1.BackgroundImage = imgselect; field1.Cursor = Cursors.Hand; }
+            //else { field1.BackgroundImage = imgnull; field1.Cursor = Cursors.Default; }
+            if (ba2ln == 0) { field2.BackgroundImage = imgselect; field2.Cursor = Cursors.Hand; }
+            //else { field2.BackgroundImage = imgnull; field2.Cursor = Cursors.Default; }
+            if (ba3ln == 0) { field3.BackgroundImage = imgselect; field3.Cursor = Cursors.Hand; }
+            //else { field3.BackgroundImage = imgnull; field3.Cursor = Cursors.Default; }
         }
         private void bacheck2()
         {
@@ -2355,79 +2271,71 @@ namespace test1
                     if (s == 1)
                     {
                         ba1ln = mln1;
-                        button1.BackgroundImage = null;
-                        button1.Visible = false;
+                        mthd1.BackgroundImage = null;
+                        mthd1.Visible = false;
                         mtcst = mtcst - mc1;
                         mcst = mcst + mcc1;
                         mln1 = 0;
-                        button1.Top += 10;
+                        mthd1.Top += 10;
                         mthd--;
                     }
                     else if (s == 2)
                     {
                         ba1ln = mln2;
-                        button2.BackgroundImage = null;
-                        button2.Visible = false;
+                        mthd2.BackgroundImage = null;
+                        mthd2.Visible = false;
                         mtcst = mtcst - mc2;
                         mcst = mcst + mcc2;
                         mln2 = 0;
-                        button2.Top += 10;
+                        mthd2.Top += 10;
                         mthd--;
                     }
                     else if (s == 3)
                     {
                         ba1ln = mln3;
-                        button3.BackgroundImage = null;
-                        button3.Visible = false;
+                        mthd3.BackgroundImage = null;
+                        mthd3.Visible = false;
                         mtcst = mtcst - mc3;
                         mcst = mcst + mcc3;
                         mln3 = 0;
-                        button3.Top += 10;
+                        mthd3.Top += 10;
                         mthd--;
                     }
                     else if (s == 4)
                     {
                         ba1ln = mln4;
-                        button4.BackgroundImage = null;
-                        button4.Visible = false;
+                        mthd4.BackgroundImage = null;
+                        mthd4.Visible = false;
                         mtcst = mtcst - mc4;
                         mcst = mcst + mcc4;
                         mln4 = 0;
-                        button4.Top += 10;
+                        mthd4.Top += 10;
                         mthd--;
                     }
                     else if (s == 5)
                     {
                         ba1ln = mln5;
-                        button5.BackgroundImage = null;
-                        button5.Visible = false;
+                        mthd5.BackgroundImage = null;
+                        mthd5.Visible = false;
                         mtcst = mtcst - mc5;
                         mcst = mcst + mcc5;
                         mln5 = 0;
-                        button5.Top += 10;
+                        mthd5.Top += 10;
                         mthd--;
                     }
-                    for (i = 0; i < 20; i++)
-                    {
-                        ba1[i] = mdk[ba1ln, i];
-                    }
-                    ba1set = 1;
                     s = 0;
                     bacheck1();
                     bPara();
-                    ba1set = 0;
                     label4.Text = mtcst.ToString();
                 }
             }
-            // 場のカードを入れ替え(ステータス保持)
+            // 場のカードを入れ替えを開始 (ステータス保持)
             else if (ba1ln > 0 & ba1move == 0 & ba2move == 0 & ba3move == 0)
             {
                 ba1move = 1;
-                field2.BackgroundImage = imgselect;
-                field2.Cursor = Cursors.Hand;
-                field3.BackgroundImage = imgselect;
-                field3.Cursor = Cursors.Hand;
+                bacheck1();
             }
+            //移動なし
             else if (ba1ln > 0 & ba1move > 0 & ba2move == 0 & ba3move == 0)
             {
                 ba1move = 0;
@@ -2437,10 +2345,18 @@ namespace test1
                 field2.Cursor = Cursors.Default;
                 field3.Cursor = Cursors.Default;
             }
+            //field2→field1に移動
             else if (ba2move > 0)
             {
                 ba2move = 0;
 
+                ith = ba1ln; ba1ln = ba2ln; ba2ln = ith;
+                bPara();
+                field2.Cursor = Cursors.Default;
+                field3.Cursor = Cursors.Default;
+
+                //削除予定
+                /*
                 ith = ba1ln;
                 ba1ln = ba2ln;
                 ba2ln = ith;
@@ -2484,14 +2400,21 @@ namespace test1
                 ith = ba1p2;
                 ba1p2 = ba2p2;
                 ba2p2 = ith;
+                */
 
-                field2.Cursor = Cursors.Default;
-                field3.Cursor = Cursors.Default;
+
             }
             else if (ba3move > 0)
             {
                 ba3move = 0;
 
+                ith = ba1ln; ba1ln = ba3ln; ba3ln = ith;
+                bPara();
+                field2.Cursor = Cursors.Default;
+                field3.Cursor = Cursors.Default;
+
+                //削除予定
+                /*
                 ith = ba1ln;
                 ba1ln = ba3ln;
                 ba3ln = ith;
@@ -2536,8 +2459,7 @@ namespace test1
                 ba1p2 = ba3p2;
                 ba3p2 = ith;
 
-                field2.Cursor = Cursors.Default;
-                field3.Cursor = Cursors.Default;
+                */
             }
         }
         private void field2_Click(object sender, EventArgs e)
@@ -2549,56 +2471,56 @@ namespace test1
                     if (s == 1)
                     {
                         ba2ln = mln1;
-                        button1.BackgroundImage = null;
-                        button1.Visible = false;
+                        mthd1.BackgroundImage = null;
+                        mthd1.Visible = false;
                         mtcst = mtcst - mc1;
                         mcst = mcst + mcc1;
                         mln1 = 0;
-                        button1.Top += 10;
+                        mthd1.Top += 10;
                         mthd--;
                     }
                     else if (s == 2)
                     {
                         ba2ln = mln2;
-                        button2.BackgroundImage = null;
-                        button2.Visible = false;
+                        mthd2.BackgroundImage = null;
+                        mthd2.Visible = false;
                         mtcst = mtcst - mc2;
                         mcst = mcst + mcc2;
                         mln2 = 0;
-                        button2.Top += 10;
+                        mthd2.Top += 10;
                         mthd--;
                     }
                     else if (s == 3)
                     {
                         ba2ln = mln3;
-                        button3.BackgroundImage = null;
-                        button3.Visible = false;
+                        mthd3.BackgroundImage = null;
+                        mthd3.Visible = false;
                         mtcst = mtcst - mc3;
                         mcst = mcst + mcc3;
                         mln3 = 0;
-                        button3.Top += 10;
+                        mthd3.Top += 10;
                         mthd--;
                     }
                     else if (s == 4)
                     {
                         ba2ln = mln4;
-                        button4.BackgroundImage = null;
-                        button4.Visible = false;
+                        mthd4.BackgroundImage = null;
+                        mthd4.Visible = false;
                         mtcst = mtcst - mc4;
                         mcst = mcst + mcc4;
                         mln4 = 0;
-                        button4.Top += 10;
+                        mthd4.Top += 10;
                         mthd--;
                     }
                     else if (s == 5)
                     {
                         ba2ln = mln5;
-                        button5.BackgroundImage = null;
-                        button5.Visible = false;
+                        mthd5.BackgroundImage = null;
+                        mthd5.Visible = false;
                         mtcst = mtcst - mc5;
                         mcst = mcst + mcc5;
                         mln5 = 0;
-                        button5.Top += 10;
+                        mthd5.Top += 10;
                         mthd--;
                     }
                     for (i = 0; i < 20; i++)
@@ -2743,56 +2665,56 @@ namespace test1
                     if (s == 1)
                     {
                         ba3ln = mln1;
-                        button1.BackgroundImage = null;
-                        button1.Visible = false;
+                        mthd1.BackgroundImage = null;
+                        mthd1.Visible = false;
                         mtcst = mtcst - mc1;
                         mcst = mcst + mcc1;
                         mln1 = 0;
-                        button1.Top += 10;
+                        mthd1.Top += 10;
                         mthd--;
                     }
                     else if (s == 2)
                     {
                         ba3ln = mln2;
-                        button2.BackgroundImage = null;
-                        button2.Visible = false;
+                        mthd2.BackgroundImage = null;
+                        mthd2.Visible = false;
                         mtcst = mtcst - mc2;
                         mcst = mcst + mcc2;
                         mln2 = 0;
-                        button2.Top += 10;
+                        mthd2.Top += 10;
                         mthd--;
                     }
                     else if (s == 3)
                     {
                         ba3ln = mln3;
-                        button3.BackgroundImage = null;
-                        button3.Visible = false;
+                        mthd3.BackgroundImage = null;
+                        mthd3.Visible = false;
                         mtcst = mtcst - mc3;
                         mcst = mcst + mcc3;
                         mln3 = 0;
-                        button3.Top += 10;
+                        mthd3.Top += 10;
                         mthd--;
                     }
                     else if (s == 4)
                     {
                         ba3ln = mln4;
-                        button4.BackgroundImage = null;
-                        button4.Visible = false;
+                        mthd4.BackgroundImage = null;
+                        mthd4.Visible = false;
                         mtcst = mtcst - mc4;
                         mcst = mcst + mcc4;
                         mln4 = 0;
-                        button4.Top += 10;
+                        mthd4.Top += 10;
                         mthd--;
                     }
                     else if (s == 5)
                     {
                         ba3ln = mln5;
-                        button5.BackgroundImage = null;
-                        button5.Visible = false;
+                        mthd5.BackgroundImage = null;
+                        mthd5.Visible = false;
                         mtcst = mtcst - mc5;
                         mcst = mcst + mcc5;
                         mln5 = 0;
-                        button5.Top += 10;
+                        mthd5.Top += 10;
                         mthd--;
                     }
                     for (i = 0; i < 20; i++)
@@ -2935,61 +2857,61 @@ namespace test1
                 if (s == 1)
                 {
                     ba4ln = mln1;
-                    button1.BackgroundImage = null;
+                    mthd1.BackgroundImage = null;
                     field4.BackgroundImage = imgs[ba1[1]];
-                    button1.Visible = false;
+                    mthd1.Visible = false;
                     mtcst = mtcst - mc1;
                     mcst = mcst + mcc1;
                     mln1 = 0;
-                    button1.Top += 10;
+                    mthd1.Top += 10;
                     mthd--;
                 }
                 else if (s == 2)
                 {
                     ba4ln = mln2;
-                    button2.BackgroundImage = null;
+                    mthd2.BackgroundImage = null;
                     field4.BackgroundImage = imgs[ba2[1]];
-                    button2.Visible = false;
+                    mthd2.Visible = false;
                     mtcst = mtcst - mc2;
                     mcst = mcst + mcc2;
                     mln2 = 0;
-                    button2.Top += 10;
+                    mthd2.Top += 10;
                     mthd--;
                 }
                 else if (s == 3)
                 {
                     ba4ln = mln3;
-                    button3.BackgroundImage = null;
+                    mthd3.BackgroundImage = null;
                     field4.BackgroundImage = imgs[ba3[1]];
-                    button3.Visible = false;
+                    mthd3.Visible = false;
                     mtcst = mtcst - mc3;
                     mcst = mcst + mcc3;
                     mln3 = 0;
-                    button3.Top += 10;
+                    mthd3.Top += 10;
                     mthd--;
                 }
                 else if (s == 4)
                 {
                     ba4ln = mln4;
-                    button4.BackgroundImage = null;
+                    mthd4.BackgroundImage = null;
                     field4.BackgroundImage = imgs[ba4[1]];
-                    button4.Visible = false;
+                    mthd4.Visible = false;
                     mtcst = mtcst - mc4;
                     mcst = mcst + mcc4;
                     mln4 = 0;
-                    button4.Top += 10;
+                    mthd4.Top += 10;
                     mthd--;
                 }
                 else if (s == 5)
                 {
                     ba4ln = mln5;
-                    button5.BackgroundImage = null;
+                    mthd5.BackgroundImage = null;
                     field4.BackgroundImage = imgs[ba5[1]];
-                    button5.Visible = false;
+                    mthd5.Visible = false;
                     mtcst = mtcst - mc5;
                     mcst = mcst + mcc5;
                     mln5 = 0;
-                    button5.Top += 10;
+                    mthd5.Top += 10;
                     mthd--;
                 }
                 for (i = 0; i < 20; i++)
@@ -3004,7 +2926,7 @@ namespace test1
                 label4.Text = mtcst.ToString();
             }
         }
-        private void button1_MouseMove(object sender, MouseEventArgs e)
+        private void mthd1_MouseMove(object sender, MouseEventArgs e)
         {
             CardImage.BackgroundImage = imgm[mid1];
             Dice1Image.Visible = true;
@@ -3035,7 +2957,7 @@ namespace test1
             label10.Visible = true;
             label10.Text = string.Format("AC: {0}", mac1);
         }
-        private void button2_MouseMove(object sender, MouseEventArgs e)
+        private void mthd2_MouseMove(object sender, MouseEventArgs e)
         {
             CardImage.BackgroundImage = imgm[mid2];
             Dice1Image.Visible = true;
@@ -3064,7 +2986,7 @@ namespace test1
             label10.Visible = true;
             label10.Text = string.Format("AC: {0}", mac2);
         }
-        private void button3_MouseMove(object sender, MouseEventArgs e)
+        private void mthd3_MouseMove(object sender, MouseEventArgs e)
         {
 
             CardImage.BackgroundImage = imgm[mid3];
@@ -3094,7 +3016,7 @@ namespace test1
             label10.Visible = true;
             label10.Text = string.Format("AC: {0}", mac3);
         }
-        private void button4_MouseMove(object sender, MouseEventArgs e)
+        private void mthd4_MouseMove(object sender, MouseEventArgs e)
         {
             CardImage.BackgroundImage = imgm[mid4];
             Dice1Image.Visible = true;
@@ -3123,7 +3045,7 @@ namespace test1
             label10.Visible = true;
             label10.Text = string.Format("AC: {0}", mac4);
         }
-        private void button5_MouseMove(object sender, MouseEventArgs e)
+        private void mthd5_MouseMove(object sender, MouseEventArgs e)
         {
             CardImage.BackgroundImage = imgm[mid5];
             Dice1Image.Visible = true;
@@ -3448,6 +3370,7 @@ namespace test1
         }
         private void Form1_MouseEnter(object sender, EventArgs e)
         {
+/*
             CardImage.BackgroundImage = null;
             
             Dice1Image.Visible = false;
@@ -3462,6 +3385,7 @@ namespace test1
             label15.Visible = false;
             label16.Visible = false;
             label17.Visible = false;
+            */
             toolStrip1.Size = new Size(884, 5);
         }
         private void Form1_Click(object sender, EventArgs e)
@@ -3482,8 +3406,8 @@ namespace test1
         {
             toolStrip1.Size = new Size(884, 25);
         }
-        //Button26のClickイベントハンドラ
-        public void Button26_Click(object sender, EventArgs e)
+        //mthd26のClickイベントハンドラ
+        public void NextPb_Click(object sender, EventArgs e)
         {
             //turn++;
             DialogResult result = MessageBox.Show("メインフェイズを終了しますか？","",
@@ -3494,8 +3418,9 @@ namespace test1
             //何が選択されたか調べる
             if (result == DialogResult.Yes)
             {
-                button26.Visible = false;
-                mainflag = 3;
+                NextPb.Visible = false;
+                flg[0] = 1;
+                Main2();
             }
             else if (result == DialogResult.No)
             {
